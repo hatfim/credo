@@ -14,7 +14,14 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./types": {
+      "types": "./dist/token-names.d.ts"
+    },
+    "./schema.json": "./dist/tokens.schema.json",
+    "./table.json": "./dist/tokens-table.json",
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
@@ -23,17 +30,29 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && node dist/cli.js build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"no tests yet\"",
-    "clean": "rm -rf dist .turbo"
+    "test": "vitest run",
+    "clean": "rm -rf dist .turbo",
+    "contract": "node dist/cli.js contract",
+    "contrast": "node dist/cli.js contrast",
+    "validate:tokens": "node dist/cli.js validate"
   },
   "devDependencies": {
+    "@types/node": "catalog:",
     "@usecredo/eslint-config": "workspace:*",
     "@usecredo/typescript-config": "workspace:*",
     "eslint": "catalog:",
     "tsup": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "bin": {
+    "credo-tokens": "./dist/cli.js"
+  },
+  "dependencies": {
+    "@tokens-studio/sd-transforms": "catalog:",
+    "style-dictionary": "catalog:"
   }
 }
