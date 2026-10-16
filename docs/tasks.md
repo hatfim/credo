@@ -88,15 +88,15 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### B. Tokens
 
-- [ ] **P1-06 First synced token file.** Push the first token sets from Tokens Studio: primitives, a brand scale layer (neutral, primary, secondary, destructive, success, warning, info), semantic roles in the surface, content, field, actions, state, border, feedback, alpha and shadow groups, and light and dark as separate sets. *Accept:* `packages/tokens/generated/tokens.json` arrives through the plugin, not by hand, and the role list is documented as contract v0 (docs/token-contract-v0.md). (TOK-01, TOK-02, TOK-11)
-- [ ] **P1-07 Raw token validation.** A script that checks valid JSON, token shape and alias resolution, adapted from the reference workflow's script. *Accept:* broken fixtures fail with readable messages, covered by unit tests. (TOK-12, TOK-15)
-- [ ] **P1-08 Style Dictionary build.** Use the Tokens Studio transforms to produce prefixed CSS variables (light and dark switched by an attribute), TypeScript types and a JSON schema; build output stays out of git. *Accept:* `pnpm build --filter @usecredo/tokens` produces them, and a snapshot test covers the CSS. (TOK-03, TOK-04, TOK-12)
-- [ ] **P1-09 Theme validator and contrast check.** A CLI that checks completeness, value types and WCAG 2.2 AA contrast for every foreground and background pair, starting with an empty baseline. *Accept:* a failing pair fails the check and the default theme passes. (TOK-06, TOK-07)
-- [ ] **P1-10 Token consistency test.** CSS output, types and the docs token tables must derive from the one source. *Accept:* the test fails if they diverge. (TOK-08)
+- [x] **P1-06 First synced token file.** Push the first token sets from Tokens Studio: primitives, a brand scale layer (neutral, primary, secondary, destructive, success, warning, info), semantic roles in the surface, content, field, actions, state, border, feedback, alpha and shadow groups, and light and dark as separate sets. *Accept:* `packages/tokens/generated/tokens.json` arrives through the plugin, not by hand, and the role list is documented as contract v0 (docs/token-contract-v0.md). (TOK-01, TOK-02, TOK-11)
+- [x] **P1-07 Raw token validation.** A script that checks valid JSON, token shape and alias resolution, adapted from the reference workflow's script. *Accept:* broken fixtures fail with readable messages, covered by unit tests. (TOK-12, TOK-15)
+- [x] **P1-08 Style Dictionary build.** Use the Tokens Studio transforms to produce prefixed CSS variables (light and dark switched by an attribute), TypeScript types and a JSON schema; build output stays out of git. *Accept:* `pnpm build --filter @usecredo/tokens` produces them, and a snapshot test covers the CSS. (TOK-03, TOK-04, TOK-12)
+- [x] **P1-09 Theme validator and contrast check.** A CLI that checks completeness, value types and WCAG 2.2 AA contrast for every foreground and background pair, starting with an empty baseline. *Accept:* a failing pair fails the check and the default theme passes. (TOK-06, TOK-07)
+- [x] **P1-10 Token consistency test.** CSS output, types and the docs token tables must derive from the one source. *Accept:* the test fails if they diverge. (TOK-08)
 
 ### C. Tailwind integration
 
-- [ ] **P1-11 `tailwind-config`.** Map the prefixed variables to Tailwind theme values with `@theme inline`, add the radius scale, and add the precompiled stylesheet if spike A kept it. *Accept:* `bg-surface-page` resolves to the active theme in the Vite consumer. (TOK-03, D-03)
+- [x] **P1-11 `tailwind-config`.** Map the prefixed variables to Tailwind theme values with `@theme inline`, add the radius scale, and add the precompiled stylesheet if spike A kept it. *Accept:* `bg-surface-page` resolves to the active theme in the Vite consumer. (TOK-03, D-03)
 
 ### D. `ui` and `icons`
 
