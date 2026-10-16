@@ -28,8 +28,16 @@ Rules:
 - Raw hex values are allowed only in `alpha.*` and `shadow.color.*`. The validator must
   fail any other literal, and must check that each `alpha.*` literal's RGB matches the
   scale step the contract document names for it.
+- Scale tokens (spacing, radius, border width, typography styles) are part of the
+  contract and components may read them directly. They are exempt from the contrast
+  check and from light/dark parity. The validator checks only that they are dimensions
+  and that each scale is in ascending order (radius xs < sm < md < lg < xl < full).
 - The contrast check is strict (WCAG 2.2 AA: 4.5:1 for text pairs, 3:1 for UI
-  boundaries and focus rings) with an empty baseline. A baseline file is only for
+  boundaries and focus rings) with an empty baseline. Gated at 3:1 against every base
+  surface (page, container, container-subtle, container-elevated): `field.border*`,
+  `state.focus.ring*`, `border.interactive*` and `border.strong*`. Not gated:
+  `border.default*` and `border.subtle*`, which are decorative dividers; components
+  must never rely on them as the only visible boundary of a control. A baseline file is only for
   documented exceptions.
 - The sync workflow follows PRD 6.7: path-filtered push trigger plus manual run,
   concurrency group, fine-grained token from `secrets.GH_PAT` (never the default
