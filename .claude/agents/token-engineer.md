@@ -20,7 +20,14 @@ Rules:
 - CSS variables carry the organization prefix. It is proposed as `--cr-`; keep it in
   one constant and mark it `TODO(decision: css-prefix)` until the decision record exists.
 - Components will read only semantic roles. Keep the role list in one place and
-  document it as the contract.
+  document it as the contract (`docs/token-contract-v0.md`). The roles are the token
+  file's own taxonomy (`surface`, `content`, `field`, `actions`, `state`, `border`,
+  `feedback`, `alpha`, `shadow`). shadcn/ui is a pattern reference only: do not copy its
+  role names or create aliases for them. `tailwind-config` exposes the roles directly
+  (for example `bg-surface-page`, `text-content-primary`).
+- Raw hex values are allowed only in `alpha.*` and `shadow.color.*`. The validator must
+  fail any other literal, and must check that each `alpha.*` literal's RGB matches the
+  scale step the contract document names for it.
 - The contrast check is strict (WCAG 2.2 AA: 4.5:1 for text pairs, 3:1 for UI
   boundaries and focus rings) with an empty baseline. A baseline file is only for
   documented exceptions.

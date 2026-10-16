@@ -1,0 +1,1089 @@
+old_set,old_path,new_set,new_path,status,note
+Primitives/Mode 1,white,Primitives/Default,color.white,moved,
+Primitives/Mode 1,black,Primitives/Default,color.black,moved,
+Primitives/Mode 1,palette.indigo.50,Primitives/Default,color.indigo.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.100,Primitives/Default,color.indigo.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.200,Primitives/Default,color.indigo.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.300,Primitives/Default,color.indigo.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.400,Primitives/Default,color.indigo.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.500,Primitives/Default,color.indigo.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.600,Primitives/Default,color.indigo.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.700,Primitives/Default,color.indigo.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.800,Primitives/Default,color.indigo.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.900,Primitives/Default,color.indigo.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.1000,Primitives/Default,color.indigo.1000,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.1100,Primitives/Default,color.indigo.1100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.indigo.1200,Primitives/Default,color.indigo.1200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.50,Primitives/Default,color.red.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.100,Primitives/Default,color.red.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.200,Primitives/Default,color.red.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.300,Primitives/Default,color.red.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.400,Primitives/Default,color.red.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.500,Primitives/Default,color.red.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.600,Primitives/Default,color.red.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.700,Primitives/Default,color.red.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.800,Primitives/Default,color.red.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.900,Primitives/Default,color.red.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.1000,Primitives/Default,color.red.1000,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.1100,Primitives/Default,color.red.1100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.red.1200,Primitives/Default,color.red.1200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.50,Primitives/Default,color.mint.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.100,Primitives/Default,color.mint.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.200,Primitives/Default,color.mint.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.300,Primitives/Default,color.mint.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.400,Primitives/Default,color.mint.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.500,Primitives/Default,color.mint.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.600,Primitives/Default,color.mint.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.700,Primitives/Default,color.mint.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.800,Primitives/Default,color.mint.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.mint.900,Primitives/Default,color.mint.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.50,Primitives/Default,color.orange.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.100,Primitives/Default,color.orange.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.200,Primitives/Default,color.orange.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.300,Primitives/Default,color.orange.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.400,Primitives/Default,color.orange.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.500,Primitives/Default,color.orange.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.600,Primitives/Default,color.orange.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.700,Primitives/Default,color.orange.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.800,Primitives/Default,color.orange.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.orange.900,Primitives/Default,color.orange.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.50,Primitives/Default,color.pink.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.100,Primitives/Default,color.pink.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.200,Primitives/Default,color.pink.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.300,Primitives/Default,color.pink.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.400,Primitives/Default,color.pink.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.500,Primitives/Default,color.pink.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.600,Primitives/Default,color.pink.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.700,Primitives/Default,color.pink.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.800,Primitives/Default,color.pink.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.pink.900,Primitives/Default,color.pink.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.50,Primitives/Default,color.purple.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.100,Primitives/Default,color.purple.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.200,Primitives/Default,color.purple.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.300,Primitives/Default,color.purple.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.400,Primitives/Default,color.purple.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.500,Primitives/Default,color.purple.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.600,Primitives/Default,color.purple.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.700,Primitives/Default,color.purple.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.800,Primitives/Default,color.purple.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.purple.900,Primitives/Default,color.purple.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.50,Primitives/Default,color.blue.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.100,Primitives/Default,color.blue.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.200,Primitives/Default,color.blue.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.300,Primitives/Default,color.blue.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.400,Primitives/Default,color.blue.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.500,Primitives/Default,color.blue.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.600,Primitives/Default,color.blue.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.700,Primitives/Default,color.blue.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.800,Primitives/Default,color.blue.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.blue.900,Primitives/Default,color.blue.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.50,Primitives/Default,color.teal.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.100,Primitives/Default,color.teal.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.200,Primitives/Default,color.teal.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.300,Primitives/Default,color.teal.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.400,Primitives/Default,color.teal.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.500,Primitives/Default,color.teal.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.600,Primitives/Default,color.teal.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.700,Primitives/Default,color.teal.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.800,Primitives/Default,color.teal.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.teal.900,Primitives/Default,color.teal.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.50,Primitives/Default,color.gray.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.100,Primitives/Default,color.gray.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.200,Primitives/Default,color.gray.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.300,Primitives/Default,color.gray.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.400,Primitives/Default,color.gray.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.500,Primitives/Default,color.gray.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.600,Primitives/Default,color.gray.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.700,Primitives/Default,color.gray.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.800,Primitives/Default,color.gray.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.900,Primitives/Default,color.gray.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.1000,Primitives/Default,color.gray.1000,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.1100,Primitives/Default,color.gray.1100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.gray.1200,Primitives/Default,color.gray.1200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.50,Primitives/Default,color.green.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.100,Primitives/Default,color.green.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.200,Primitives/Default,color.green.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.300,Primitives/Default,color.green.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.400,Primitives/Default,color.green.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.500,Primitives/Default,color.green.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.600,Primitives/Default,color.green.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.700,Primitives/Default,color.green.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.800,Primitives/Default,color.green.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.900,Primitives/Default,color.green.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.1000,Primitives/Default,color.green.1000,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.1100,Primitives/Default,color.green.1100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.green.1200,Primitives/Default,color.green.1200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.50,Primitives/Default,color.ember.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.100,Primitives/Default,color.ember.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.200,Primitives/Default,color.ember.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.300,Primitives/Default,color.ember.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.400,Primitives/Default,color.ember.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.500,Primitives/Default,color.ember.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.600,Primitives/Default,color.ember.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.700,Primitives/Default,color.ember.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.800,Primitives/Default,color.ember.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.900,Primitives/Default,color.ember.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.1000,Primitives/Default,color.ember.1000,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.1100,Primitives/Default,color.ember.1100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.ember.1200,Primitives/Default,color.ember.1200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.50,Primitives/Default,color.warm-gray.50,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.100,Primitives/Default,color.warm-gray.100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.200,Primitives/Default,color.warm-gray.200,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.300,Primitives/Default,color.warm-gray.300,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.400,Primitives/Default,color.warm-gray.400,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.500,Primitives/Default,color.warm-gray.500,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.600,Primitives/Default,color.warm-gray.600,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.700,Primitives/Default,color.warm-gray.700,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.800,Primitives/Default,color.warm-gray.800,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.900,Primitives/Default,color.warm-gray.900,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.1000,Primitives/Default,color.warm-gray.1000,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.1100,Primitives/Default,color.warm-gray.1100,renamed,dropped 'palette' level
+Primitives/Mode 1,palette.warm-gray.1200,Primitives/Default,color.warm-gray.1200,renamed,dropped 'palette' level
+Token/Mode 1,spacing.16px (1rem) (spacing-05),Primitives/Default,spacing.16,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.16px (1rem) (spacing-05),Primitives/Default,spacing.16,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.40px (2_5rem) (spacing-08),Primitives/Default,spacing.40,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.40px (2_5rem) (spacing-08),Primitives/Default,spacing.40,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.32px (2rem) (spacing-07),Primitives/Default,spacing.32,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.32px (2rem) (spacing-07),Primitives/Default,spacing.32,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.24px (1_5rem) (spacing-06),Primitives/Default,spacing.24,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.24px (1_5rem) (spacing-06),Primitives/Default,spacing.24,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.48px (3rem) (spacing-09),Primitives/Default,spacing.48,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.48px (3rem) (spacing-09),Primitives/Default,spacing.48,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.8px (0_5rem) (spacing-03),Primitives/Default,spacing.8,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.8px (0_5rem) (spacing-03),Primitives/Default,spacing.8,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.4px (0_25rem) (spacing-02),Primitives/Default,spacing.4,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.4px (0_25rem) (spacing-02),Primitives/Default,spacing.4,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.80px (5rem) (spacing-11),Primitives/Default,spacing.80,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.80px (5rem) (spacing-11),Primitives/Default,spacing.80,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.12px (0_75rem) (spacing-04),Primitives/Default,spacing.12,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.12px (0_75rem) (spacing-04),Primitives/Default,spacing.12,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.64px (4rem) (spacing-10),Primitives/Default,spacing.64,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.64px (4rem) (spacing-10),Primitives/Default,spacing.64,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.160px (10rem) (spacing-13),Primitives/Default,spacing.160,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.160px (10rem) (spacing-13),Primitives/Default,spacing.160,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.96px (6rem) (spacing-12),Primitives/Default,spacing.96,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.96px (6rem) (spacing-12),Primitives/Default,spacing.96,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.2px (0_125rem) (spacing-01),Primitives/Default,spacing.2,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.2px (0_125rem) (spacing-01),Primitives/Default,spacing.2,merged,duplicate of Token/Mode 1
+Token/Mode 1,spacing.0px (0rem) (spacing-00),Primitives/Default,spacing.0,renamed,named by px; dropped name decoration
+Primitives/Mode 1,spacing.0px (0rem) (spacing-00),Primitives/Default,spacing.0,merged,duplicate of Token/Mode 1
+Token/Mode 1,radius.xs,Primitives/Default,radius.xs,moved,
+Primitives/Mode 1,radius.xs,Primitives/Default,radius.xs,merged,duplicate
+Token/Mode 1,radius.sm,Primitives/Default,radius.sm,moved,
+Primitives/Mode 1,radius.sm,Primitives/Default,radius.sm,merged,duplicate
+Token/Mode 1,radius.md,Primitives/Default,radius.md,moved,
+Primitives/Mode 1,radius.md,Primitives/Default,radius.md,merged,duplicate
+Token/Mode 1,radius.xl,Primitives/Default,radius.xl,moved,
+Primitives/Mode 1,radius.xl,Primitives/Default,radius.xl,merged,duplicate
+Token/Mode 1,radius.full,Primitives/Default,radius.full,moved,full: 624.938rem -> 9999px
+Primitives/Mode 1,radius.full,Primitives/Default,radius.full,merged,duplicate
+(new),,Primitives/Default,radius.lg,added,"scale had no lg (xs, sm, md, xl, full); 0.75rem is a proposal"
+Primitives/Mode 1,border width.0,Primitives/Default,border-width.0,renamed,
+Primitives/Mode 1,border width.1,Primitives/Default,border-width.1,renamed,"value as px (was imprecise rem, e.g. 0.063rem)"
+Primitives/Mode 1,border width.2,Primitives/Default,border-width.2,renamed,
+Primitives/Mode 1,border width.4,Primitives/Default,border-width.4,renamed,
+Primitives/Mode 1,border width.8,Primitives/Default,border-width.8,renamed,
+Token/Mode 1,border-width.sm,Primitives/Default,border-width.1,merged,duplicate of numeric border-width scale
+Token/Mode 1,border-width.md,Primitives/Default,border-width.2,merged,duplicate of numeric border-width scale
+Token/Mode 1,border-width.lg,Primitives/Default,border-width.4,merged,duplicate of numeric border-width scale
+Dimensions/Mode 1,Typography.font-size.18px (1_125rem) (font-size-8),Primitives/Default,font-size.18,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.15px (0_9375rem) (font-size-6),Primitives/Default,font-size.15,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.13px (0_8125rem) (font-size-4),Primitives/Default,font-size.13,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.12px (0_75rem) (font-size-3),Primitives/Default,font-size.12,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.16px (1rem) (font-size-7),Primitives/Default,font-size.16,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.92px (5_75rem) (font-size-20),Primitives/Default,font-size.92,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.48px (3rem) (font-size-17),Primitives/Default,font-size.48,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.72px (4_5rem) (font-size-19),Primitives/Default,font-size.72,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.14px (0_875rem) (font-size-5),Primitives/Default,font-size.14,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.44px (2_75rem) (font-size-16),Primitives/Default,font-size.44,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.40px (2_5rem) (font-size-15),Primitives/Default,font-size.40,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.22px (1_375rem) (font-size-10),Primitives/Default,font-size.22,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.56px (3_5rem) (font-size-18),Primitives/Default,font-size.56,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.20px (1_25rem) (font-size-9),Primitives/Default,font-size.20,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.36px (2_25rem) (font-size-14),Primitives/Default,font-size.36,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.11px (0_6875rem) (font-size-2),Primitives/Default,font-size.11,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.32px (2rem) (font-size-13),Primitives/Default,font-size.32,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.28px (1_75rem) (font-size-12),Primitives/Default,font-size.28,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.24px (1_5rem) (font-size-11),Primitives/Default,font-size.24,renamed,source of truth for font sizes
+Dimensions/Mode 1,Typography.font-size.10px (0_625rem) (font-size-1),Primitives/Default,font-size.10,renamed,source of truth for font sizes
+Primitives/Mode 1,type.size.10px (0_625rem) (font-size-1),Primitives/Default,font-size.10,merged,duplicate
+Primitives/Mode 1,type.size.72px (4_5rem) (font-size-19),Primitives/Default,font-size.72,merged,duplicate
+Primitives/Mode 1,type.size.56px (3_5rem) (font-size-18),Primitives/Default,font-size.56,merged,duplicate
+Primitives/Mode 1,type.size.36px (2_25rem) (font-size-14),Primitives/Default,font-size.36,merged,duplicate
+Primitives/Mode 1,type.size.32px (2rem) (font-size-13),Primitives/Default,font-size.32,merged,duplicate
+Primitives/Mode 1,type.size.44px (2_75rem) (font-size-16),Primitives/Default,font-size.44,merged,"duplicate with WRONG value (3rem = 48px, name says 44px)"
+Primitives/Mode 1,type.size.28px (1_75rem) (font-size-12),Primitives/Default,font-size.28,merged,duplicate
+Primitives/Mode 1,type.size.20px (1_25rem) (font-size-9),Primitives/Default,font-size.20,merged,duplicate
+Primitives/Mode 1,type.size.16px (1rem) (font-size-7),Primitives/Default,font-size.16,merged,duplicate
+Primitives/Mode 1,type.size.15px (0_9375rem) (font-size-6),Primitives/Default,font-size.15,merged,duplicate
+Primitives/Mode 1,type.size.13px (0_8125rem) (font-size-4),Primitives/Default,font-size.13,merged,duplicate
+Primitives/Mode 1,type.size.14px (0_875rem) (font-size-5),Primitives/Default,font-size.14,merged,duplicate
+Primitives/Mode 1,type.size.22px (1_375rem) (font-size-10),Primitives/Default,font-size.22,merged,duplicate
+Primitives/Mode 1,type.size.12px (0_75rem) (font-size-3),Primitives/Default,font-size.12,merged,duplicate
+Primitives/Mode 1,type.size.92px (5_75rem) (font-size-20),Primitives/Default,font-size.92,merged,duplicate
+Primitives/Mode 1,type.size.24px (1_5rem) (font-size-11),Primitives/Default,font-size.24,merged,duplicate
+Primitives/Mode 1,type.size.40px (2_5rem) (font-size-15),Primitives/Default,font-size.40,merged,duplicate
+Primitives/Mode 1,type.size.18px (1_125rem) (font-size-8),Primitives/Default,font-size.18,merged,duplicate
+Primitives/Mode 1,type.size.48px (3rem) (font-size-17),Primitives/Default,font-size.48,merged,duplicate
+Primitives/Mode 1,type.size.11px (0_6875rem) (font-size-2),Primitives/Default,font-size.11,merged,duplicate
+Token/Mode 1,type.font-size.40px (2_5rem) (font-size-15),Primitives/Default,font-size.40,merged,duplicate
+Token/Mode 1,type.font-size.36px (2_25rem) (font-size-14),Primitives/Default,font-size.36,merged,duplicate
+Token/Mode 1,type.font-size.32px (2rem) (font-size-13),Primitives/Default,font-size.32,merged,duplicate
+Token/Mode 1,type.font-size.24px (1_5rem) (font-size-11),Primitives/Default,font-size.24,merged,duplicate
+Token/Mode 1,type.font-size.28px (1_75rem) (font-size-12),Primitives/Default,font-size.28,merged,duplicate
+Token/Mode 1,type.font-size.18px (1_125rem) (font-size-8),Primitives/Default,font-size.18,merged,duplicate
+Token/Mode 1,type.font-size.20px (1_25rem) (font-size-9),Primitives/Default,font-size.20,merged,duplicate
+Token/Mode 1,type.font-size.10px (0_625rem) (font-size-1),Primitives/Default,font-size.10,merged,duplicate; value was snapped to the 4px grid and did not match its name
+Token/Mode 1,type.font-size.14px (0_875rem) (font-size-5),Primitives/Default,font-size.14,merged,duplicate
+Token/Mode 1,type.font-size.16px (1rem) (font-size-7),Primitives/Default,font-size.16,merged,duplicate
+Token/Mode 1,type.font-size.56px (3_5rem) (font-size-18),Primitives/Default,font-size.56,merged,duplicate; value was snapped to the 4px grid and did not match its name
+Token/Mode 1,type.font-size.72px (4_5rem) (font-size-19),Primitives/Default,font-size.72,merged,duplicate
+Token/Mode 1,type.font-size.92px (5_75rem) (font-size-20),Primitives/Default,font-size.92,merged,duplicate
+Token/Mode 1,type.font-size.44px (2_75rem) (font-size-16),Primitives/Default,font-size.44,merged,duplicate; value was snapped to the 4px grid and did not match its name
+Token/Mode 1,type.font-size.22px (1_375rem) (font-size-10),Primitives/Default,font-size.22,merged,duplicate
+Token/Mode 1,type.font-size.15px (0_9375rem) (font-size-6),Primitives/Default,font-size.15,merged,duplicate; value was snapped to the 4px grid and did not match its name
+Token/Mode 1,type.font-size.13px (0_8125rem) (font-size-4),Primitives/Default,font-size.13,merged,duplicate; value was snapped to the 4px grid and did not match its name
+Token/Mode 1,type.font-size.11px (0_6875rem) (font-size-2),Primitives/Default,font-size.11,merged,duplicate; value was snapped to the 4px grid and did not match its name
+Token/Mode 1,type.font-size.12px (0_75rem) (font-size-3),Primitives/Default,font-size.12,merged,duplicate
+Token/Mode 1,type.font-size.48px (3rem) (font-size-17),Primitives/Default,font-size.48,merged,duplicate
+Primitives/Mode 1,type.family.sans,Primitives/Default,font-family.sans,renamed,added system fallback stack
+Token/Mode 1,type.font-family.sans,Primitives/Default,font-family.sans,merged,duplicate
+Primitives/Mode 1,type.family.mono,Primitives/Default,font-family.mono,renamed,added system fallback stack
+Token/Mode 1,type.font-family.mono,Primitives/Default,font-family.mono,merged,duplicate
+Primitives/Mode 1,type.weight.light,Primitives/Default,font-weight.light,renamed,value was a Figma style name ('Semi Bold'); now numeric for CSS
+Primitives/Mode 1,type.weight.regular,Primitives/Default,font-weight.regular,renamed,value was a Figma style name ('Semi Bold'); now numeric for CSS
+Primitives/Mode 1,type.weight.medium,Primitives/Default,font-weight.medium,renamed,value was a Figma style name ('Semi Bold'); now numeric for CSS
+Primitives/Mode 1,type.weight.semibold,Primitives/Default,font-weight.semibold,renamed,value was a Figma style name ('Semi Bold'); now numeric for CSS
+Primitives/Mode 1,type.weight.bold,Primitives/Default,font-weight.bold,renamed,value was a Figma style name ('Semi Bold'); now numeric for CSS
+Token/Mode 1,type.font-weight.light,Primitives/Default,font-weight.light,merged,duplicate
+Token/Mode 1,type.font-weight.regular,Primitives/Default,font-weight.regular,merged,duplicate
+Token/Mode 1,type.font-weight.medium,Primitives/Default,font-weight.medium,merged,duplicate
+Token/Mode 1,type.font-weight.semi-bold,Primitives/Default,font-weight.semibold,merged,duplicate
+Primitives/Mode 1,semantic.neutral.50,Brand/Default,scale.neutral.50,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.100,Brand/Default,scale.neutral.100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.200,Brand/Default,scale.neutral.200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.300,Brand/Default,scale.neutral.300,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.400,Brand/Default,scale.neutral.400,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.500,Brand/Default,scale.neutral.500,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.600,Brand/Default,scale.neutral.600,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.700,Brand/Default,scale.neutral.700,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.800,Brand/Default,scale.neutral.800,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.900,Brand/Default,scale.neutral.900,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.1000,Brand/Default,scale.neutral.1000,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.1100,Brand/Default,scale.neutral.1100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.neutral.1200,Brand/Default,scale.neutral.1200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.50,Brand/Default,scale.primary.50,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.100,Brand/Default,scale.primary.100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.200,Brand/Default,scale.primary.200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.300,Brand/Default,scale.primary.300,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.400,Brand/Default,scale.primary.400,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.500,Brand/Default,scale.primary.500,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.600,Brand/Default,scale.primary.600,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.700,Brand/Default,scale.primary.700,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.800,Brand/Default,scale.primary.800,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.900,Brand/Default,scale.primary.900,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.1000,Brand/Default,scale.primary.1000,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.1100,Brand/Default,scale.primary.1100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.primary.1200,Brand/Default,scale.primary.1200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.50,Brand/Default,scale.destructive.50,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.100,Brand/Default,scale.destructive.100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.200,Brand/Default,scale.destructive.200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.300,Brand/Default,scale.destructive.300,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.400,Brand/Default,scale.destructive.400,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.500,Brand/Default,scale.destructive.500,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.600,Brand/Default,scale.destructive.600,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.700,Brand/Default,scale.destructive.700,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.800,Brand/Default,scale.destructive.800,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.900,Brand/Default,scale.destructive.900,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.1000,Brand/Default,scale.destructive.1000,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.1100,Brand/Default,scale.destructive.1100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.destructive.1200,Brand/Default,scale.destructive.1200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.50,Brand/Default,scale.success.50,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.100,Brand/Default,scale.success.100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.200,Brand/Default,scale.success.200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.300,Brand/Default,scale.success.300,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.400,Brand/Default,scale.success.400,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.500,Brand/Default,scale.success.500,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.600,Brand/Default,scale.success.600,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.700,Brand/Default,scale.success.700,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.800,Brand/Default,scale.success.800,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.900,Brand/Default,scale.success.900,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.1000,Brand/Default,scale.success.1000,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.1100,Brand/Default,scale.success.1100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.success.1200,Brand/Default,scale.success.1200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.50,Brand/Default,scale.warning.50,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.100,Brand/Default,scale.warning.100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.200,Brand/Default,scale.warning.200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.300,Brand/Default,scale.warning.300,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.400,Brand/Default,scale.warning.400,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.500,Brand/Default,scale.warning.500,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.600,Brand/Default,scale.warning.600,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.700,Brand/Default,scale.warning.700,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.800,Brand/Default,scale.warning.800,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.900,Brand/Default,scale.warning.900,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.1000,Brand/Default,scale.warning.1000,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.1100,Brand/Default,scale.warning.1100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.warning.1200,Brand/Default,scale.warning.1200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.50,Brand/Default,scale.secondary.50,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.100,Brand/Default,scale.secondary.100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.200,Brand/Default,scale.secondary.200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.300,Brand/Default,scale.secondary.300,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.400,Brand/Default,scale.secondary.400,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.500,Brand/Default,scale.secondary.500,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.600,Brand/Default,scale.secondary.600,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.700,Brand/Default,scale.secondary.700,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.800,Brand/Default,scale.secondary.800,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.900,Brand/Default,scale.secondary.900,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.1000,Brand/Default,scale.secondary.1000,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.1100,Brand/Default,scale.secondary.1100,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Primitives/Mode 1,semantic.secondary.1200,Brand/Default,scale.secondary.1200,moved,semantic scale pulled out of Primitives into its own set (theme swap point)
+Semantic Color/Light,surface.page,Semantic/Light,surface.page,moved,
+Semantic Color/Light,surface.container,Semantic/Light,surface.container,moved,
+Semantic Color/Light,surface.container-subtle,Semantic/Light,surface.container-subtle,moved,
+Semantic Color/Light,surface.container-elevated,Semantic/Light,surface.container-elevated,moved,
+Semantic Color/Light,surface.overlay,Semantic/Light,surface.overlay,moved,
+Semantic Color/Light,surface.container-hover,Semantic/Light,surface.container-hover,moved,
+Semantic Color/Light,surface.container-pressed,Semantic/Light,surface.container-pressed,moved,
+Semantic Color/Light,surface.container-elevated-hover,Semantic/Light,surface.container-elevated-hover,moved,
+Semantic Color/Light,surface.container-elevated-pressed,Semantic/Light,surface.container-elevated-pressed,moved,
+Semantic Color/Light,surface.container-subtle-hover,Semantic/Light,surface.container-subtle-hover,moved,
+Semantic Color/Light,surface.container-subtle-pressed,Semantic/Light,surface.container-subtle-pressed,moved,
+Semantic Color/Light,surface.overlay-hover,Semantic/Light,surface.overlay-hover,moved,
+Semantic Color/Light,surface.overlay-pressed,Semantic/Light,surface.overlay-pressed,moved,
+Semantic Color/Light,content.primary,Semantic/Light,content.primary,moved,
+Semantic Color/Light,content.secondary,Semantic/Light,content.secondary,moved,
+Semantic Color/Light,content.tertiary,Semantic/Light,content.tertiary,moved,
+Semantic Color/Light,content.disabled,Semantic/Light,content.disabled,moved,
+Semantic Color/Light,content.inverse,Semantic/Light,content.inverse,moved,
+Semantic Color/Light,content.link,Semantic/Light,content.link,moved,
+Semantic Color/Light,content.link-subtle,Semantic/Light,content.link-subtle,moved,
+Semantic Color/Light,content.link-external,Semantic/Light,content.link-external,moved,
+Semantic Color/Light,content.link-danger,Semantic/Light,content.link-danger,moved,
+Semantic Color/Light,actions.primary.default,Semantic/Light,actions.primary.default,moved,
+Semantic Color/Light,actions.primary.hover,Semantic/Light,actions.primary.hover,moved,
+Semantic Color/Light,actions.primary.pressed,Semantic/Light,actions.primary.pressed,moved,
+Semantic Color/Light,actions.primary.subtle,Semantic/Light,actions.primary.subtle,moved,
+Semantic Color/Light,actions.primary.subtle-hover,Semantic/Light,actions.primary.subtle-hover,moved,
+Semantic Color/Light,actions.primary.subtle-pressed,Semantic/Light,actions.primary.subtle-pressed,moved,
+Semantic Color/Light,actions.primary.foreground,Semantic/Light,actions.primary.foreground,moved,
+Semantic Color/Light,actions.primary.subtle-foreground,Semantic/Light,actions.primary.subtle-foreground,moved,
+Semantic Color/Light,actions.secondary.default,Semantic/Light,actions.secondary.default,moved,
+Semantic Color/Light,actions.secondary.hover,Semantic/Light,actions.secondary.hover,moved,
+Semantic Color/Light,actions.secondary.pressed,Semantic/Light,actions.secondary.pressed,moved,
+Semantic Color/Light,actions.secondary.subtle,Semantic/Light,actions.secondary.subtle,moved,
+Semantic Color/Light,actions.secondary.subtle-hover,Semantic/Light,actions.secondary.subtle-hover,moved,
+Semantic Color/Light,actions.secondary.subtle-pressed,Semantic/Light,actions.secondary.subtle-pressed,moved,
+Semantic Color/Light,actions.secondary.foreground,Semantic/Light,actions.secondary.foreground,moved,
+Semantic Color/Light,actions.secondary.subtle-foreground,Semantic/Light,actions.secondary.subtle-foreground,moved,
+Semantic Color/Light,actions.destructive.default,Semantic/Light,actions.destructive.default,moved,
+Semantic Color/Light,actions.destructive.hover,Semantic/Light,actions.destructive.hover,moved,
+Semantic Color/Light,actions.destructive.pressed,Semantic/Light,actions.destructive.pressed,moved,
+Semantic Color/Light,actions.destructive.subtle,Semantic/Light,actions.destructive.subtle,moved,
+Semantic Color/Light,actions.destructive.subtle-hover,Semantic/Light,actions.destructive.subtle-hover,moved,
+Semantic Color/Light,actions.destructive.subtle-pressed,Semantic/Light,actions.destructive.subtle-pressed,moved,
+Semantic Color/Light,actions.destructive.foreground,Semantic/Light,actions.destructive.foreground,moved,
+Semantic Color/Light,actions.destructive.subtle-foreground,Semantic/Light,actions.destructive.subtle-foreground,moved,
+Semantic Color/Light,feedback.error.default,Semantic/Light,feedback.error.default,moved,
+Semantic Color/Light,feedback.error.hover,Semantic/Light,feedback.error.hover,moved,
+Semantic Color/Light,feedback.error.pressed,Semantic/Light,feedback.error.pressed,moved,
+Semantic Color/Light,feedback.error.container-hover,Semantic/Light,feedback.error.container-hover,moved,
+Semantic Color/Light,feedback.error.content,Semantic/Light,feedback.error.content,moved,
+Semantic Color/Light,feedback.error.container,Semantic/Light,feedback.error.container,moved,
+Semantic Color/Light,feedback.error.container-pressed,Semantic/Light,feedback.error.container-pressed,moved,
+Semantic Color/Light,feedback.success.default,Semantic/Light,feedback.success.default,moved,
+Semantic Color/Light,feedback.success.hover,Semantic/Light,feedback.success.hover,moved,
+Semantic Color/Light,feedback.success.pressed,Semantic/Light,feedback.success.pressed,moved,
+Semantic Color/Light,feedback.success.container,Semantic/Light,feedback.success.container,moved,
+Semantic Color/Light,feedback.success.container-hover,Semantic/Light,feedback.success.container-hover,moved,
+Semantic Color/Light,feedback.success.container-pressed,Semantic/Light,feedback.success.container-pressed,moved,
+Semantic Color/Light,feedback.success.content,Semantic/Light,feedback.success.content,moved,
+Semantic Color/Light,feedback.warning.default,Semantic/Light,feedback.warning.default,moved,
+Semantic Color/Light,feedback.warning.hover,Semantic/Light,feedback.warning.hover,moved,
+Semantic Color/Light,feedback.warning.pressed,Semantic/Light,feedback.warning.pressed,moved,
+Semantic Color/Light,feedback.warning.container,Semantic/Light,feedback.warning.container,moved,
+Semantic Color/Light,feedback.warning.container-hover,Semantic/Light,feedback.warning.container-hover,moved,
+Semantic Color/Light,feedback.warning.container-pressed,Semantic/Light,feedback.warning.container-pressed,moved,
+Semantic Color/Light,feedback.warning.content,Semantic/Light,feedback.warning.content,moved,
+Semantic Color/Light,feedback.info.default,Semantic/Light,feedback.info.default,moved,
+Semantic Color/Light,feedback.info.hover,Semantic/Light,feedback.info.hover,moved,
+Semantic Color/Light,feedback.info.pressed,Semantic/Light,feedback.info.pressed,moved,
+Semantic Color/Light,feedback.info.container,Semantic/Light,feedback.info.container,moved,
+Semantic Color/Light,feedback.info.container-hover,Semantic/Light,feedback.info.container-hover,moved,
+Semantic Color/Light,feedback.info.container-pressed,Semantic/Light,feedback.info.container-pressed,moved,
+Semantic Color/Light,feedback.info.content,Semantic/Light,feedback.info.content,moved,
+Semantic Color/Light,state.disabled.background,Semantic/Light,state.disabled.background,moved,
+Semantic Color/Light,state.disabled.foreground,Semantic/Light,state.disabled.foreground,moved,
+Semantic Color/Light,state.disabled.border,Semantic/Light,state.disabled.border,moved,
+Semantic Color/Light,state.loading.background,Semantic/Light,state.loading.background,moved,
+Semantic Color/Light,state.loading.foreground,Semantic/Light,state.loading.foreground,moved,
+Semantic Color/Light,state.loading.border,Semantic/Light,state.loading.border,moved,
+Semantic Color/Light,state.read-only.background,Semantic/Light,state.read-only.background,moved,
+Semantic Color/Light,state.read-only.foreground,Semantic/Light,state.read-only.foreground,moved,
+Semantic Color/Light,state.read-only.border,Semantic/Light,state.read-only.border,moved,
+Semantic Color/Light,state.focus.focus-ring,Semantic/Light,state.focus.ring,renamed,
+Semantic Color/Light,state.focus.focus-ring-error,Semantic/Light,state.focus.ring-error,renamed,
+Semantic Color/Light,state.focus.focus-ring-success,Semantic/Light,state.focus.ring-success,renamed,
+Semantic Color/Light,state.focus.focus-ring-warning,Semantic/Light,state.focus.ring-warning,renamed,
+Semantic Color/Light,state.focus.focus-ring-offset,Semantic/Light,state.focus.ring-offset,renamed,
+Semantic Color/Light,border.default,Semantic/Light,border.default,moved,
+Semantic Color/Light,border.default-hover,Semantic/Light,border.default-hover,moved,
+Semantic Color/Light,border.subtle,Semantic/Light,border.subtle,moved,
+Semantic Color/Light,border.strong,Semantic/Light,border.strong,moved,
+Semantic Color/Light,border.interactive,Semantic/Light,border.interactive,moved,
+Semantic Color/Light,border.default-pressed,Semantic/Light,border.default-pressed,moved,
+Semantic Color/Light,border.subtle-hover,Semantic/Light,border.subtle-hover,moved,
+Semantic Color/Light,border.strong-hover,Semantic/Light,border.strong-hover,moved,
+Semantic Color/Light,border.interactive-pressed,Semantic/Light,border.interactive-pressed,moved,
+Semantic Color/Light,border.interactive-hover,Semantic/Light,border.interactive-hover,moved,
+Semantic Color/Light,border.figma,-,-,removed,"Figma helper token, not a design token"
+Semantic Color/Light,alpha.neutral.5,Semantic/Light,alpha.neutral.5,moved,
+Semantic Color/Light,alpha.neutral.10,Semantic/Light,alpha.neutral.10,moved,
+Semantic Color/Light,alpha.neutral.20,Semantic/Light,alpha.neutral.20,moved,
+Semantic Color/Light,alpha.neutral.30,Semantic/Light,alpha.neutral.30,moved,
+Semantic Color/Light,alpha.neutral.40,Semantic/Light,alpha.neutral.40,moved,
+Semantic Color/Light,alpha.neutral.50,Semantic/Light,alpha.neutral.50,moved,
+Semantic Color/Light,alpha.neutral.60,Semantic/Light,alpha.neutral.60,moved,
+Semantic Color/Light,alpha.neutral.70,Semantic/Light,alpha.neutral.70,moved,
+Semantic Color/Light,alpha.neutral.80,Semantic/Light,alpha.neutral.80,moved,
+Semantic Color/Light,alpha.neutral.90,Semantic/Light,alpha.neutral.90,moved,
+Semantic Color/Light,alpha.neutral.figma,-,-,removed,"Figma helper token, not a design token"
+Semantic Color/Light,alpha.primary.5,Semantic/Light,alpha.primary.5,moved,
+Semantic Color/Light,alpha.primary.10,Semantic/Light,alpha.primary.10,moved,
+Semantic Color/Light,alpha.primary.20,Semantic/Light,alpha.primary.20,moved,
+Semantic Color/Light,alpha.primary.30,Semantic/Light,alpha.primary.30,moved,
+Semantic Color/Light,alpha.primary.40,Semantic/Light,alpha.primary.40,moved,
+Semantic Color/Light,alpha.primary.50,Semantic/Light,alpha.primary.50,moved,
+Semantic Color/Light,alpha.destructive.5,Semantic/Light,alpha.destructive.5,moved,
+Semantic Color/Light,alpha.destructive.10,Semantic/Light,alpha.destructive.10,moved,
+Semantic Color/Light,alpha.destructive.20,Semantic/Light,alpha.destructive.20,moved,
+Semantic Color/Light,alpha.destructive.30,Semantic/Light,alpha.destructive.30,moved,
+Semantic Color/Light,alpha.white.5,Semantic/Light,alpha.white.5,moved,
+Semantic Color/Light,alpha.white.10,Semantic/Light,alpha.white.10,moved,
+Semantic Color/Light,alpha.white.20,Semantic/Light,alpha.white.20,moved,
+Semantic Color/Light,alpha.white.30,Semantic/Light,alpha.white.30,moved,
+Semantic Color/Light,alpha.white.50,Semantic/Light,alpha.white.50,moved,
+Semantic Color/Light,alpha.black.5,Semantic/Light,alpha.black.5,moved,
+Semantic Color/Light,alpha.black.10,Semantic/Light,alpha.black.10,moved,
+Semantic Color/Light,alpha.black.20,Semantic/Light,alpha.black.20,moved,
+Semantic Color/Light,alpha.black.30,Semantic/Light,alpha.black.30,moved,
+Semantic Color/Light,alpha.black.50,Semantic/Light,alpha.black.50,moved,
+Semantic Color/Dark,surface.page,Semantic/Dark,surface.page,moved,
+Semantic Color/Dark,surface.container,Semantic/Dark,surface.container,moved,
+Semantic Color/Dark,surface.container-subtle,Semantic/Dark,surface.container-subtle,moved,
+Semantic Color/Dark,surface.container-elevated,Semantic/Dark,surface.container-elevated,moved,
+Semantic Color/Dark,surface.overlay,Semantic/Dark,surface.overlay,moved,
+Semantic Color/Dark,surface.container-hover,Semantic/Dark,surface.container-hover,moved,
+Semantic Color/Dark,surface.container-pressed,Semantic/Dark,surface.container-pressed,moved,
+Semantic Color/Dark,surface.container-elevated-hover,Semantic/Dark,surface.container-elevated-hover,moved,
+Semantic Color/Dark,surface.container-elevated-pressed,Semantic/Dark,surface.container-elevated-pressed,moved,
+Semantic Color/Dark,surface.container-subtle-hover,Semantic/Dark,surface.container-subtle-hover,moved,
+Semantic Color/Dark,surface.container-subtle-pressed,Semantic/Dark,surface.container-subtle-pressed,moved,
+Semantic Color/Dark,surface.overlay-hover,Semantic/Dark,surface.overlay-hover,moved,
+Semantic Color/Dark,surface.overlay-pressed,Semantic/Dark,surface.overlay-pressed,moved,
+Semantic Color/Dark,content.primary,Semantic/Dark,content.primary,moved,
+Semantic Color/Dark,content.secondary,Semantic/Dark,content.secondary,moved,
+Semantic Color/Dark,content.tertiary,Semantic/Dark,content.tertiary,moved,
+Semantic Color/Dark,content.disabled,Semantic/Dark,content.disabled,moved,
+Semantic Color/Dark,content.inverse,Semantic/Dark,content.inverse,moved,
+Semantic Color/Dark,content.link,Semantic/Dark,content.link,moved,
+Semantic Color/Dark,content.link-subtle,Semantic/Dark,content.link-subtle,moved,
+Semantic Color/Dark,content.link-external,Semantic/Dark,content.link-external,moved,
+Semantic Color/Dark,content.link-danger,Semantic/Dark,content.link-danger,moved,
+Semantic Color/Dark,actions.primary.default,Semantic/Dark,actions.primary.default,moved,
+Semantic Color/Dark,actions.primary.hover,Semantic/Dark,actions.primary.hover,moved,
+Semantic Color/Dark,actions.primary.pressed,Semantic/Dark,actions.primary.pressed,moved,
+Semantic Color/Dark,actions.primary.subtle,Semantic/Dark,actions.primary.subtle,moved,
+Semantic Color/Dark,actions.primary.subtle-hover,Semantic/Dark,actions.primary.subtle-hover,moved,
+Semantic Color/Dark,actions.primary.subtle-pressed,Semantic/Dark,actions.primary.subtle-pressed,moved,
+Semantic Color/Dark,actions.primary.foreground,Semantic/Dark,actions.primary.foreground,moved,
+Semantic Color/Dark,actions.primary.subtle-foreground,Semantic/Dark,actions.primary.subtle-foreground,moved,
+Semantic Color/Dark,actions.secondary.default,Semantic/Dark,actions.secondary.default,moved,
+Semantic Color/Dark,actions.secondary.hover,Semantic/Dark,actions.secondary.hover,moved,
+Semantic Color/Dark,actions.secondary.pressed,Semantic/Dark,actions.secondary.pressed,moved,
+Semantic Color/Dark,actions.secondary.subtle,Semantic/Dark,actions.secondary.subtle,moved,
+Semantic Color/Dark,actions.secondary.subtle-hover,Semantic/Dark,actions.secondary.subtle-hover,moved,
+Semantic Color/Dark,actions.secondary.subtle-pressed,Semantic/Dark,actions.secondary.subtle-pressed,moved,
+Semantic Color/Dark,actions.secondary.foreground,Semantic/Dark,actions.secondary.foreground,moved,
+Semantic Color/Dark,actions.secondary.subtle-foreground,Semantic/Dark,actions.secondary.subtle-foreground,moved,
+Semantic Color/Dark,actions.destructive.default,Semantic/Dark,actions.destructive.default,moved,
+Semantic Color/Dark,actions.destructive.hover,Semantic/Dark,actions.destructive.hover,moved,
+Semantic Color/Dark,actions.destructive.pressed,Semantic/Dark,actions.destructive.pressed,moved,
+Semantic Color/Dark,actions.destructive.subtle,Semantic/Dark,actions.destructive.subtle,moved,
+Semantic Color/Dark,actions.destructive.subtle-hover,Semantic/Dark,actions.destructive.subtle-hover,moved,
+Semantic Color/Dark,actions.destructive.subtle-pressed,Semantic/Dark,actions.destructive.subtle-pressed,moved,
+Semantic Color/Dark,actions.destructive.foreground,Semantic/Dark,actions.destructive.foreground,moved,
+Semantic Color/Dark,actions.destructive.subtle-foreground,Semantic/Dark,actions.destructive.subtle-foreground,moved,
+Semantic Color/Dark,feedback.error.default,Semantic/Dark,feedback.error.default,moved,
+Semantic Color/Dark,feedback.error.hover,Semantic/Dark,feedback.error.hover,moved,
+Semantic Color/Dark,feedback.error.pressed,Semantic/Dark,feedback.error.pressed,moved,
+Semantic Color/Dark,feedback.error.container-hover,Semantic/Dark,feedback.error.container-hover,moved,
+Semantic Color/Dark,feedback.error.content,Semantic/Dark,feedback.error.content,moved,
+Semantic Color/Dark,feedback.error.container,Semantic/Dark,feedback.error.container,moved,
+Semantic Color/Dark,feedback.error.container-pressed,Semantic/Dark,feedback.error.container-pressed,moved,
+Semantic Color/Dark,feedback.success.default,Semantic/Dark,feedback.success.default,moved,
+Semantic Color/Dark,feedback.success.hover,Semantic/Dark,feedback.success.hover,moved,
+Semantic Color/Dark,feedback.success.pressed,Semantic/Dark,feedback.success.pressed,moved,
+Semantic Color/Dark,feedback.success.container,Semantic/Dark,feedback.success.container,moved,
+Semantic Color/Dark,feedback.success.container-hover,Semantic/Dark,feedback.success.container-hover,moved,
+Semantic Color/Dark,feedback.success.container-pressed,Semantic/Dark,feedback.success.container-pressed,moved,
+Semantic Color/Dark,feedback.success.content,Semantic/Dark,feedback.success.content,moved,
+Semantic Color/Dark,feedback.warning.default,Semantic/Dark,feedback.warning.default,moved,
+Semantic Color/Dark,feedback.warning.hover,Semantic/Dark,feedback.warning.hover,moved,
+Semantic Color/Dark,feedback.warning.pressed,Semantic/Dark,feedback.warning.pressed,moved,
+Semantic Color/Dark,feedback.warning.container,Semantic/Dark,feedback.warning.container,moved,
+Semantic Color/Dark,feedback.warning.container-hover,Semantic/Dark,feedback.warning.container-hover,moved,
+Semantic Color/Dark,feedback.warning.container-pressed,Semantic/Dark,feedback.warning.container-pressed,moved,
+Semantic Color/Dark,feedback.warning.content,Semantic/Dark,feedback.warning.content,moved,
+Semantic Color/Dark,feedback.info.default,Semantic/Dark,feedback.info.default,moved,
+Semantic Color/Dark,feedback.info.hover,Semantic/Dark,feedback.info.hover,moved,
+Semantic Color/Dark,feedback.info.pressed,Semantic/Dark,feedback.info.pressed,moved,
+Semantic Color/Dark,feedback.info.container,Semantic/Dark,feedback.info.container,moved,
+Semantic Color/Dark,feedback.info.container-hover,Semantic/Dark,feedback.info.container-hover,moved,
+Semantic Color/Dark,feedback.info.container-pressed,Semantic/Dark,feedback.info.container-pressed,moved,
+Semantic Color/Dark,feedback.info.content,Semantic/Dark,feedback.info.content,moved,
+Semantic Color/Dark,state.disabled.background,Semantic/Dark,state.disabled.background,moved,
+Semantic Color/Dark,state.disabled.foreground,Semantic/Dark,state.disabled.foreground,moved,
+Semantic Color/Dark,state.disabled.border,Semantic/Dark,state.disabled.border,moved,
+Semantic Color/Dark,state.loading.background,Semantic/Dark,state.loading.background,moved,
+Semantic Color/Dark,state.loading.foreground,Semantic/Dark,state.loading.foreground,moved,
+Semantic Color/Dark,state.loading.border,Semantic/Dark,state.loading.border,moved,
+Semantic Color/Dark,state.read-only.background,Semantic/Dark,state.read-only.background,moved,
+Semantic Color/Dark,state.read-only.foreground,Semantic/Dark,state.read-only.foreground,moved,
+Semantic Color/Dark,state.read-only.border,Semantic/Dark,state.read-only.border,moved,
+Semantic Color/Dark,state.focus.focus-ring,Semantic/Dark,state.focus.ring,renamed,
+Semantic Color/Dark,state.focus.focus-ring-error,Semantic/Dark,state.focus.ring-error,renamed,
+Semantic Color/Dark,state.focus.focus-ring-success,Semantic/Dark,state.focus.ring-success,renamed,
+Semantic Color/Dark,state.focus.focus-ring-warning,Semantic/Dark,state.focus.ring-warning,renamed,
+Semantic Color/Dark,state.focus.focus-ring-offset,Semantic/Dark,state.focus.ring-offset,renamed,
+Semantic Color/Dark,border.default,Semantic/Dark,border.default,moved,
+Semantic Color/Dark,border.default-hover,Semantic/Dark,border.default-hover,moved,
+Semantic Color/Dark,border.subtle,Semantic/Dark,border.subtle,moved,
+Semantic Color/Dark,border.strong,Semantic/Dark,border.strong,moved,
+Semantic Color/Dark,border.interactive,Semantic/Dark,border.interactive,moved,
+Semantic Color/Dark,border.default-pressed,Semantic/Dark,border.default-pressed,moved,
+Semantic Color/Dark,border.subtle-hover,Semantic/Dark,border.subtle-hover,moved,
+Semantic Color/Dark,border.strong-hover,Semantic/Dark,border.strong-hover,moved,
+Semantic Color/Dark,border.interactive-pressed,Semantic/Dark,border.interactive-pressed,moved,
+Semantic Color/Dark,border.interactive-hover,Semantic/Dark,border.interactive-hover,moved,
+Semantic Color/Dark,border.figma,-,-,removed,"Figma helper token, not a design token"
+Semantic Color/Dark,alpha.neutral.5,Semantic/Dark,alpha.neutral.5,moved,
+Semantic Color/Dark,alpha.neutral.10,Semantic/Dark,alpha.neutral.10,moved,
+Semantic Color/Dark,alpha.neutral.20,Semantic/Dark,alpha.neutral.20,moved,
+Semantic Color/Dark,alpha.neutral.30,Semantic/Dark,alpha.neutral.30,moved,
+Semantic Color/Dark,alpha.neutral.40,Semantic/Dark,alpha.neutral.40,moved,
+Semantic Color/Dark,alpha.neutral.50,Semantic/Dark,alpha.neutral.50,moved,
+Semantic Color/Dark,alpha.neutral.60,Semantic/Dark,alpha.neutral.60,moved,
+Semantic Color/Dark,alpha.neutral.70,Semantic/Dark,alpha.neutral.70,moved,
+Semantic Color/Dark,alpha.neutral.80,Semantic/Dark,alpha.neutral.80,moved,
+Semantic Color/Dark,alpha.neutral.90,Semantic/Dark,alpha.neutral.90,moved,
+Semantic Color/Dark,alpha.neutral.figma,-,-,removed,"Figma helper token, not a design token"
+Semantic Color/Dark,alpha.primary.5,Semantic/Dark,alpha.primary.5,moved,
+Semantic Color/Dark,alpha.primary.10,Semantic/Dark,alpha.primary.10,moved,
+Semantic Color/Dark,alpha.primary.20,Semantic/Dark,alpha.primary.20,moved,
+Semantic Color/Dark,alpha.primary.30,Semantic/Dark,alpha.primary.30,moved,
+Semantic Color/Dark,alpha.primary.40,Semantic/Dark,alpha.primary.40,moved,
+Semantic Color/Dark,alpha.primary.50,Semantic/Dark,alpha.primary.50,moved,
+Semantic Color/Dark,alpha.destructive.5,Semantic/Dark,alpha.destructive.5,moved,
+Semantic Color/Dark,alpha.destructive.10,Semantic/Dark,alpha.destructive.10,moved,
+Semantic Color/Dark,alpha.destructive.20,Semantic/Dark,alpha.destructive.20,moved,
+Semantic Color/Dark,alpha.destructive.30,Semantic/Dark,alpha.destructive.30,moved,
+Semantic Color/Dark,alpha.white.5,Semantic/Dark,alpha.white.5,moved,
+Semantic Color/Dark,alpha.white.10,Semantic/Dark,alpha.white.10,moved,
+Semantic Color/Dark,alpha.white.20,Semantic/Dark,alpha.white.20,moved,
+Semantic Color/Dark,alpha.white.30,Semantic/Dark,alpha.white.30,moved,
+Semantic Color/Dark,alpha.white.50,Semantic/Dark,alpha.white.50,moved,
+Semantic Color/Dark,alpha.black.5,Semantic/Dark,alpha.black.5,moved,
+Semantic Color/Dark,alpha.black.10,Semantic/Dark,alpha.black.10,moved,
+Semantic Color/Dark,alpha.black.20,Semantic/Dark,alpha.black.20,moved,
+Semantic Color/Dark,alpha.black.30,Semantic/Dark,alpha.black.30,moved,
+Semantic Color/Dark,alpha.black.50,Semantic/Dark,alpha.black.50,moved,
+(new),,Semantic/Light + Dark,surface.scrim,added,role was only in Theme/Value or Base Color; needed by components
+(new),,Semantic/Light + Dark,field.background,added,role was only in Theme/Value or Base Color; needed by components
+(new),,Semantic/Light + Dark,field.foreground,added,role was only in Theme/Value or Base Color; needed by components
+(new),,Semantic/Light + Dark,field.placeholder,added,role was only in Theme/Value or Base Color; needed by components
+(new),,Semantic/Light + Dark,field.border,added,role was only in Theme/Value or Base Color; needed by components
+(new),,Semantic/Light + Dark,field.border-hover,added,role was only in Theme/Value or Base Color; needed by components
+(new),,Semantic/Light + Dark,field.border-focus,added,role was only in Theme/Value or Base Color; needed by components
+(new),,Semantic/Light + Dark,shadow.color.default,added,role was only in Theme/Value or Base Color; needed by components
+(new),,Semantic/Light + Dark,shadow.color.strong,added,role was only in Theme/Value or Base Color; needed by components
+Theme/Value,background.body,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,background.subtle,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,surface.default,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,surface.raised,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,surface.overlay,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,surface.transparent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,border.default,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,border.emphasis,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,border.subtle,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,border.disabled,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,border.input,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,border.contrast,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,border.figma,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.default,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.muted,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.subtle,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.disabled,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.on-accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.destructive,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.link-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.link,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,text.link-visited,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,ring.focus-border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,ring.focus-shadow,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,ring.destructive-border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,ring.destructive-shadow,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,accent.default,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,accent.emphasis,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,accent.subtle,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,accent.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.primary.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.primary.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.primary.background-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.primary.foreground-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.primary.border-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.primary.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.secondary.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.secondary.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.secondary.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.secondary.background-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.secondary.foreground-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.secondary.border-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.outline.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.outline.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.outline.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.outline.background-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.outline.foreground-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.outline.border-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.ghost.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.ghost.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.ghost.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.ghost.background-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.ghost.foreground-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.ghost.border-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.destructive.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.destructive.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.destructive.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.destructive.background-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.destructive.foreground-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,interactive.destructive.border-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.border-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.border-focus,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.placeholder,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.disabled-background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.disabled-foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.disabled-border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.readonly-border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.readonly-foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,input.readonly-background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.destructive.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.destructive.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.destructive.accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.destructive.accent-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.destructive.foreground-on-accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.destructive.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.destructive.foreground subtle,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.success.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.success.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.success.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.success.accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.success.accent-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.success.foreground-on-accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.warning.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.warning.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.warning.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.warning.accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.warning.accent-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.warning.foreground-on-accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.info.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.info.background,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.info.border,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.info.accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.info.accent-hover,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,feedback.info.foreground-on-accent,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,brand.default,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,brand.emphasis,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,brand.subtle,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,brand.foreground,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,foreground.default,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,foreground.muted,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,foreground.subtle,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,foreground.disabled,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Theme/Value,foreground.on-color,-,-,removed,parallel role vocabulary; roles now come from Semantic/*
+Base Color/Light,black,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,white,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.blue.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.red.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.amber.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.green.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.teal.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.purple.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.pink.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,palette.gray-alpha.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.background.body,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.background.subtle,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.surface.raised,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.surface.default,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.surface.sunken,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.text.primary,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.text.secondary,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.text.tertiary,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.shadow.default,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Light,base.shadow.strong,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,black,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,white,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.blue.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.red.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.amber.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.green.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.teal.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.purple.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.pink.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.100,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.200,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.300,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.400,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.500,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.600,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.700,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.800,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.900,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,palette.gray-alpha.1000,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.background.body,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.background.subtle,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.surface.raised,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.surface.default,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.surface.sunken,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.text.primary,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.text.secondary,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.text.tertiary,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.shadow.default,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Base Color/Dark,base.shadow.strong,-,-,removed,duplicate palette/base layer (shadowed by Primitives)
+Primitives/Mode 1,type.line-height.40px (2_5rem) (line-height-8),Primitives/Default,line-height.40,renamed,
+Primitives/Mode 1,type.line-height.36px (2_25rem) (line-height-7),Primitives/Default,line-height.36,renamed,
+Primitives/Mode 1,type.line-height.32px (2rem) (line-height-6),Primitives/Default,line-height.32,renamed,
+Primitives/Mode 1,type.line-height.28px (1_75rem) (line-height-5),Primitives/Default,line-height.28,renamed,
+Primitives/Mode 1,type.line-height.18px (1_125rem) (line-height-1),Primitives/Default,line-height.18,renamed,
+Primitives/Mode 1,type.line-height.22px (1_375rem) (line-height-3),Primitives/Default,line-height.22,renamed,
+Primitives/Mode 1,type.line-height.24px (1_5rem) (line-height-4),Primitives/Default,line-height.24,renamed,
+Primitives/Mode 1,type.line-height.20px (1_25rem) (line-height-2),Primitives/Default,line-height.20,renamed,
+Token/Mode 1,type.line-height.20px (1_25rem) (line-height-2),Primitives/Default,line-height.20,merged,duplicate
+Token/Mode 1,type.line-height.40px (2_5rem) (line-height-8),Primitives/Default,line-height.40,merged,duplicate
+Token/Mode 1,type.line-height.32px (2rem) (line-height-6),Primitives/Default,line-height.32,merged,duplicate
+Token/Mode 1,type.line-height.36px (2_25rem) (line-height-7),Primitives/Default,line-height.36,merged,duplicate
+Token/Mode 1,type.line-height.28px (1_75rem) (line-height-5),Primitives/Default,line-height.28,merged,duplicate
+Token/Mode 1,type.line-height.24px (1_5rem) (line-height-4),Primitives/Default,line-height.24,merged,duplicate
+Token/Mode 1,type.line-height.18px (1_125rem) (line-height-1),Primitives/Default,line-height.18,merged,duplicate
+Token/Mode 1,type.line-height.22px (1_375rem) (line-height-3),Primitives/Default,line-height.22,merged,duplicate
+Typescale/Desktop,Display.Large.size,Typography/Desktop,display.large.font-size,renamed,
+Typescale/Desktop,Display.Large.weight,Typography/Desktop,display.large.font-weight,renamed,
+Typescale/Desktop,Display.Large.line-height,Typography/Desktop,display.large.line-height,renamed,
+Typescale/Desktop,Display.Large.letter-spacing,Typography/Desktop,display.large.letter-spacing,renamed,
+Typescale/Desktop,Display.Medium.size,Typography/Desktop,display.medium.font-size,renamed,
+Typescale/Desktop,Display.Medium.weight,Typography/Desktop,display.medium.font-weight,renamed,
+Typescale/Desktop,Display.Medium.line-height,Typography/Desktop,display.medium.line-height,renamed,
+Typescale/Desktop,Display.Medium.letter-spacing,Typography/Desktop,display.medium.letter-spacing,renamed,
+Typescale/Desktop,Display.Small.size,Typography/Desktop,display.small.font-size,renamed,
+Typescale/Desktop,Display.Small.weight,Typography/Desktop,display.small.font-weight,renamed,
+Typescale/Desktop,Display.Small.line-height,Typography/Desktop,display.small.line-height,renamed,
+Typescale/Desktop,Display.Small.letter-spacing,Typography/Desktop,display.small.letter-spacing,renamed,
+Typescale/Desktop,Display.X-Large.size,Typography/Desktop,display.x-large.font-size,renamed,
+Typescale/Desktop,Display.X-Large.weight,Typography/Desktop,display.x-large.font-weight,renamed,
+Typescale/Desktop,Display.X-Large.line-height,Typography/Desktop,display.x-large.line-height,renamed,
+Typescale/Desktop,Display.X-Large.letter-spacing,Typography/Desktop,display.x-large.letter-spacing,renamed,
+Typescale/Desktop,Display.X-Large.regular,-,-,removed,stray string token ('Regular')
+Typescale/Desktop,Display.X-Small.size,Typography/Desktop,display.x-small.font-size,renamed,
+Typescale/Desktop,Display.X-Small.weight,Typography/Desktop,display.x-small.font-weight,renamed,
+Typescale/Desktop,Display.X-Small.line-height,Typography/Desktop,display.x-small.line-height,renamed,
+Typescale/Desktop,Display.X-Small.letter-spacing,Typography/Desktop,display.x-small.letter-spacing,renamed,
+Typescale/Desktop,Heading.Large.size,Typography/Desktop,heading.large.font-size,renamed,
+Typescale/Desktop,Heading.Large.weight,Typography/Desktop,heading.large.font-weight,renamed,
+Typescale/Desktop,Heading.Large.line-height,Typography/Desktop,heading.large.line-height,renamed,
+Typescale/Desktop,Heading.Large.letter-spacing,Typography/Desktop,heading.large.letter-spacing,renamed,
+Typescale/Desktop,Heading.Medium.size,Typography/Desktop,heading.medium.font-size,renamed,
+Typescale/Desktop,Heading.Medium.weight,Typography/Desktop,heading.medium.font-weight,renamed,
+Typescale/Desktop,Heading.Medium.line-height,Typography/Desktop,heading.medium.line-height,renamed,
+Typescale/Desktop,Heading.Medium.letter-spacing,Typography/Desktop,heading.medium.letter-spacing,renamed,
+Typescale/Desktop,Heading.Small.size,Typography/Desktop,heading.small.font-size,renamed,
+Typescale/Desktop,Heading.Small.weight,Typography/Desktop,heading.small.font-weight,renamed,
+Typescale/Desktop,Heading.Small.line-height,Typography/Desktop,heading.small.line-height,renamed,
+Typescale/Desktop,Heading.Small.letter-spacing,Typography/Desktop,heading.small.letter-spacing,renamed,
+Typescale/Desktop,Heading.X-Large.size,Typography/Desktop,heading.x-large.font-size,renamed,
+Typescale/Desktop,Heading.X-Large.weight,Typography/Desktop,heading.x-large.font-weight,renamed,
+Typescale/Desktop,Heading.X-Large.line-height,Typography/Desktop,heading.x-large.line-height,renamed,
+Typescale/Desktop,Heading.X-Large.letter-spacing,Typography/Desktop,heading.x-large.letter-spacing,renamed,
+Typescale/Desktop,Heading.X-Small.size,Typography/Desktop,heading.x-small.font-size,renamed,
+Typescale/Desktop,Heading.X-Small.weight,Typography/Desktop,heading.x-small.font-weight,renamed,
+Typescale/Desktop,Heading.X-Small.line-height,Typography/Desktop,heading.x-small.line-height,renamed,
+Typescale/Desktop,Heading.X-Small.letter-spacing,Typography/Desktop,heading.x-small.letter-spacing,renamed,
+Typescale/Desktop,Heading.XX-Large.size,Typography/Desktop,heading.xx-large.font-size,renamed,
+Typescale/Desktop,Heading.XX-Large.weight,Typography/Desktop,heading.xx-large.font-weight,renamed,
+Typescale/Desktop,Heading.XX-Large.line-height,Typography/Desktop,heading.xx-large.line-height,renamed,
+Typescale/Desktop,Heading.XX-Large.letter-spacing,Typography/Desktop,heading.xx-large.letter-spacing,renamed,
+Typescale/Desktop,Label.Large.size,Typography/Desktop,label.large.font-size,renamed,
+Typescale/Desktop,Label.Large.weight,Typography/Desktop,label.large.font-weight,renamed,
+Typescale/Desktop,Label.Large.line-height,Typography/Desktop,label.large.line-height,renamed,
+Typescale/Desktop,Label.Large.letter-spacing,Typography/Desktop,label.large.letter-spacing,renamed,
+Typescale/Desktop,Label.Medium.size,Typography/Desktop,label.medium.font-size,renamed,
+Typescale/Desktop,Label.Medium.weight,Typography/Desktop,label.medium.font-weight,renamed,
+Typescale/Desktop,Label.Medium.line-height,Typography/Desktop,label.medium.line-height,renamed,
+Typescale/Desktop,Label.Medium.letter-spacing,Typography/Desktop,label.medium.letter-spacing,renamed,
+Typescale/Desktop,Label.Small.size,Typography/Desktop,label.small.font-size,renamed,
+Typescale/Desktop,Label.Small.weight,Typography/Desktop,label.small.font-weight,renamed,
+Typescale/Desktop,Label.Small.line-height,Typography/Desktop,label.small.line-height,renamed,
+Typescale/Desktop,Label.Small.letter-spacing,Typography/Desktop,label.small.letter-spacing,renamed,
+Typescale/Desktop,Label.X-Small.size,Typography/Desktop,label.x-small.font-size,renamed,
+Typescale/Desktop,Label.X-Small.weight,Typography/Desktop,label.x-small.font-weight,renamed,
+Typescale/Desktop,Label.X-Small.line-height,Typography/Desktop,label.x-small.line-height,renamed,
+Typescale/Desktop,Label.X-Small.letter-spacing,Typography/Desktop,label.x-small.letter-spacing,renamed,
+Typescale/Desktop,Paragraph.Large.size,Typography/Desktop,paragraph.large.font-size,renamed,
+Typescale/Desktop,Paragraph.Large.weight,Typography/Desktop,paragraph.large.font-weight,renamed,
+Typescale/Desktop,Paragraph.Large.line-height,Typography/Desktop,paragraph.large.line-height,renamed,
+Typescale/Desktop,Paragraph.Large.letter-spacing,Typography/Desktop,paragraph.large.letter-spacing,renamed,
+Typescale/Desktop,Paragraph.Medium.size,Typography/Desktop,paragraph.medium.font-size,renamed,
+Typescale/Desktop,Paragraph.Medium.weight,Typography/Desktop,paragraph.medium.font-weight,renamed,
+Typescale/Desktop,Paragraph.Medium.line-height,Typography/Desktop,paragraph.medium.line-height,renamed,
+Typescale/Desktop,Paragraph.Medium.letter-spacing,Typography/Desktop,paragraph.medium.letter-spacing,renamed,
+Typescale/Desktop,Paragraph.Small.size,Typography/Desktop,paragraph.small.font-size,renamed,
+Typescale/Desktop,Paragraph.Small.weight,Typography/Desktop,paragraph.small.font-weight,renamed,
+Typescale/Desktop,Paragraph.Small.line-height,Typography/Desktop,paragraph.small.line-height,renamed,
+Typescale/Desktop,Paragraph.Small.letter-spacing,Typography/Desktop,paragraph.small.letter-spacing,renamed,
+Typescale/Desktop,Paragraph.X-Small.size,Typography/Desktop,paragraph.x-small.font-size,renamed,
+Typescale/Desktop,Paragraph.X-Small.weight,Typography/Desktop,paragraph.x-small.font-weight,renamed,
+Typescale/Desktop,Paragraph.X-Small.line-height,Typography/Desktop,paragraph.x-small.line-height,renamed,
+Typescale/Desktop,Paragraph.X-Small.letter-spacing,Typography/Desktop,paragraph.x-small.letter-spacing,renamed,
+Typescale/Mobile,Display.Large.size,Typography/Mobile,display.large.font-size,renamed,
+Typescale/Mobile,Display.Large.weight,Typography/Mobile,display.large.font-weight,renamed,
+Typescale/Mobile,Display.Large.line-height,Typography/Mobile,display.large.line-height,renamed,
+Typescale/Mobile,Display.Large.letter-spacing,Typography/Mobile,display.large.letter-spacing,renamed,
+Typescale/Mobile,Display.Medium.size,Typography/Mobile,display.medium.font-size,renamed,
+Typescale/Mobile,Display.Medium.weight,Typography/Mobile,display.medium.font-weight,renamed,
+Typescale/Mobile,Display.Medium.line-height,Typography/Mobile,display.medium.line-height,renamed,
+Typescale/Mobile,Display.Medium.letter-spacing,Typography/Mobile,display.medium.letter-spacing,renamed,
+Typescale/Mobile,Display.Small.size,Typography/Mobile,display.small.font-size,renamed,
+Typescale/Mobile,Display.Small.weight,Typography/Mobile,display.small.font-weight,renamed,
+Typescale/Mobile,Display.Small.line-height,Typography/Mobile,display.small.line-height,renamed,
+Typescale/Mobile,Display.Small.letter-spacing,Typography/Mobile,display.small.letter-spacing,renamed,
+Typescale/Mobile,Display.X-Large.size,Typography/Mobile,display.x-large.font-size,renamed,
+Typescale/Mobile,Display.X-Large.weight,Typography/Mobile,display.x-large.font-weight,renamed,
+Typescale/Mobile,Display.X-Large.line-height,Typography/Mobile,display.x-large.line-height,renamed,
+Typescale/Mobile,Display.X-Large.letter-spacing,Typography/Mobile,display.x-large.letter-spacing,renamed,
+Typescale/Mobile,Display.X-Large.regular,-,-,removed,stray string token ('Regular')
+Typescale/Mobile,Display.X-Small.size,Typography/Mobile,display.x-small.font-size,renamed,
+Typescale/Mobile,Display.X-Small.weight,Typography/Mobile,display.x-small.font-weight,renamed,
+Typescale/Mobile,Display.X-Small.line-height,Typography/Mobile,display.x-small.line-height,renamed,
+Typescale/Mobile,Display.X-Small.letter-spacing,Typography/Mobile,display.x-small.letter-spacing,renamed,
+Typescale/Mobile,Heading.Large.size,Typography/Mobile,heading.large.font-size,renamed,
+Typescale/Mobile,Heading.Large.weight,Typography/Mobile,heading.large.font-weight,renamed,
+Typescale/Mobile,Heading.Large.line-height,Typography/Mobile,heading.large.line-height,renamed,
+Typescale/Mobile,Heading.Large.letter-spacing,Typography/Mobile,heading.large.letter-spacing,renamed,
+Typescale/Mobile,Heading.Medium.size,Typography/Mobile,heading.medium.font-size,renamed,
+Typescale/Mobile,Heading.Medium.weight,Typography/Mobile,heading.medium.font-weight,renamed,
+Typescale/Mobile,Heading.Medium.line-height,Typography/Mobile,heading.medium.line-height,renamed,
+Typescale/Mobile,Heading.Medium.letter-spacing,Typography/Mobile,heading.medium.letter-spacing,renamed,
+Typescale/Mobile,Heading.Small.size,Typography/Mobile,heading.small.font-size,renamed,
+Typescale/Mobile,Heading.Small.weight,Typography/Mobile,heading.small.font-weight,renamed,
+Typescale/Mobile,Heading.Small.line-height,Typography/Mobile,heading.small.line-height,renamed,
+Typescale/Mobile,Heading.Small.letter-spacing,Typography/Mobile,heading.small.letter-spacing,renamed,
+Typescale/Mobile,Heading.X-Large.size,Typography/Mobile,heading.x-large.font-size,renamed,
+Typescale/Mobile,Heading.X-Large.weight,Typography/Mobile,heading.x-large.font-weight,renamed,
+Typescale/Mobile,Heading.X-Large.line-height,Typography/Mobile,heading.x-large.line-height,renamed,
+Typescale/Mobile,Heading.X-Large.letter-spacing,Typography/Mobile,heading.x-large.letter-spacing,renamed,
+Typescale/Mobile,Heading.X-Small.size,Typography/Mobile,heading.x-small.font-size,renamed,
+Typescale/Mobile,Heading.X-Small.weight,Typography/Mobile,heading.x-small.font-weight,renamed,
+Typescale/Mobile,Heading.X-Small.line-height,Typography/Mobile,heading.x-small.line-height,renamed,
+Typescale/Mobile,Heading.X-Small.letter-spacing,Typography/Mobile,heading.x-small.letter-spacing,renamed,
+Typescale/Mobile,Heading.XX-Large.size,Typography/Mobile,heading.xx-large.font-size,renamed,
+Typescale/Mobile,Heading.XX-Large.weight,Typography/Mobile,heading.xx-large.font-weight,renamed,
+Typescale/Mobile,Heading.XX-Large.line-height,Typography/Mobile,heading.xx-large.line-height,renamed,
+Typescale/Mobile,Heading.XX-Large.letter-spacing,Typography/Mobile,heading.xx-large.letter-spacing,renamed,
+Typescale/Mobile,Label.Large.size,Typography/Mobile,label.large.font-size,renamed,
+Typescale/Mobile,Label.Large.weight,Typography/Mobile,label.large.font-weight,renamed,
+Typescale/Mobile,Label.Large.line-height,Typography/Mobile,label.large.line-height,renamed,
+Typescale/Mobile,Label.Large.letter-spacing,Typography/Mobile,label.large.letter-spacing,renamed,
+Typescale/Mobile,Label.Medium.size,Typography/Mobile,label.medium.font-size,renamed,
+Typescale/Mobile,Label.Medium.weight,Typography/Mobile,label.medium.font-weight,renamed,
+Typescale/Mobile,Label.Medium.line-height,Typography/Mobile,label.medium.line-height,renamed,
+Typescale/Mobile,Label.Medium.letter-spacing,Typography/Mobile,label.medium.letter-spacing,renamed,
+Typescale/Mobile,Label.Small.size,Typography/Mobile,label.small.font-size,renamed,
+Typescale/Mobile,Label.Small.weight,Typography/Mobile,label.small.font-weight,renamed,
+Typescale/Mobile,Label.Small.line-height,Typography/Mobile,label.small.line-height,renamed,
+Typescale/Mobile,Label.Small.letter-spacing,Typography/Mobile,label.small.letter-spacing,renamed,
+Typescale/Mobile,Label.X-Small.size,Typography/Mobile,label.x-small.font-size,renamed,
+Typescale/Mobile,Label.X-Small.weight,Typography/Mobile,label.x-small.font-weight,renamed,
+Typescale/Mobile,Label.X-Small.line-height,Typography/Mobile,label.x-small.line-height,renamed,
+Typescale/Mobile,Label.X-Small.letter-spacing,Typography/Mobile,label.x-small.letter-spacing,renamed,
+Typescale/Mobile,Paragraph.Large.size,Typography/Mobile,paragraph.large.font-size,renamed,
+Typescale/Mobile,Paragraph.Large.weight,Typography/Mobile,paragraph.large.font-weight,renamed,
+Typescale/Mobile,Paragraph.Large.line-height,Typography/Mobile,paragraph.large.line-height,renamed,
+Typescale/Mobile,Paragraph.Large.letter-spacing,Typography/Mobile,paragraph.large.letter-spacing,renamed,
+Typescale/Mobile,Paragraph.Medium.size,Typography/Mobile,paragraph.medium.font-size,renamed,
+Typescale/Mobile,Paragraph.Medium.weight,Typography/Mobile,paragraph.medium.font-weight,renamed,
+Typescale/Mobile,Paragraph.Medium.line-height,Typography/Mobile,paragraph.medium.line-height,renamed,
+Typescale/Mobile,Paragraph.Medium.letter-spacing,Typography/Mobile,paragraph.medium.letter-spacing,renamed,
+Typescale/Mobile,Paragraph.Small.size,Typography/Mobile,paragraph.small.font-size,renamed,
+Typescale/Mobile,Paragraph.Small.weight,Typography/Mobile,paragraph.small.font-weight,renamed,
+Typescale/Mobile,Paragraph.Small.line-height,Typography/Mobile,paragraph.small.line-height,renamed,
+Typescale/Mobile,Paragraph.Small.letter-spacing,Typography/Mobile,paragraph.small.letter-spacing,renamed,
+Typescale/Mobile,Paragraph.X-Small.size,Typography/Mobile,paragraph.x-small.font-size,renamed,
+Typescale/Mobile,Paragraph.X-Small.weight,Typography/Mobile,paragraph.x-small.font-weight,renamed,
+Typescale/Mobile,Paragraph.X-Small.line-height,Typography/Mobile,paragraph.x-small.line-height,renamed,
+Typescale/Mobile,Paragraph.X-Small.letter-spacing,Typography/Mobile,paragraph.x-small.letter-spacing,renamed,
