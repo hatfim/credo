@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { beforeAll, describe, expect, it } from "vitest";
 import { buildArtifacts, type Artifacts, type TokenTable } from "../src/build";
+import { rolePaths } from "../src/model";
 import { validateTokens } from "../src/validate";
 import { makeValid } from "./fixtures/valid";
 
@@ -39,7 +40,8 @@ describe("buildArtifacts (real token file)", () => {
     expect(validateTokens(file).filter((i) => i.severity === "error")).toEqual([]);
     const real = await buildArtifacts(file);
     const table = JSON.parse(real.table) as TokenTable;
-    expect(table.roles).toHaveLength(137);
+    expect(table.roles.map((r) => r.path)).toEqual(rolePaths(file));
+    expect(table.roles.length).toBeGreaterThan(0);
     expect(real.css).toContain("--cr-surface-page:");
     expect(real.css).not.toMatch(/\bundefined\b|\[object Object\]|\{[a-z]+\./);
   });
