@@ -11,5 +11,9 @@
   "packageManager": "pnpm@10.17.1",
   "engines": {
     "node": ">=22"
+  },
+  "scripts": {
+    "lint": "pnpm -r --if-present run lint",
+    "typecheck": "pnpm -r --if-present run typecheck"
   }
 }
