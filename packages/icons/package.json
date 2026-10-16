@@ -27,11 +27,12 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && pnpm check:package",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "clean": "rm -rf dist .turbo"
+    "clean": "rm -rf dist .turbo",
+    "check:package": "publint && attw --pack . --profile esm-only"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
@@ -41,11 +42,13 @@
     "@phosphor-icons/react": "catalog:"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@usecredo/eslint-config": "workspace:*",
     "@usecredo/typescript-config": "workspace:*",
     "eslint": "catalog:",
+    "publint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tsup": "catalog:",
