@@ -22,6 +22,8 @@ catalog:
   tailwindcss: 4.3.3
   tsup: ^9.0.0
   clsx: ^2.1.1
+  vitest: ^5.0.5
+  "@phosphor-icons/react": ^2.1.10
   tailwind-merge: ^3.7.0
   class-variance-authority: ^0.7.1
 
