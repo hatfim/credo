@@ -21,3 +21,6 @@ catalog:
   # TODO(decision: tailwind-minimum): pinned to the current v4 release until the record is accepted.
   tailwindcss: 4.3.3
   tsup: ^9.0.0
+
+onlyBuiltDependencies:
+  - esbuild
