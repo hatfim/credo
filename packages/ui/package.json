@@ -14,6 +14,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./button": {
+      "types": "./dist/button.d.ts",
+      "import": "./dist/button.js"
     }
   },
   "files": [
@@ -23,27 +27,46 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && pnpm check:package",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"no tests yet\"",
-    "clean": "rm -rf dist .turbo"
+    "test": "vitest run",
+    "clean": "rm -rf dist .turbo",
+    "check:package": "publint && attw --pack . --profile esm-only"
   },
   "peerDependencies": {
     "@usecredo/tokens": "workspace:^",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },
+  "dependencies": {
+    "@radix-ui/react-slot": "catalog:",
+    "@usecredo/icons": "workspace:*",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
+    "tailwind-merge": "catalog:"
+  },
   "devDependencies": {
+    "@arethetypeswrong/cli": "catalog:",
+    "@storybook/react": "catalog:",
+    "@testing-library/dom": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@usecredo/eslint-config": "workspace:*",
+    "@usecredo/test-utils": "workspace:*",
     "@usecredo/tokens": "workspace:*",
     "@usecredo/typescript-config": "workspace:*",
+    "esbuild": "catalog:",
     "eslint": "catalog:",
+    "jsdom": "catalog:",
+    "publint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "tsup": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }
