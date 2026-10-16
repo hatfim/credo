@@ -1,0 +1,43 @@
+{
+  "name": "@usecredo/test-utils",
+  "version": "0.0.0",
+  "description": "Shared decorators, fixtures and test setup",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hatfim/credo.git",
+    "directory": "packages/test-utils"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"no tests yet\"",
+    "clean": "rm -rf dist .turbo"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@usecredo/eslint-config": "workspace:*",
+    "@usecredo/tokens": "workspace:*",
+    "@usecredo/typescript-config": "workspace:*",
+    "@usecredo/ui": "workspace:*",
+    "eslint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  }
+}

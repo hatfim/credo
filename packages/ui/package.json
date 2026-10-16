@@ -1,0 +1,49 @@
+{
+  "name": "@usecredo/ui",
+  "version": "0.0.0",
+  "description": "Credo React components",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hatfim/credo.git",
+    "directory": "packages/ui"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"no tests yet\"",
+    "clean": "rm -rf dist .turbo"
+  },
+  "peerDependencies": {
+    "@usecredo/tokens": "workspace:^",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@usecredo/eslint-config": "workspace:*",
+    "@usecredo/tokens": "workspace:*",
+    "@usecredo/typescript-config": "workspace:*",
+    "eslint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  }
+}
