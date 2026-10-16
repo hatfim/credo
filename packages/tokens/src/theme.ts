@@ -80,6 +80,16 @@ export function buildPairs(roles: string[]): Pair[] {
     for (const s of baseSurfaces) ui(`${ring} on ${s}`, ring, s);
   }
 
+  // Control borders must be visible on every base surface (3:1). `border.default*` and
+  // `border.subtle*` are decorative dividers and are deliberately not gated: components must
+  // never rely on them as the only visible boundary of a control.
+  const controlBorders = roles.filter((r) => /^(field\.border|border\.(interactive|strong))/.test(r));
+  for (const b of controlBorders) {
+    for (const s of baseSurfaces.filter((x) => x !== "surface.overlay")) {
+      if (!pairs.some((p) => p.fg === b && p.bg === s)) ui(`${b} on ${s}`, b, s);
+    }
+  }
+
   for (const a of roles.filter((r) => /^alpha\.(neutral|primary|destructive)\.(5|10|20)$/.test(r))) {
     for (const tier of ["primary", "secondary"]) text(`content.${tier} on ${a} over surface.page`, `content.${tier}`, a, "surface.page");
   }

@@ -35,6 +35,13 @@ export function formatIssue(i: Issue): string {
 const isObject = (v: unknown): v is Record<string, unknown> =>
   typeof v === "object" && v !== null && !Array.isArray(v);
 
+const SCALE_ORDERED = ["spacing", "radius", "border-width"];
+
+function toPx(v: unknown): number | undefined {
+  const m = /^(-?(?:\d+|\d*\.\d+))(px|rem)$/.exec(String(v));
+  return m ? Number(m[1]) * (m[2] === "rem" ? 16 : 1) : undefined;
+}
+
 const REQUIRED_SETS = Object.values(SETS);
 
 /** Validate the raw file text: JSON syntax first, then the token structure. */
@@ -211,6 +218,29 @@ export function validateTokens(input: unknown): Issue[] {
           );
         }
       }
+    }
+  }
+
+  // Scale tokens (spacing, radius, border-width): dimensions in ascending order. They are not
+  // themed per mode, so they are exempt from contrast and light/dark parity.
+  const lightCtx = contexts.find((c) => c.name === "light")!.ctx;
+  for (const group of SCALE_ORDERED) {
+    let previous: { path: string; px: number } | undefined;
+    for (const t of bySet(SETS.primitives).filter((x) => x.path.split(".")[0] === group)) {
+      if (t.type !== "dimension") {
+        add({ code: "scale-type", set: t.set, path: t.path, message: `${group} tokens must be dimensions, but this one is "${t.type ?? "untyped"}".` });
+        continue;
+      }
+      const res = lightCtx.resolveValue(t.value, [t.path]);
+      const px = res.error ? undefined : toPx(res.value);
+      if (px === undefined) {
+        add({ code: "scale-type", set: t.set, path: t.path, message: `Value ${JSON.stringify(res.value ?? t.value)} is not a px or rem dimension.` });
+        continue;
+      }
+      if (previous && px <= previous.px) {
+        add({ code: "scale-order", set: t.set, path: t.path, message: `${t.path} (${px}px) must be larger than ${previous.path} (${previous.px}px). Scales are ascending.` });
+      }
+      previous = { path: t.path, px };
     }
   }
 
