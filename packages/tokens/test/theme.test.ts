@@ -72,6 +72,25 @@ describe("checkTheme", () => {
     ]);
   });
 
+  it("gates control borders on every base surface and skips decorative borders", () => {
+    const roles = [
+      "surface.page", "surface.container", "surface.container-subtle", "surface.container-elevated", "surface.overlay",
+      "field.border", "field.border-hover", "border.strong", "border.interactive-pressed", "border.default", "border.subtle",
+    ];
+    const fgs = new Set(buildPairs(roles).filter((p) => p.kind === "ui").map((p) => p.fg));
+    expect([...fgs].sort()).toEqual(["border.interactive-pressed", "border.strong", "field.border", "field.border-hover"]);
+    const on = buildPairs(roles).filter((p) => p.fg === "border.strong").map((p) => p.bg);
+    expect(on).toEqual(["surface.page", "surface.container", "surface.container-subtle", "surface.container-elevated"]);
+  });
+
+  it("fails a weak control border", () => {
+    const f = makeValid();
+    f["Semantic/Light"].border.strong = { $type: "color", $value: "{scale.neutral.50}" };
+    f["Semantic/Dark"].border.strong = { $type: "color", $value: "{scale.neutral.900}" };
+    const labels = checkTheme(f).failures.map((x) => x.pair.label);
+    expect(labels).toContain("border.strong on surface.container");
+  });
+
   it("reports incomplete themes", () => {
     const f = makeValid();
     delete f["Semantic/Dark"].content.secondary;

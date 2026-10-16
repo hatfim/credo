@@ -102,4 +102,32 @@ describe("validateTokens", () => {
     delete f["Semantic/Dark"];
     expect(codes(f).some((i) => i.code === "set-missing")).toBe(true);
   });
+
+  it("fails a radius token that is not a dimension", () => {
+    const f = makeValid();
+    f["Primitives/Default"].radius = { sm: { $type: "color", $value: "#000000" } };
+    const issue = codes(f).find((i) => i.code === "scale-type");
+    expect(formatIssue(issue!)).toBe('error [scale-type] Primitives/Default radius.sm: radius tokens must be dimensions, but this one is "color".');
+  });
+
+  it("fails a radius scale that is out of order", () => {
+    const f = makeValid();
+    f["Primitives/Default"].radius = {
+      xs: { $type: "dimension", $value: "0.125rem" },
+      sm: { $type: "dimension", $value: "0.5rem" },
+      md: { $type: "dimension", $value: "0.25rem" },
+      full: { $type: "dimension", $value: "9999px" },
+    };
+    const issues = codes(f).filter((i) => i.code === "scale-order");
+    expect(issues.map(formatIssue)).toEqual([
+      "error [scale-order] Primitives/Default radius.md: radius.md (4px) must be larger than radius.sm (8px). Scales are ascending.",
+    ]);
+  });
+
+  it("accepts ascending scales and 9999px for full", () => {
+    const f = makeValid();
+    f["Primitives/Default"].spacing = { "0": { $type: "dimension", $value: "0rem" }, "4": { $type: "dimension", $value: "0.25rem" } };
+    f["Primitives/Default"].radius = { sm: { $type: "dimension", $value: "4px" }, full: { $type: "dimension", $value: "9999px" } };
+    expect(codes(f)).toEqual([]);
+  });
 });
