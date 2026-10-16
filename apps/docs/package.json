@@ -2,15 +2,16 @@
   "name": "@usecredo/docs",
   "version": "0.0.0",
   "private": true,
-  "description": "Credo documentation site (placeholder)",
+  "description": "Credo documentation site",
   "license": "MIT",
-  "type": "module",
   "scripts": {
-    "build": "tsc --noEmit",
+    "dev": "docusaurus start",
+    "build": "docusaurus build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "echo \"no tests yet\"",
-    "clean": "rm -rf dist build storybook-static .turbo"
+    "check:links": "node scripts/check-links.mjs",
+    "clean": "rm -rf dist build .docusaurus link-report .turbo"
   },
   "dependencies": {
     "@usecredo/tailwind-config": "workspace:*",
@@ -18,7 +19,11 @@
     "@usecredo/tokens": "workspace:*",
     "@usecredo/ui": "workspace:*",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "@docusaurus/core": "catalog:",
+    "@docusaurus/preset-classic": "catalog:",
+    "@easyops-cn/docusaurus-search-local": "catalog:",
+    "@mdx-js/react": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",
@@ -26,6 +31,9 @@
     "@usecredo/eslint-config": "workspace:*",
     "@usecredo/typescript-config": "workspace:*",
     "eslint": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@docusaurus/module-type-aliases": "catalog:",
+    "@docusaurus/types": "catalog:",
+    "@types/node": "catalog:"
   }
 }

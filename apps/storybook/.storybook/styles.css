@@ -1,0 +1,9 @@
+/* Placeholder for the design system stylesheet (P1-17, Wave 2).
+ *
+ * TODO(P1-17 wave 2): once @usecredo/tokens and @usecredo/tailwind-config are built,
+ * replace the line below with their public stylesheet exports, in this order:
+ *   @import "@usecredo/tokens/<theme css export>";
+ *   @import "@usecredo/tailwind-config/<theme mapping css export>";
+ * No tokens or CSS variables are defined here on purpose.
+ */
+@import "tailwindcss";
