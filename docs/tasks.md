@@ -80,11 +80,11 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### A. Repository skeleton
 
-- [ ] **P1-01 Workspace root.** `pnpm-workspace.yaml` (apps, packages, consumers), root `package.json` with `packageManager` and `engines.node` 22 or newer, `.nvmrc`, `.gitignore` (build output, Storybook output, coverage; the synced token file stays committed). *Accept:* `pnpm install --frozen-lockfile` works from a clean clone. (BLD-01, BLD-03)
-- [ ] **P1-02 Shared config packages.** Private `typescript-config` (base, library, app) and `eslint-config` (flat config). *Accept:* every workspace extends them, and `pnpm lint` and `pnpm typecheck` run on the empty packages. (5.1)
-- [ ] **P1-03 Turborepo tasks.** `turbo.json` with the tasks in PRD 11.2, declared inputs, outputs and environment variables, and root scripts including `check`. *Accept:* `pnpm check` runs through Turborepo and a second run is served from cache. (BLD-04 to BLD-07)
-- [ ] **P1-04 Release and hygiene tooling.** Changesets, `syncpack`, an import-boundary lint rule, and a rule that forbids component definitions inside `apps/*`. *Accept:* a deliberate violation of each rule fails `pnpm lint`. (DST-04, BLD-09)
-- [ ] **P1-05 Package skeletons.** `tokens`, `tailwind-config`, `ui`, `icons`, `test-utils`, the two apps and the two consumers, each with a `package.json` (exports map, `sideEffects: false`, peer dependencies, `private: true` where the PRD says so) and the build setup chosen in the decision records. *Accept:* `pnpm build` passes for every package. (BLD-01, DST-02)
+- [x] **P1-01 Workspace root.** `pnpm-workspace.yaml` (apps, packages, consumers), root `package.json` with `packageManager` and `engines.node` 22 or newer, `.nvmrc`, `.gitignore` (build output, Storybook output, coverage; the synced token file stays committed). *Accept:* `pnpm install --frozen-lockfile` works from a clean clone. (BLD-01, BLD-03)
+- [x] **P1-02 Shared config packages.** Private `typescript-config` (base, library, app) and `eslint-config` (flat config). *Accept:* every workspace extends them, and `pnpm lint` and `pnpm typecheck` run on the empty packages. (5.1)
+- [x] **P1-03 Turborepo tasks.** `turbo.json` with the tasks in PRD 11.2, declared inputs, outputs and environment variables, and root scripts including `check`. *Accept:* `pnpm check` runs through Turborepo and a second run is served from cache. (BLD-04 to BLD-07)
+- [x] **P1-04 Release and hygiene tooling.** Changesets, `syncpack`, an import-boundary lint rule, and a rule that forbids component definitions inside `apps/*`. *Accept:* a deliberate violation of each rule fails `pnpm lint`. (DST-04, BLD-09)
+- [x] **P1-05 Package skeletons.** `tokens`, `tailwind-config`, `ui`, `icons`, `test-utils`, the two apps and the two consumers, each with a `package.json` (exports map, `sideEffects: false`, peer dependencies, `private: true` where the PRD says so) and the build setup chosen in the decision records. *Accept:* `pnpm build` passes for every package. (BLD-01, DST-02)
 
 ### B. Tokens
 
