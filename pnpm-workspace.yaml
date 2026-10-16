@@ -21,6 +21,10 @@ catalog:
   # TODO(decision: tailwind-minimum): pinned to the current v4 release until the record is accepted.
   tailwindcss: 4.3.3
   tsup: ^9.0.0
+  "@tokens-studio/sd-transforms": ^2.0.3
+  "@types/node": ^22.0.0
+  style-dictionary: ^5.7.0
+  vitest: ^4.0.0
 
 onlyBuiltDependencies:
   - esbuild
