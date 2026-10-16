@@ -100,14 +100,14 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### D. `ui` and `icons`
 
-- [ ] **P1-12 Component conventions.** The class-merge helper, variant helper, `asChild` through Slot, `data-slot` attributes, `forwardRef` for React 18 and 19, and `use client`. *Accept:* a short contributing page documents them. (CMP-01, CMP-02)
-- [ ] **P1-13 Button.** All variants and sizes, disabled and loading states, `asChild`, unit tests, and the subpath export `@usecredo/ui/button`. *Accept:* tests pass and importing it has no side effects. (CMP-02, CMP-04)
-- [ ] **P1-14 Package checks.** `publint` and `arethetypeswrong` run in `pnpm check`, plus a bundle-size test that imports only Button. *Accept:* the test fails if importing Button pulls in other components. (DST-02, DST-03)
-- [ ] **P1-15 `icons`.** Re-export the Phosphor icons the components use, including the server-rendering entry. *Accept:* a server component in the Next.js consumer imports an icon without error. (D-08, 5.3)
+- [x] **P1-12 Component conventions.** The class-merge helper, variant helper, `asChild` through Slot, `data-slot` attributes, `forwardRef` for React 18 and 19, and `use client`. *Accept:* a short contributing page documents them. (CMP-01, CMP-02)
+- [x] **P1-13 Button.** All variants and sizes, disabled and loading states, `asChild`, unit tests, and the subpath export `@usecredo/ui/button`. *Accept:* tests pass and importing it has no side effects. (CMP-02, CMP-04)
+- [x] **P1-14 Package checks.** `publint` and `arethetypeswrong` run in `pnpm check`, plus a bundle-size test that imports only Button. *Accept:* the test fails if importing Button pulls in other components. (DST-02, DST-03)
+- [x] **P1-15 `icons`.** Re-export the Phosphor icons the components use, including the server-rendering entry. *Accept:* a server component in the Next.js consumer imports an icon without error. (D-08, 5.3)
 
 ### E. Test utilities and the two apps
 
-- [ ] **P1-16 `test-utils`.** Storybook theme decorator (light, dark, second theme), viewport presets, Vitest setup and an accessibility helper. *Accept:* Storybook and unit tests both use it. (9.3)
+- [x] **P1-16 `test-utils`.** Storybook theme decorator (light, dark, second theme), viewport presets, Vitest setup and an accessibility helper. *Accept:* Storybook and unit tests both use it. (9.3)
 - [ ] **P1-17 Storybook app.** Storybook with CSF in TypeScript, the accessibility addon, interaction tests and a theme toolbar, plus Button stories with a keyboard `play` function. *Accept:* it builds, and a smoke test renders every story. (SBK-02, SBK-03, SBK-05)
 - [ ] **P1-18 Docs app.** Docusaurus (as confirmed by spike B) with a Getting started skeleton, a token reference generated from the token source, and a Button page that has a live example using the real component, an API table generated from its types, and a link to its stories. Search and the link check are on. *Accept:* it builds, and a deliberately broken link fails the build. (DOC-02 to DOC-06)
 - [ ] **P1-19 Cross-link check.** Read the Storybook index and fail if a story ID linked from the docs is missing, or if a stable component lacks a docs page or stories. *Accept:* removing a story fails the check. (DOC-05, 9.4)
