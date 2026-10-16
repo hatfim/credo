@@ -21,6 +21,21 @@ catalog:
   # TODO(decision: tailwind-minimum): pinned to the current v4 release until the record is accepted.
   tailwindcss: 4.3.3
   tsup: ^9.0.0
+  # Storybook and docs apps (P1-17, P1-18).
+  "@storybook/addon-a11y": ^10.6.2
+  "@storybook/addon-docs": ^10.6.2
+  "@storybook/react-vite": ^10.6.2
+  storybook: ^10.6.2
+  "@tailwindcss/vite": 4.3.3
+  vite: ^8.3.4
+  vitest: ^5.0.5
+  "@docusaurus/core": ^3.10.2
+  "@docusaurus/preset-classic": ^3.10.2
+  "@docusaurus/module-type-aliases": ^3.10.2
+  "@docusaurus/types": ^3.10.2
+  "@docusaurus/tsconfig": ^3.10.2
+  "@easyops-cn/docusaurus-search-local": ^0.55.3
+  "@mdx-js/react": ^3.1.1
 
 onlyBuiltDependencies:
   - esbuild
