@@ -51,7 +51,7 @@ record picks between them and the unified `radix-ui` package.
 
 Every rendered part carries `data-slot="<component>"` or `data-slot="<component>-<part>"`
 (for example `button`, `dialog-content`). Consumers and tests target parts through it.
-State is exposed as data attributes (`data-variant`, `data-size`, `data-loading`), set before
+State is exposed as data attributes (`data-variant`, `data-size`, `data-loading`), set after
 the caller's props so a consumer cannot remove the slot by accident.
 
 ## `forwardRef`
