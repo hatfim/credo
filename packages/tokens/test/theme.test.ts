@@ -54,6 +54,24 @@ describe("checkTheme", () => {
     expect(withBaseline.issues.map((i) => i.code)).toContain("stale-baseline");
   });
 
+  it("checks feedback foreground on default, hover and pressed fills", () => {
+    const f = makeValid();
+    for (const set of ["Semantic/Light", "Semantic/Dark"]) {
+      const e = f[set].feedback.error;
+      e.hover = { ...e.default };
+      e.pressed = { ...e.default };
+      e.foreground = { $type: "color", $value: "{color.white}" };
+    }
+    expect(checkTheme(f).failures).toEqual([]);
+    f["Semantic/Light"].feedback.error.foreground.$value = "{scale.destructive.500}";
+    const labels = checkTheme(f).failures.map((x) => `${x.mode}: ${x.pair.label}`);
+    expect(labels).toEqual([
+      "light: feedback.error text on default",
+      "light: feedback.error text on hover",
+      "light: feedback.error text on pressed",
+    ]);
+  });
+
   it("reports incomplete themes", () => {
     const f = makeValid();
     delete f["Semantic/Dark"].content.secondary;
