@@ -2,15 +2,17 @@
   "name": "@usecredo/storybook",
   "version": "0.0.0",
   "private": true,
-  "description": "Credo Storybook (placeholder)",
+  "description": "Credo Storybook",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "tsc --noEmit",
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "echo \"no tests yet\"",
-    "clean": "rm -rf dist build storybook-static .turbo"
+    "test:storybook": "vitest run",
+    "clean": "rm -rf dist build storybook-static test-results .turbo"
   },
   "dependencies": {
     "@usecredo/tailwind-config": "workspace:*",
@@ -26,6 +28,14 @@
     "@usecredo/eslint-config": "workspace:*",
     "@usecredo/typescript-config": "workspace:*",
     "eslint": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@storybook/addon-a11y": "catalog:",
+    "@storybook/addon-docs": "catalog:",
+    "@storybook/react-vite": "catalog:",
+    "@tailwindcss/vite": "catalog:",
+    "storybook": "catalog:",
+    "tailwindcss": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
   }
 }
