@@ -67,6 +67,7 @@ export function buildPairs(roles: string[]): Pair[] {
   const feedback = [...new Set(roles.filter((r) => r.startsWith("feedback.")).map((r) => r.split(".")[1]!))];
   for (const f of feedback) {
     for (const st of ["container", "container-hover", "container-pressed"]) text(`feedback.${f}.content on ${st}`, `feedback.${f}.content`, `feedback.${f}.${st}`);
+    for (const st of ["default", "hover", "pressed"]) text(`feedback.${f} text on ${st}`, `feedback.${f}.foreground`, `feedback.${f}.${st}`);
   }
 
   text("field.foreground on field.background", "field.foreground", "field.background");
