@@ -1,0 +1,39 @@
+{
+  "name": "@usecredo/tokens",
+  "version": "0.0.0",
+  "description": "Credo design tokens: source, build output and theme validator",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hatfim/credo.git",
+    "directory": "packages/tokens"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"no tests yet\"",
+    "clean": "rm -rf dist .turbo"
+  },
+  "devDependencies": {
+    "@usecredo/eslint-config": "workspace:*",
+    "@usecredo/typescript-config": "workspace:*",
+    "eslint": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  }
+}

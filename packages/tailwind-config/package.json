@@ -1,0 +1,45 @@
+{
+  "name": "@usecredo/tailwind-config",
+  "version": "0.0.0",
+  "description": "Tailwind CSS v4 mapping for the Credo token contract",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hatfim/credo.git",
+    "directory": "packages/tailwind-config"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"no tests yet\"",
+    "clean": "rm -rf dist .turbo"
+  },
+  "peerDependencies": {
+    "@usecredo/tokens": "workspace:^",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@usecredo/eslint-config": "workspace:*",
+    "@usecredo/tokens": "workspace:*",
+    "@usecredo/typescript-config": "workspace:*",
+    "eslint": "catalog:",
+    "tailwindcss": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
+  }
+}

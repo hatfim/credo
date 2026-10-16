@@ -5,7 +5,7 @@
     {
       "label": "Internal packages use the workspace protocol",
       "dependencies": ["@usecredo/*"],
-      "dependencyTypes": ["!local"],
+      "dependencyTypes": ["!local", "!peer"],
       "pinVersion": "workspace:*"
     },
     {

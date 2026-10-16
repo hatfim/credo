@@ -48,7 +48,7 @@ function boundaryPatterns(kind, name) {
   } else if (kind === "consumers") {
     patterns.push(
       forbid(
-        [...APPS, ...CONSUMERS, "@usecredo/test-utils", "@usecredo/eslint-config"],
+        [...APPS, ...CONSUMERS, "@usecredo/test-utils"],
         "Consumers use only the packed public packages.",
       ),
     );

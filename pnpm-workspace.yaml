@@ -14,3 +14,10 @@ catalog:
   # typescript-eslint supports TypeScript below 6.1 only.
   typescript: 6.0.3
   typescript-eslint: ^8.71.2
+  "@types/react": ^19.3.0
+  "@types/react-dom": ^19.3.0
+  react: ^19.3.1
+  react-dom: ^19.3.1
+  # TODO(decision: tailwind-minimum): pinned to the current v4 release until the record is accepted.
+  tailwindcss: 4.3.3
+  tsup: ^9.0.0
