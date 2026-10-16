@@ -1,3 +1,3 @@
-import config from "./index.js";
+import { createConfig } from "./index.js";
 
-export default config;
+export default createConfig(import.meta.dirname);

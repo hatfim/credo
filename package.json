@@ -15,14 +15,19 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "lint": "turbo run lint",
+    "lint": "syncpack lint && turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "test:coverage": "turbo run test:coverage",
     "check": "turbo run lint typecheck test build",
-    "clean": "turbo run clean"
+    "clean": "turbo run clean",
+    "lint:deps": "syncpack lint",
+    "changeset": "changeset",
+    "version-packages": "changeset version"
   },
   "devDependencies": {
-    "turbo": "^2.11.8"
+    "@changesets/cli": "catalog:",
+    "syncpack": "catalog:",
+    "turbo": "catalog:"
   }
 }
