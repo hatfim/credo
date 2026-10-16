@@ -1,6 +1,6 @@
 # Credo Design System — Task list by phase
 
-sOct 16, 2026 · @Hatfim
+16 October 2026 · Hatfim
 
 ## Next step: code in the CLI
 
@@ -60,7 +60,7 @@ Phase 0 sets up the accounts, runs three spikes, records the decisions and measu
 
 ### Spikes (throwaway branches, results go into decision records)
 
-- [ ] **P0-05 Spike A, Tailwind delivery.** Build one Button with Tailwind v4 classes in a scratch package. Consume it from three apps: one with Tailwind v4, one without Tailwind that uses a precompiled stylesheet, and one whose Tailwind config already defines a `background` color. *Accept:* a written result says whether the fallback stylesheet builds, whether it avoids class and variable collisions, what it costs, and whether to keep it. (D-03, DST-09, 6.2)
+- [ ] **P0-05 Spike A, Tailwind delivery.** Build one Button with Tailwind v4 classes in a scratch package. Consume it from three apps: one with Tailwind v4, one without Tailwind that uses a precompiled stylesheet, and one whose Tailwind config already defines a `surface` color. *Accept:* a written result says whether the fallback stylesheet builds, whether it avoids class and variable collisions, what it costs, and whether to keep it. (D-03, DST-09, 6.2)
 - [ ] **P0-06 Spike B, Docusaurus.** *Accept:* all five hold in a scratch site: it renders a live component in the default and a second theme, builds with Tailwind v4 without style leakage, searches offline in CI, creates a versioned snapshot, and fails the build on a broken link. If one fails, try Astro Starlight and record why. (D-05, 9.1)
 - [ ] **P0-07 Spike C, Playwright snapshots.** Build a Storybook with three stories in two themes and take screenshots in GitHub Actions. *Accept:* three unchanged runs give zero diffs, a deliberate change uploads diff images as a workflow artifact, and the size of one baseline set is noted. (D-07, 10)
 
@@ -88,7 +88,7 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### B. Tokens
 
-- [ ] **P1-06 First synced token file.** Push the first token sets from Tokens Studio: primitives, semantic roles (the shadcn/ui roles plus success, warning and info), and light and dark as separate sets. *Accept:* `packages/tokens/generated/tokens.json` arrives through the plugin, not by hand, and the role list is documented as contract v0. (TOK-01, TOK-02, TOK-11)
+- [ ] **P1-06 First synced token file.** Push the first token sets from Tokens Studio: primitives, a brand scale layer (neutral, primary, secondary, destructive, success, warning, info), semantic roles in the surface, content, field, actions, state, border, feedback, alpha and shadow groups, and light and dark as separate sets. *Accept:* `packages/tokens/generated/tokens.json` arrives through the plugin, not by hand, and the role list is documented as contract v0 (docs/token-contract-v0.md). (TOK-01, TOK-02, TOK-11)
 - [ ] **P1-07 Raw token validation.** A script that checks valid JSON, token shape and alias resolution, adapted from the reference workflow's script. *Accept:* broken fixtures fail with readable messages, covered by unit tests. (TOK-12, TOK-15)
 - [ ] **P1-08 Style Dictionary build.** Use the Tokens Studio transforms to produce prefixed CSS variables (light and dark switched by an attribute), TypeScript types and a JSON schema; build output stays out of git. *Accept:* `pnpm build --filter @usecredo/tokens` produces them, and a snapshot test covers the CSS. (TOK-03, TOK-04, TOK-12)
 - [ ] **P1-09 Theme validator and contrast check.** A CLI that checks completeness, value types and WCAG 2.2 AA contrast for every foreground and background pair, starting with an empty baseline. *Accept:* a failing pair fails the check and the default theme passes. (TOK-06, TOK-07)
@@ -96,7 +96,7 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### C. Tailwind integration
 
-- [ ] **P1-11 `tailwind-config`.** Map the prefixed variables to Tailwind theme values with `@theme inline`, add the radius scale, and add the precompiled stylesheet if spike A kept it. *Accept:* `bg-background` resolves to the active theme in the Vite consumer. (TOK-03, D-03)
+- [ ] **P1-11 `tailwind-config`.** Map the prefixed variables to Tailwind theme values with `@theme inline`, add the radius scale, and add the precompiled stylesheet if spike A kept it. *Accept:* `bg-surface-page` resolves to the active theme in the Vite consumer. (TOK-03, D-03)
 
 ### D. `ui` and `icons`
 

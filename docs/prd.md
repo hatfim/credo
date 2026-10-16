@@ -208,19 +208,19 @@ Tokens are the shared contract between the platform and every project's brand. P
 | Layer | Contents | Example | Who changes it |
 | --- | --- | --- | --- |
 | 1. Primitive | Raw values: color scales, spacing steps, type sizes, radii, shadows | `blue-600`, `space-4`, `radius-md` | Platform (defaults); a project may add its own scales |
-| 2. Semantic | Meaning-based roles that components read | `background`, `foreground`, `primary`, `primary-foreground`, `muted`, `border`, `ring`, `destructive`, plus status roles (`success`, `warning`, `info`) | Platform owns names and meaning; projects never rename |
+| 2. Semantic | Meaning-based roles that components read | `surface.page`, `content.primary`, `field.border`, `actions.primary.default`, `state.focus.ring`, `border.default`, `feedback.success.default` (groups: surface, content, field, actions, state, border, feedback, alpha, shadow) | Platform owns names and meaning; projects never rename |
 | 3. Theme mapping | A project's primitive values assigned to every semantic role, for light and dark | Brand A maps `primary` to its own blue | Each project |
 | 4. Component (optional) | Narrow overrides where semantic roles are not enough | `button-height-md` | Platform defines which components expose them |
 
-The semantic set is a superset of the roles shadcn/ui uses, with status roles added because forms and feedback patterns need them. The final list is frozen as "semantic contract v1" before the first stable release.
+The semantic set uses its own role taxonomy (surface, content, field, actions, state, border, feedback, alpha, shadow), in the same names in light and dark. The names are the platform's own: shadcn/ui is a reference for component patterns only, not a naming contract, and tailwind-config exposes these roles directly (for example bg-surface-page). A brand scale layer (neutral, primary, secondary, destructive, success, warning, info, steps 50 to 1200) sits between the primitives and the semantic roles, so a project sets its brand by pointing scale.primary at its own palette. The final list is frozen as "semantic contract v1" before the first stable release.
 
 ### 6.2 Delivery to CSS and Tailwind
 
 - Tokens are authored in Figma with Tokens Studio and synced to the repository as JSON (section 6.6). A build step turns those files into CSS custom properties, TypeScript types and a JSON schema.
-- CSS variables carry an organization prefix (for example `--cr-background`) so adopting the system in an existing app cannot collide with variables the app already defines. Unprefixed names, as in shadcn/ui, are a collision risk during incremental migration.
-- `tailwind-config` maps the prefixed variables to Tailwind theme values so utilities such as `bg-background` resolve to the active theme.
+- CSS variables carry an organization prefix (for example `--cr-surface-page`) so adopting the system in an existing app cannot collide with variables the app already defines. Unprefixed names, as in shadcn/ui, are a collision risk during incremental migration.
+- `tailwind-config` maps the prefixed variables to Tailwind theme values so utilities such as `bg-surface-page` and `text-content-primary` resolve to the active theme.
 - Light and dark modes switch through a theme attribute on any ancestor element, with an optional `prefers-color-scheme` default. Because the switch is scoped to an element, two brands or modes can coexist on one page.
-- The D-03 spike must test a consumer whose Tailwind config already defines a `background` color, to confirm the class names and the precompiled stylesheet do not collide.
+- The D-03 spike must test a consumer whose Tailwind config already defines a `surface` color, to confirm the class names and the precompiled stylesheet do not collide.
 
 ### 6.3 Theme validation
 
