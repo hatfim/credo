@@ -1,0 +1,15 @@
+{
+  "name": "credo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Credo Design System monorepo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hatfim/credo.git"
+  },
+  "packageManager": "pnpm@10.17.1",
+  "engines": {
+    "node": ">=22"
+  }
+}
