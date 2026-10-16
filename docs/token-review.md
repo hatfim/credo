@@ -92,7 +92,7 @@ Full before and after aliases and hex values for all 37 changed tokens (12 light
 - **Dark mode.** Lime works directly: link `primary.300` (`#dbf88b`), ring `primary.400`, fill 14.3:1 on the page.
 - **Weakness.** On white the fill is 1.3:1 against the page, so a lime button in light mode needs a border or shadow to read as a shape.
 - It is 34° from the success green, so no other scale moved.
-- Contrast gate after the change: 210 checks, 0 failing.
+- Contrast gate after the change: 282 checks, 0 failing.
 
 ## Neutral scale and darker dark theme
 
@@ -111,18 +111,43 @@ The dark end of the scale was also rebuilt with denser steps (OKLab lightness 0.
 - Light mode: `content.primary` is `neutral.1200`, `content.tertiary` is `neutral.700`, so the three text tiers are clearly separated.
 - `alpha.neutral.*` in light mode follows the new neutral, and `alpha.primary.*` was still the old indigo hex; it is now lime. `state.loading.foreground` (dark) is `primary.300`.
 - `alpha.destructive.*` literals now match the scale: light `destructive.600` (`#cf3359`), dark `destructive.500` (`#de4b69`). They were `#d13447` and `#df4c5f`, which matched no step. Source steps for all alpha groups: neutral light `neutral.900` / dark black; primary light `primary.700` / dark `primary.500`; destructive as above.
-- Contrast gate: 210 checks, 0 failing. The full list is in `docs/tokens/token-neutral-changes.csv`.
+- Contrast gate: 282 checks, 0 failing. The full list is in `docs/tokens/token-neutral-changes.csv`.
+
+## Round 3: edits made in Figma, and the contrast list
+
+The file synced back from Tokens Studio (750 tokens) differs from the one I delivered. I kept your edits and re-ran the checks. What changed in your version:
+
+- `scale.warning` now points at the new `orange` palette (steps 50 to 1200) instead of `ember`.
+- New roles `feedback.{error,info,success,warning}.foreground` (ink or white text on the feedback fills), and the feedback hover and pressed steps were adjusted so one foreground works on all three states.
+- Dark: `border.subtle` is neutral.800, `surface.overlay` is neutral.800 (distinct from elevated), and `state.loading`, `state.read-only` and `state.disabled` foregrounds changed. `content.link-external` now uses `scale.info`.
+- `$themes` now lists four Tokens Studio themes (Light, Dark, Desktop, Mobile) that just select sets.
+
+Contrast list, decided:
+
+- Gated at 3:1 against every base surface (page, container, container-subtle, container-elevated): `field.border*`, `state.focus.ring*`, `border.interactive*` and `border.strong*`.
+- Not gated: `border.default*` and `border.subtle*`. They are decorative dividers. A component must never rely on them as the only visible boundary of a control; use `field.border` or `border.strong`.
+- Also gated now: the four `feedback.*.foreground` roles against their default, hover and pressed fills (4.5:1). That brings the gate from 210 to 282 checks.
+
+Three tokens I changed on top of your version, because the new checks failed them:
+
+| Token | Before | After | Why |
+| --- | --- | --- | --- |
+| `border.strong` (light) | neutral.600 (1.7 to 2.1:1) | neutral.700 | "Strong" boundary was below 3:1 |
+| `border.strong-hover` (light) | neutral.700 | neutral.800 | keeps hover darker than default |
+| `feedback.warning.default` (light) | warning.600 (2.7:1 on white) | warning.700 | amber icon or border was below 3:1 |
+
+Scale tokens (spacing, radius, border width, typography styles) are part of the contract and components may read them directly. They are not themed per mode and are exempt from the contrast check and light/dark parity. The validator checks only that they are dimensions and in ascending order.
 
 ## What this means for the PRD and tasks
 
 - The token contract is this file's vocabulary (`surface`, `content`, `field`, `actions`, `state`, `border`, `feedback`, `alpha`, `shadow`), not the shadcn/ui names. shadcn/ui is a pattern reference only: there is no mapping table and no alias. `tailwind-config` (P1-11) exposes the roles directly with `@theme inline` (for example `bg-surface-page`).
 
-- The file is the input for P1-06. The validator in P1-09 should cover the same checks: no unresolved aliases, no duplicate names, strict contrast over the pairs I used (210 checks, 105 per mode, all passing), and light/dark parity.
+- The file is the input for P1-06. The validator in P1-09 should cover the same checks: no unresolved aliases, no duplicate names, strict contrast over the pairs I used (282 checks, 141 per mode, all passing), and light/dark parity.
 - The CSS prefix is still undecided (`--cr-` is the proposal), so token names in the file carry no prefix.
 
 ## How it was checked
 
 - Aliases resolved in light, dark and mobile combinations: 0 unresolved, 0 cycles, 0 duplicate names.
 - Light and dark semantic sets have identical keys (137 each).
-- Contrast: text on every surface and its hover and pressed states, links on base surfaces, button text on every state, feedback text on containers, input text, placeholder, input boundary and focus ring, focus rings on surfaces. Result: 210 checks, 0 failing. Alpha colours were composited over the page surface.
+- Contrast: text on every surface and its hover and pressed states, links on base surfaces, button text on every state, feedback text on containers, input text, placeholder, input boundary and focus ring, focus rings on surfaces. Result: 282 checks, 0 failing. Alpha colours were composited over the page surface.
 - Not covered: disabled states (exempt from WCAG contrast), logo and decorative colours, and contrast of components that do not exist yet.

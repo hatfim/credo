@@ -50,7 +50,9 @@ consumers/*         simulate external apps; install packed tarballs only   priva
 - Only documented exports are public. Each package has an `exports` map. No deep imports.
   Each component has its own subpath export (for example `@usecredo/ui/button`).
   JavaScript is ESM with `sideEffects: false`. Client components carry `use client`.
-- Components read only semantic or component tokens, never primitives or raw values.
+- Components read only semantic or component tokens, never color primitives or raw
+  values. Scale tokens (spacing, radius, border width, typography styles) are part of the
+  contract and may be read directly; they are not themed per mode.
   CSS variables carry one organization prefix. The prefix is proposed as `--cr-` and
   stays a TODO until its decision record is accepted.
 - The semantic contract uses the role taxonomy in the token file (`surface`, `content`,
