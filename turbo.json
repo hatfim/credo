@@ -1,0 +1,41 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": ["pnpm-lock.yaml", ".nvmrc"],
+  "globalEnv": ["CI"],
+  "tasks": {
+    "dev": { "cache": false, "persistent": true },
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "!**/*.md", "!**/*.test.*", "!**/*.stories.*"],
+      "outputs": ["dist/**", "storybook-static/**", "build/**", ".next/**", "!.next/cache/**"],
+      "env": ["NODE_ENV", "DOCS_BASE_URL"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig*.json"]
+    },
+    "lint": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "eslint.config.*"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "vitest.config.*", "test/**", "fixtures/**"]
+    },
+    "test:coverage": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "vitest.config.*", "test/**", "fixtures/**"],
+      "outputs": ["coverage/**"]
+    },
+    "test:storybook": {
+      "dependsOn": ["build"],
+      "inputs": ["$TURBO_DEFAULT$", ".storybook/**"],
+      "outputs": ["test-results/**"]
+    },
+    "check:links": {
+      "dependsOn": ["build"],
+      "outputs": ["link-report/**"]
+    },
+    "clean": { "cache": false }
+  }
+}

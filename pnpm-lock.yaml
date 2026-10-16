@@ -21,7 +21,11 @@ catalogs:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      turbo:
+        specifier: ^2.11.8
+        version: 2.11.8
 
   packages/eslint-config:
     dependencies:
@@ -116,6 +120,36 @@ packages:
 
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
+
+  '@turbo/darwin-64@2.11.8':
+    resolution: {integrity: sha512-u+6s4C2hskRYx6MkW2uT7BCW6sESCL/+5bjHDDWUfQfQliCSJ7lAHAL6RQaw0an9WU6nJvwYgT786mEWul2kDw==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@turbo/darwin-arm64@2.11.8':
+    resolution: {integrity: sha512-y3qpPbclA4MuzAf/pSp6ivifp2mBCiLMHyf/bVq2eAJLjTnzev9JG5eqFhM0UvDGi0b3QKRNZi2HiavPnLbEbw==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@turbo/linux-64@2.11.8':
+    resolution: {integrity: sha512-5Pm0icIkXPjk/HxhZD2AFMCyfH8RlITgtOksoSAdeLtXHAagzAqaAkdqG+6Ebd3eGPT1k3nJZWQD4wCLlIte5g==}
+    cpu: [x64]
+    os: [android, linux]
+
+  '@turbo/linux-arm64@2.11.8':
+    resolution: {integrity: sha512-gh/Pcg7WVLS22SpoFqNxs/4y6feU/+Qa9nkCLTOHMTLjE3ADeqMjLFulq1LVCsWD2vjQccCnaZSUOLJ/lHzBRQ==}
+    cpu: [arm64]
+    os: [android, linux]
+
+  '@turbo/windows-64@2.11.8':
+    resolution: {integrity: sha512-NnHtcWPE6PymlYsCKEuYditlY/nMeCEB3xyD4yc3cpqpxW7/4Xqdlqd5TpqvEpjS8CDazPHelGCQS/ghUIoZ6g==}
+    cpu: [x64]
+    os: [win32]
+
+  '@turbo/windows-arm64@2.11.8':
+    resolution: {integrity: sha512-o8UyM/VlYCvW5Enfo2O37Pe11p3wmnEYtJrohXA2SyOlehmo5KyXpptPRKrXOMNfdmoYEulo6Nhj0tIv2UB0hA==}
+    cpu: [arm64]
+    os: [win32]
 
   '@types/esrecurse@4.3.1':
     resolution: {integrity: sha512-xJBAbDifo5hpffDBuHl0Y8ywswbiAp/Wi7Y/GtAgSlZyIABppyurxVueOPE8LUQOxdlgi6Zqce7uoEpqNTeiUw==}
@@ -429,6 +463,10 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4'
 
+  turbo@2.11.8:
+    resolution: {integrity: sha512-OwiFs6xNO5c2XtPgYCgCXuSlkur4b5T/OeAbOKzgsHh5mmJ9Sh7m041fz2JchrvyQv8hmae+1n07HfBmvDLZRA==}
+    hasBin: true
+
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -532,6 +570,24 @@ snapshots:
       keyv: 5.6.0
 
   '@keyv/serialize@1.1.1': {}
+
+  '@turbo/darwin-64@2.11.8':
+    optional: true
+
+  '@turbo/darwin-arm64@2.11.8':
+    optional: true
+
+  '@turbo/linux-64@2.11.8':
+    optional: true
+
+  '@turbo/linux-arm64@2.11.8':
+    optional: true
+
+  '@turbo/windows-64@2.11.8':
+    optional: true
+
+  '@turbo/windows-arm64@2.11.8':
+    optional: true
 
   '@types/esrecurse@4.3.1': {}
 
@@ -862,6 +918,15 @@ snapshots:
   ts-api-utils@2.5.0(typescript@6.0.3):
     dependencies:
       typescript: 6.0.3
+
+  turbo@2.11.8:
+    optionalDependencies:
+      '@turbo/darwin-64': 2.11.8
+      '@turbo/darwin-arm64': 2.11.8
+      '@turbo/linux-64': 2.11.8
+      '@turbo/linux-arm64': 2.11.8
+      '@turbo/windows-64': 2.11.8
+      '@turbo/windows-arm64': 2.11.8
 
   type-check@0.4.0:
     dependencies:
