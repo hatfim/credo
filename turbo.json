@@ -35,6 +35,16 @@
       "dependsOn": ["build"],
       "outputs": ["link-report/**"]
     },
+    "check:stories": {
+      "dependsOn": ["@usecredo/storybook#build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/ui/src/**/*.stories.tsx",
+        "$TURBO_ROOT$/packages/ui/package.json",
+        "$TURBO_ROOT$/apps/storybook/storybook-static/index.json",
+        "docs/**"
+      ]
+    },
     "clean": { "cache": false }
   }
 }

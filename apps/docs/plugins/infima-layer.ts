@@ -16,7 +16,6 @@ export const LAYER_ORDER = ["infima", "theme", "base", "components", "utilities"
 async function lightningMinify(data: Record<string, string>) {
   // Self-contained on purpose: css-minimizer serializes this function into a worker.
   // Targets are Tailwind v4's supported browsers: Safari 16.4, Chrome 111, Firefox 128.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { transform } = require("lightningcss") as typeof import("lightningcss");
   const targets = { safari: (16 << 16) | (4 << 8), chrome: 111 << 16, firefox: 128 << 16 };
   const [[filename, code]] = Object.entries(data) as [[string, string]];
