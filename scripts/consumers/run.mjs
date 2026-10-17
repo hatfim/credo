@@ -3,6 +3,7 @@
 // registry, in an isolated directory (no workspace links), then build them and run their tests.
 //
 //   pnpm test:consumers [--only vite-app|next-app] [--skip-build] [--keep]
+//   CONSUMER_REACT_MAJOR=18 pnpm test:consumers --only vite-app   (nightly matrix)
 //
 // Safety: the registry listens on 127.0.0.1 only. The @usecredo/* names have no uplink, so they
 // can never resolve from, or be published to, npmjs.org. Third-party packages are proxied
@@ -114,7 +115,23 @@ function writeWorkspaceFile(dir) {
   const source = fs.readFileSync(path.join(repoRoot, "pnpm-workspace.yaml"), "utf8");
   const withoutPackages = source.replace(/^packages:\n(?:[ \t]+-.*\n)+/m, "");
   if (withoutPackages === source) fail("Could not find the packages block in pnpm-workspace.yaml.");
-  fs.writeFileSync(path.join(dir, "pnpm-workspace.yaml"), `packages:\n  - "."\n\n${withoutPackages}`);
+  fs.writeFileSync(path.join(dir, "pnpm-workspace.yaml"), `packages:\n  - "."\n\n${applyReactMajor(withoutPackages)}`);
+}
+
+/** Nightly matrix (TST-07): CONSUMER_REACT_MAJOR=18 pins react, react-dom and their types in the catalog. */
+function applyReactMajor(yaml) {
+  const major = process.env.CONSUMER_REACT_MAJOR;
+  if (!major) return yaml;
+  if (!/^(18|19)$/.test(major)) fail(`CONSUMER_REACT_MAJOR must be 18 or 19, got "${major}".`);
+  console.log(`[consumers] React major override: ${major}`);
+  const names = ["@types/react", "@types/react-dom", "react", "react-dom"];
+  let out = yaml;
+  for (const n of names) {
+    const re = new RegExp(`^(\\s*"?${n.replace("/", "\\/")}"?:\\s*)\\^\\d+\\.[\\d.]+\\s*$`, "m");
+    if (!re.test(out)) fail(`Catalog entry for ${n} not found.`);
+    out = out.replace(re, `$1^${major}.0.0`);
+  }
+  return out;
 }
 
 function assertIsolated(dir, name, registryUrl, versions, integrity) {

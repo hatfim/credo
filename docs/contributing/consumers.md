@@ -83,7 +83,8 @@ Needs Node 22, network access to npmjs.org for third-party packages, and `npm` o
   override or be overridden by whichever comes last. The vite consumer avoids those names.
   A collision on `--radius-md` or `--font-sans` would be caught only incidentally (by the Credo variable checks), not by a dedicated test.
   TODO(decision: theme-namespace-collisions): decide whether the Credo theme must be namespaced; it stays open.
-- The React and Tailwind version matrix (TST-07) is not part of this task.
+- The nightly matrix (`releases-next.md`) crosses Node 22/24 and React 18/19 (`CONSUMER_REACT_MAJOR`,
+  `vite-app` only on 18). Tailwind versions are not in it.
   TODO(decision: consumer-version-matrix).
 - `next-app` imports `@usecredo/icons` directly for the server entry, although the PRD table
   lists only `ui`, `tokens` and `tailwind-config` for consumers. TODO(decision: icons-direct-use).

@@ -1,0 +1,90 @@
+name: Nightly
+
+# PRD 11.3 / TST-07 / P1-23. Full visual run and a small compatibility matrix. Manual runs are
+# allowed. Nothing here publishes: the consumers install from a loopback-only registry.
+on:
+  schedule:
+    - cron: "17 2 * * *" # 02:17 UTC, off the hour to avoid the busiest minute
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+env:
+  CI: "true"
+
+jobs:
+  nightly-visual:
+    name: nightly-visual
+    # Schedules run on the default branch; skip forks, which would only burn their own minutes.
+    if: ${{ github.repository == 'hatfim/credo' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Build Storybook
+        run: pnpm exec turbo run build --filter=@usecredo/storybook
+      - name: Install Playwright Chromium
+        working-directory: apps/storybook
+        run: pnpm exec playwright install --with-deps chromium
+      # Fails with a clear message when no baselines are committed (apps/storybook/visual/global-setup.ts).
+      - name: Run visual snapshots
+        working-directory: apps/storybook
+        run: pnpm run test:visual
+      - name: Upload diff images and report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: nightly-visual-diff
+          path: |
+            apps/storybook/test-results/visual
+            apps/storybook/playwright-report
+          retention-days: 14
+          if-no-files-found: warn
+
+  # Install from packed tarballs (docs/contributing/consumers.md) across Node and React.
+  # Node 22 is the floor (.nvmrc, selected with an empty node-version); Node 24 is the newest line.
+  # Next.js App Router needs React 19, so React 18 is covered by vite-app only.
+  # TODO(decision: consumer-version-matrix): Tailwind versions and further React minors are not
+  # in the matrix yet.
+  nightly-consumers:
+    name: nightly-consumers (node ${{ matrix.label }}, react ${{ matrix.react }}, ${{ matrix.only }})
+    if: ${{ github.repository == 'hatfim/credo' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { label: "22 (.nvmrc)", node: "", react: "19", only: "all" }
+          - { label: "24", node: "24", react: "19", only: "all" }
+          - { label: "22 (.nvmrc)", node: "", react: "18", only: "vite-app" }
+    env:
+      # Different Node versions must not reuse each other's cached build output.
+      TURBO_FORCE: "true"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Show versions
+        run: node --version && pnpm --version
+      - name: Build and test the consumers from packed tarballs
+        env:
+          CONSUMER_REACT_MAJOR: ${{ matrix.react }}
+          CONSUMER_ONLY: ${{ matrix.only }}
+        run: |
+          if [ "$CONSUMER_ONLY" = "all" ]; then
+            pnpm test:consumers
+          else
+            pnpm test:consumers --only "$CONSUMER_ONLY"
+          fi
