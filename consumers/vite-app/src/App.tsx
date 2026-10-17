@@ -27,6 +27,7 @@ export function App() {
         <p>
           This card and the button below use the app&apos;s own Tailwind theme and variables.
         </p>
+        <p className="mt-3 rounded-lg bg-surface-container p-2 font-sans">Collides with Credo&apos;s theme names: the app&apos;s values win.</p>
         <button type="button" className="mt-3 rounded-sm bg-primary px-3 py-1 text-primary-foreground">
           App button
         </button>

@@ -27,6 +27,13 @@
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-brand: #268bd2;
+  /* Deliberate collisions with the Credo theme namespace (decision 0005, docs/contributing/consumers.md).
+   * theme.css defines --radius-*, --font-sans and --color-surface-*. Tailwind keeps one value per theme
+   * key and the later definition wins, so these (declared after the Credo imports) override Credo's
+   * rounded-lg, font-sans and bg-surface-container utilities. Credo's --cr-* variables are untouched. */
+  --radius-lg: 0.1875rem;
+  --font-sans: "Courier Prime", ui-monospace, monospace;
+  --color-surface-container: #eee8d5;
   --breakpoint-3xl: 120rem;
 }
 

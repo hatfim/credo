@@ -134,7 +134,7 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 From decisions 0004 to 0009. Do not tick the numbered tasks above because of these.
 
-- [ ] Add a collision test case to `consumers/vite-app` (for example the app defines `--radius-md`, `--font-sans` or a `surface` colour) and assert what wins (0005).
+- [x] Add a collision test case to `consumers/vite-app` (for example the app defines `--radius-md`, `--font-sans` or a `surface` colour) and assert what wins (0005).
 - [x] Add a fixture test that swaps `scale.primary` to the indigo palette and checks contrast (0005).
 - [ ] Owner: change `font-family.mono` to Geist Mono in Figma and push it. Then self-host Lexend and Geist Mono in `apps/docs` and `apps/storybook` (check size and licence first) and regenerate the 10 visual baselines once (0005).
 - [x] Replace the placeholder docs host with `https://credo.trekant.dev` everywhere (0006).
