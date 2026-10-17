@@ -1,0 +1,5 @@
+{
+  "extends": "@usecredo/typescript-config/app.json",
+  "compilerOptions": { "types": ["node", "@docusaurus/module-type-aliases"] },
+  "include": ["*.ts", "plugins", "src", ".docusaurus/**/*.d.ts"]
+}

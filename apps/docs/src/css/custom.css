@@ -1,0 +1,85 @@
+/* Style isolation (DOC-04, SBK-02).
+ *
+ * Cascade layers, lowest to highest: infima, theme, base, components, utilities.
+ * Unlayered rules beat every layered rule, whatever their specificity, so only docs-chrome rules
+ * scoped to Docusaurus class names (and the example frame below) are written unlayered.
+ *
+ * Infima, the classic theme's base stylesheet, is wrapped in `@layer infima` by
+ * plugins/infima-layer.ts, which makes it the lowest layer: Tailwind's layered output wins over
+ * it inside live examples. The order statement below is also asserted on the built CSS by
+ * scripts/check-css-layers.mjs, because the minifier can drop or reorder it.
+ *
+ * The design system stylesheets are the real ones. Tailwind's preflight is NOT imported: it would
+ * reset the docs chrome. The example frame carries the few reset rules the components rely on.
+ */
+@layer infima, theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@import "@usecredo/tokens/tokens.css";
+@import "@usecredo/tailwind-config/theme.css" layer(theme);
+@source "../../node_modules/@usecredo/ui/dist";
+
+/* Live example frame. `data-theme` on .credo-example is set by LiveExample (never on <html>). */
+.credo-example-frame {
+  margin-bottom: var(--ifm-spacing-vertical);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  overflow: hidden;
+}
+
+.credo-example-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.credo-example {
+  padding: 1.5rem;
+  background-color: var(--cr-surface-page);
+  color: var(--cr-content-primary);
+  font-family: var(--cr-font-family-sans);
+}
+
+/* The parts of Tailwind's preflight that the components depend on, scoped to the frame
+   and layered, so the utilities layer still wins. */
+@layer base {
+  .credo-example *,
+  .credo-example ::before,
+  .credo-example ::after {
+    box-sizing: border-box;
+    border: 0 solid;
+  }
+
+  .credo-example button {
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+    text-transform: none;
+  }
+
+  .credo-example button:disabled,
+  .credo-example [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+}
+
+.credo-swatch {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  border-radius: 2px;
+}
+
+.credo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}

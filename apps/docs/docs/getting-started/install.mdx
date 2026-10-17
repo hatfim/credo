@@ -1,0 +1,30 @@
+---
+id: install
+title: Install
+---
+
+The packages live in the public `@usecredo` scope.
+
+{/* TODO(decision: first-release): the packages are at 0.0.0 and not yet published; the commands below work once the first release is out. */}
+
+```bash
+pnpm add @usecredo/ui @usecredo/tokens
+pnpm add -D @usecredo/tailwind-config tailwindcss
+```
+
+| Package | Role |
+| --- | --- |
+| `@usecredo/ui` | React components, one subpath per component (`@usecredo/ui/button`) |
+| `@usecredo/tokens` | Token stylesheet (CSS variables) and token table |
+| `@usecredo/tailwind-config` | Tailwind CSS v4 mapping of the token contract |
+
+Peer requirements:
+
+- `react` and `react-dom` `^18.0.0 || ^19.0.0` (peers of `@usecredo/ui`).
+- `@usecredo/tokens` (peer of `@usecredo/ui` and `@usecredo/tailwind-config`).
+- `tailwindcss` `^4.3.3` (peer of `@usecredo/tailwind-config`).
+
+All packages are ESM only. Import from the documented subpaths; deep imports are not part of
+the public API.
+
+Next: [import the stylesheet](./stylesheet.mdx).

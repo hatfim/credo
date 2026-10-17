@@ -1,6 +1,6 @@
 # Credo Design System — Task list by phase
 
-sOct 16, 2026 · @Hatfim
+16 October 2026 · Hatfim
 
 ## Next step: code in the CLI
 
@@ -60,7 +60,7 @@ Phase 0 sets up the accounts, runs three spikes, records the decisions and measu
 
 ### Spikes (throwaway branches, results go into decision records)
 
-- [ ] **P0-05 Spike A, Tailwind delivery.** Build one Button with Tailwind v4 classes in a scratch package. Consume it from three apps: one with Tailwind v4, one without Tailwind that uses a precompiled stylesheet, and one whose Tailwind config already defines a `background` color. *Accept:* a written result says whether the fallback stylesheet builds, whether it avoids class and variable collisions, what it costs, and whether to keep it. (D-03, DST-09, 6.2)
+- [ ] **P0-05 Spike A, Tailwind delivery.** Build one Button with Tailwind v4 classes in a scratch package. Consume it from three apps: one with Tailwind v4, one without Tailwind that uses a precompiled stylesheet, and one whose Tailwind config already defines a `surface` color. *Accept:* a written result says whether the fallback stylesheet builds, whether it avoids class and variable collisions, what it costs, and whether to keep it. (D-03, DST-09, 6.2)
 - [ ] **P0-06 Spike B, Docusaurus.** *Accept:* all five hold in a scratch site: it renders a live component in the default and a second theme, builds with Tailwind v4 without style leakage, searches offline in CI, creates a versioned snapshot, and fails the build on a broken link. If one fails, try Astro Starlight and record why. (D-05, 9.1)
 - [ ] **P0-07 Spike C, Playwright snapshots.** Build a Storybook with three stories in two themes and take screenshots in GitHub Actions. *Accept:* three unchanged runs give zero diffs, a deliberate change uploads diff images as a workflow artifact, and the size of one baseline set is noted. (D-07, 10)
 
@@ -80,37 +80,37 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### A. Repository skeleton
 
-- [ ] **P1-01 Workspace root.** `pnpm-workspace.yaml` (apps, packages, consumers), root `package.json` with `packageManager` and `engines.node` 22 or newer, `.nvmrc`, `.gitignore` (build output, Storybook output, coverage; the synced token file stays committed). *Accept:* `pnpm install --frozen-lockfile` works from a clean clone. (BLD-01, BLD-03)
-- [ ] **P1-02 Shared config packages.** Private `typescript-config` (base, library, app) and `eslint-config` (flat config). *Accept:* every workspace extends them, and `pnpm lint` and `pnpm typecheck` run on the empty packages. (5.1)
-- [ ] **P1-03 Turborepo tasks.** `turbo.json` with the tasks in PRD 11.2, declared inputs, outputs and environment variables, and root scripts including `check`. *Accept:* `pnpm check` runs through Turborepo and a second run is served from cache. (BLD-04 to BLD-07)
-- [ ] **P1-04 Release and hygiene tooling.** Changesets, `syncpack`, an import-boundary lint rule, and a rule that forbids component definitions inside `apps/*`. *Accept:* a deliberate violation of each rule fails `pnpm lint`. (DST-04, BLD-09)
-- [ ] **P1-05 Package skeletons.** `tokens`, `tailwind-config`, `ui`, `icons`, `test-utils`, the two apps and the two consumers, each with a `package.json` (exports map, `sideEffects: false`, peer dependencies, `private: true` where the PRD says so) and the build setup chosen in the decision records. *Accept:* `pnpm build` passes for every package. (BLD-01, DST-02)
+- [x] **P1-01 Workspace root.** `pnpm-workspace.yaml` (apps, packages, consumers), root `package.json` with `packageManager` and `engines.node` 22 or newer, `.nvmrc`, `.gitignore` (build output, Storybook output, coverage; the synced token file stays committed). *Accept:* `pnpm install --frozen-lockfile` works from a clean clone. (BLD-01, BLD-03)
+- [x] **P1-02 Shared config packages.** Private `typescript-config` (base, library, app) and `eslint-config` (flat config). *Accept:* every workspace extends them, and `pnpm lint` and `pnpm typecheck` run on the empty packages. (5.1)
+- [x] **P1-03 Turborepo tasks.** `turbo.json` with the tasks in PRD 11.2, declared inputs, outputs and environment variables, and root scripts including `check`. *Accept:* `pnpm check` runs through Turborepo and a second run is served from cache. (BLD-04 to BLD-07)
+- [x] **P1-04 Release and hygiene tooling.** Changesets, `syncpack`, an import-boundary lint rule, and a rule that forbids component definitions inside `apps/*`. *Accept:* a deliberate violation of each rule fails `pnpm lint`. (DST-04, BLD-09)
+- [x] **P1-05 Package skeletons.** `tokens`, `tailwind-config`, `ui`, `icons`, `test-utils`, the two apps and the two consumers, each with a `package.json` (exports map, `sideEffects: false`, peer dependencies, `private: true` where the PRD says so) and the build setup chosen in the decision records. *Accept:* `pnpm build` passes for every package. (BLD-01, DST-02)
 
 ### B. Tokens
 
-- [ ] **P1-06 First synced token file.** Push the first token sets from Tokens Studio: primitives, semantic roles (the shadcn/ui roles plus success, warning and info), and light and dark as separate sets. *Accept:* `packages/tokens/generated/tokens.json` arrives through the plugin, not by hand, and the role list is documented as contract v0. (TOK-01, TOK-02, TOK-11)
-- [ ] **P1-07 Raw token validation.** A script that checks valid JSON, token shape and alias resolution, adapted from the reference workflow's script. *Accept:* broken fixtures fail with readable messages, covered by unit tests. (TOK-12, TOK-15)
-- [ ] **P1-08 Style Dictionary build.** Use the Tokens Studio transforms to produce prefixed CSS variables (light and dark switched by an attribute), TypeScript types and a JSON schema; build output stays out of git. *Accept:* `pnpm build --filter @usecredo/tokens` produces them, and a snapshot test covers the CSS. (TOK-03, TOK-04, TOK-12)
-- [ ] **P1-09 Theme validator and contrast check.** A CLI that checks completeness, value types and WCAG 2.2 AA contrast for every foreground and background pair, starting with an empty baseline. *Accept:* a failing pair fails the check and the default theme passes. (TOK-06, TOK-07)
-- [ ] **P1-10 Token consistency test.** CSS output, types and the docs token tables must derive from the one source. *Accept:* the test fails if they diverge. (TOK-08)
+- [x] **P1-06 First synced token file.** Push the first token sets from Tokens Studio: primitives, a brand scale layer (neutral, primary, secondary, destructive, success, warning, info), semantic roles in the surface, content, field, actions, state, border, feedback, alpha and shadow groups, and light and dark as separate sets. *Accept:* `packages/tokens/generated/tokens.json` arrives through the plugin, not by hand, and the role list is documented as contract v0 (docs/token-contract-v0.md). (TOK-01, TOK-02, TOK-11)
+- [x] **P1-07 Raw token validation.** A script that checks valid JSON, token shape and alias resolution, adapted from the reference workflow's script. *Accept:* broken fixtures fail with readable messages, covered by unit tests. (TOK-12, TOK-15)
+- [x] **P1-08 Style Dictionary build.** Use the Tokens Studio transforms to produce prefixed CSS variables (light and dark switched by an attribute), TypeScript types and a JSON schema; build output stays out of git. *Accept:* `pnpm build --filter @usecredo/tokens` produces them, and a snapshot test covers the CSS. (TOK-03, TOK-04, TOK-12)
+- [x] **P1-09 Theme validator and contrast check.** A CLI that checks completeness, value types and WCAG 2.2 AA contrast for every foreground and background pair, starting with an empty baseline. *Accept:* a failing pair fails the check and the default theme passes. (TOK-06, TOK-07)
+- [x] **P1-10 Token consistency test.** CSS output, types and the docs token tables must derive from the one source. *Accept:* the test fails if they diverge. (TOK-08)
 
 ### C. Tailwind integration
 
-- [ ] **P1-11 `tailwind-config`.** Map the prefixed variables to Tailwind theme values with `@theme inline`, add the radius scale, and add the precompiled stylesheet if spike A kept it. *Accept:* `bg-background` resolves to the active theme in the Vite consumer. (TOK-03, D-03)
+- [x] **P1-11 `tailwind-config`.** Map the prefixed variables to Tailwind theme values with `@theme inline`, add the radius scale, and add the precompiled stylesheet if spike A kept it. *Accept:* `bg-surface-page` resolves to the active theme in the Vite consumer. (TOK-03, D-03)
 
 ### D. `ui` and `icons`
 
-- [ ] **P1-12 Component conventions.** The class-merge helper, variant helper, `asChild` through Slot, `data-slot` attributes, `forwardRef` for React 18 and 19, and `use client`. *Accept:* a short contributing page documents them. (CMP-01, CMP-02)
-- [ ] **P1-13 Button.** All variants and sizes, disabled and loading states, `asChild`, unit tests, and the subpath export `@usecredo/ui/button`. *Accept:* tests pass and importing it has no side effects. (CMP-02, CMP-04)
-- [ ] **P1-14 Package checks.** `publint` and `arethetypeswrong` run in `pnpm check`, plus a bundle-size test that imports only Button. *Accept:* the test fails if importing Button pulls in other components. (DST-02, DST-03)
-- [ ] **P1-15 `icons`.** Re-export the Phosphor icons the components use, including the server-rendering entry. *Accept:* a server component in the Next.js consumer imports an icon without error. (D-08, 5.3)
+- [x] **P1-12 Component conventions.** The class-merge helper, variant helper, `asChild` through Slot, `data-slot` attributes, `forwardRef` for React 18 and 19, and `use client`. *Accept:* a short contributing page documents them. (CMP-01, CMP-02)
+- [x] **P1-13 Button.** All variants and sizes, disabled and loading states, `asChild`, unit tests, and the subpath export `@usecredo/ui/button`. *Accept:* tests pass and importing it has no side effects. (CMP-02, CMP-04)
+- [x] **P1-14 Package checks.** `publint` and `arethetypeswrong` run in `pnpm check`, plus a bundle-size test that imports only Button. *Accept:* the test fails if importing Button pulls in other components. (DST-02, DST-03)
+- [x] **P1-15 `icons`.** Re-export the Phosphor icons the components use, including the server-rendering entry. *Accept:* a server component in the Next.js consumer imports an icon without error. (D-08, 5.3)
 
 ### E. Test utilities and the two apps
 
-- [ ] **P1-16 `test-utils`.** Storybook theme decorator (light, dark, second theme), viewport presets, Vitest setup and an accessibility helper. *Accept:* Storybook and unit tests both use it. (9.3)
-- [ ] **P1-17 Storybook app.** Storybook with CSF in TypeScript, the accessibility addon, interaction tests and a theme toolbar, plus Button stories with a keyboard `play` function. *Accept:* it builds, and a smoke test renders every story. (SBK-02, SBK-03, SBK-05)
-- [ ] **P1-18 Docs app.** Docusaurus (as confirmed by spike B) with a Getting started skeleton, a token reference generated from the token source, and a Button page that has a live example using the real component, an API table generated from its types, and a link to its stories. Search and the link check are on. *Accept:* it builds, and a deliberately broken link fails the build. (DOC-02 to DOC-06)
-- [ ] **P1-19 Cross-link check.** Read the Storybook index and fail if a story ID linked from the docs is missing, or if a stable component lacks a docs page or stories. *Accept:* removing a story fails the check. (DOC-05, 9.4)
+- [x] **P1-16 `test-utils`.** Storybook theme decorator (light, dark, second theme), viewport presets, Vitest setup and an accessibility helper. *Accept:* Storybook and unit tests both use it. (9.3)
+- [x] **P1-17 Storybook app.** Storybook with CSF in TypeScript, the accessibility addon, interaction tests and a theme toolbar, plus Button stories with a keyboard `play` function. *Accept:* it builds, and a smoke test renders every story. (SBK-02, SBK-03, SBK-05)
+- [x] **P1-18 Docs app.** Docusaurus (as confirmed by spike B) with a Getting started skeleton, a token reference generated from the token source, and a Button page that has a live example using the real component, an API table generated from its types, and a link to its stories. Search and the link check are on. *Accept:* it builds, and a deliberately broken link fails the build. (DOC-02 to DOC-06)
+- [x] **P1-19 Cross-link check.** Read the Storybook index and fail if a story ID linked from the docs is missing, or if a stable component lacks a docs page or stories. *Accept:* removing a story fails the check. (DOC-05, 9.4)
 
 ### F. CI and deployment
 

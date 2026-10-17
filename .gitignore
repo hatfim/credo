@@ -1,2 +1,35 @@
 .DS_Store
 node_modules
+.pnpm-store
+
+# build output
+dist
+build
+.next
+.turbo
+*.tsbuildinfo
+next-env.d.ts
+
+# Storybook and docs output
+storybook-static
+.docusaurus
+
+# test output
+coverage
+playwright-report
+test-results
+
+# generated token output (packages/tokens/generated/tokens.json stays committed)
+packages/tokens/generated/*
+!packages/tokens/generated/tokens.json
+
+# packed tarballs
+*.tgz
+
+# env
+.env
+.env.*
+!.env.example
+
+# link check output
+link-report

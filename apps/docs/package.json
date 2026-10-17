@@ -1,0 +1,48 @@
+{
+  "name": "@usecredo/docs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Credo documentation site",
+  "license": "MIT",
+  "scripts": {
+    "dev": "docusaurus start",
+    "build": "docusaurus build && node scripts/check-css-layers.mjs",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"no tests yet\"",
+    "check:links": "node scripts/check-links.mjs",
+    "clean": "rm -rf dist build .docusaurus link-report .turbo",
+    "check:css": "node scripts/check-css-layers.mjs",
+    "check:stories": "node scripts/check-stories.mjs"
+  },
+  "dependencies": {
+    "@usecredo/tailwind-config": "workspace:*",
+    "@usecredo/test-utils": "workspace:*",
+    "@usecredo/tokens": "workspace:*",
+    "@usecredo/ui": "workspace:*",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "@docusaurus/core": "catalog:",
+    "@docusaurus/preset-classic": "catalog:",
+    "@docusaurus/theme-common": "catalog:",
+    "@easyops-cn/docusaurus-search-local": "catalog:",
+    "@mdx-js/react": "catalog:",
+    "@tailwindcss/postcss": "catalog:",
+    "tailwindcss": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@usecredo/eslint-config": "workspace:*",
+    "@usecredo/typescript-config": "workspace:*",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "@docusaurus/module-type-aliases": "catalog:",
+    "@docusaurus/types": "catalog:",
+    "@types/node": "catalog:",
+    "css-minimizer-webpack-plugin": "catalog:",
+    "lightningcss": "catalog:",
+    "postcss": "catalog:",
+    "react-docgen-typescript": "catalog:"
+  }
+}

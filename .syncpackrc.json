@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/syncpack/schema.json",
+  "source": ["package.json", "apps/*/package.json", "packages/*/package.json", "consumers/*/package.json"],
+  "versionGroups": [
+    {
+      "label": "Internal packages use the workspace protocol",
+      "dependencies": ["@usecredo/*"],
+      "dependencyTypes": ["!local", "!peer"],
+      "pinVersion": "workspace:*"
+    },
+    {
+      "label": "Third-party versions come from the pnpm catalog",
+      "policy": "catalog",
+      "dependencyTypes": ["prod", "dev"]
+    }
+  ]
+}

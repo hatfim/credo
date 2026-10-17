@@ -1,0 +1,64 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "consumers/*"
+
+# Shared dependency versions are declared once here and checked by syncpack.
+catalog:
+  "@changesets/cli": ^3.0.3
+  "@eslint/js": ^10.0.1
+  eslint: ^10.13.0
+  globals: ^17.13.0
+  syncpack: ^15.3.3
+  turbo: ^2.11.8
+  # typescript-eslint supports TypeScript below 6.1 only.
+  typescript: 6.0.3
+  typescript-eslint: ^8.71.2
+  "@types/react": ^19.3.0
+  "@types/react-dom": ^19.3.0
+  react: ^19.3.1
+  react-dom: ^19.3.1
+  # TODO(decision: tailwind-minimum): pinned to the current v4 release until the record is accepted.
+  tailwindcss: 4.3.3
+  tsup: ^9.0.0
+  "@tokens-studio/sd-transforms": ^2.0.3
+  "@types/node": ^22.0.0
+  style-dictionary: ^5.7.0
+  clsx: ^2.1.1
+  "@radix-ui/react-slot": ^1.5.0
+  esbuild: ^0.28.2
+  publint: ^0.3.25
+  "@arethetypeswrong/cli": ^0.18.5
+  "@storybook/react": ^10.6.2
+  vitest: ^5.0.5
+  jsdom: ^30.1.3
+  axe-core: ^4.14.0
+  "@testing-library/react": ^16.3.3
+  "@testing-library/dom": ^10.4.2
+  "@testing-library/jest-dom": ^7.0.1
+  "@testing-library/user-event": ^14.6.8
+  "@phosphor-icons/react": ^2.1.10
+  tailwind-merge: ^3.7.0
+  class-variance-authority: ^0.7.1
+  # Storybook and docs apps (P1-17, P1-18).
+  "@storybook/addon-a11y": ^10.6.2
+  "@storybook/addon-docs": ^10.6.2
+  "@storybook/react-vite": ^10.6.2
+  storybook: ^10.6.2
+  "@tailwindcss/vite": 4.3.3
+  vite: ^8.3.4
+  "@docusaurus/core": ^3.10.2
+  "@docusaurus/preset-classic": ^3.10.2
+  "@docusaurus/theme-common": ^3.10.2
+  "@docusaurus/module-type-aliases": ^3.10.2
+  "@docusaurus/types": ^3.10.2
+  "@easyops-cn/docusaurus-search-local": ^0.55.3
+  "@mdx-js/react": ^3.1.1
+  "@tailwindcss/postcss": 4.3.3
+  react-docgen-typescript: ^2.4.0
+  postcss: ^8.5.30
+  lightningcss: ^1.32.0
+  css-minimizer-webpack-plugin: ^5.0.1
+
+onlyBuiltDependencies:
+  - esbuild

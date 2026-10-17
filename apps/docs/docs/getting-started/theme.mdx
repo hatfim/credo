@@ -1,0 +1,19 @@
+---
+id: theme
+title: Set the theme attribute
+---
+
+Themes switch through the `data-theme` attribute. Put it on `<html>`, or on any element to
+theme only that subtree.
+
+```html
+<html data-theme="light">
+```
+
+Supported values: `light` and `dark`. Without the attribute the light values apply. The
+variables are declared per attribute value, so a nested element with its own `data-theme`
+overrides its ancestors. The live examples in these docs do exactly that: each example frame
+carries its own `data-theme` and the site's own colour mode is unaffected.
+
+A second reference theme is planned.
+{/* TODO(decision: second-theme): name and value of the second reference theme. */}

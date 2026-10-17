@@ -1,0 +1,7 @@
+{
+  "extends": "@usecredo/typescript-config/library.json",
+  "include": [
+    "src",
+    "*.ts"
+  ]
+}

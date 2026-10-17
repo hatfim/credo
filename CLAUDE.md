@@ -50,9 +50,16 @@ consumers/*         simulate external apps; install packed tarballs only   priva
 - Only documented exports are public. Each package has an `exports` map. No deep imports.
   Each component has its own subpath export (for example `@usecredo/ui/button`).
   JavaScript is ESM with `sideEffects: false`. Client components carry `use client`.
-- Components read only semantic or component tokens, never primitives or raw values.
+- Components read only semantic or component tokens, never color primitives or raw
+  values. Scale tokens (spacing, radius, border width, typography styles) are part of the
+  contract and may be read directly; they are not themed per mode.
   CSS variables carry one organization prefix. The prefix is proposed as `--cr-` and
   stays a TODO until its decision record is accepted.
+- The semantic contract uses the role taxonomy in the token file (`surface`, `content`,
+  `field`, `actions`, `state`, `border`, `feedback`, `alpha`, `shadow`). shadcn/ui is a
+  reference for component patterns only: do not copy its role names or add aliases for
+  them. The role list lives in `docs/token-contract-v0.md`. Raw hex values are allowed
+  only in `alpha.*` and `shadow.color.*`; everything else is an alias.
 - Tokens come from `packages/tokens/generated/tokens.json`, synced from Figma by Tokens
   Studio onto the `tokens-sync` branch. Never edit that file by hand. Never commit
   generated CSS, types or schema; build output stays gitignored.
@@ -117,7 +124,6 @@ option and mark a `TODO(decision: ...)`.
 - CSS variable prefix (proposed `--cr-`).
 - Library build tool (tsup, tsdown or Vite library mode).
 - Radix packaging: the unified `radix-ui` package or scoped `@radix-ui/react-*`.
-- Token file format: W3C DTCG or the plugin's legacy format.
 - Toast approach (Radix Toast or the library shadcn/ui now uses).
 - Whether the precompiled stylesheet fallback stays (spike A).
 

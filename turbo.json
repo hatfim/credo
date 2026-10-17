@@ -1,0 +1,52 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "globalDependencies": ["pnpm-lock.yaml", ".nvmrc"],
+  "globalEnv": ["CI"],
+  "tasks": {
+    "dev": { "cache": false, "persistent": true },
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "!**/*.md", "!**/*.test.*", "!**/*.stories.*", "$TURBO_ROOT$/docs/token-contract-v0.md"],
+      "outputs": ["dist/**", "storybook-static/**", "build/**", ".next/**", "!.next/cache/**"],
+      "env": ["NODE_ENV", "DOCS_BASE_URL", "DOCS_URL"]
+    },
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig*.json"]
+    },
+    "lint": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "eslint.config.*"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "vitest.config.*", "test/**", "fixtures/**", "$TURBO_ROOT$/docs/token-contract-v0.md"]
+    },
+    "test:coverage": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "vitest.config.*", "test/**", "fixtures/**", "$TURBO_ROOT$/docs/token-contract-v0.md"],
+      "outputs": ["coverage/**"]
+    },
+    "test:storybook": {
+      "dependsOn": ["build"],
+      "inputs": ["$TURBO_DEFAULT$", ".storybook/**"]
+    },
+    "check:links": {
+      "dependsOn": ["build"],
+      "outputs": ["link-report/**"]
+    },
+    "check:stories": {
+      "dependsOn": ["@usecredo/storybook#build"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/packages/ui/src/**/*.stories.tsx",
+        "$TURBO_ROOT$/packages/ui/src/**/*.stories.ts",
+        "$TURBO_ROOT$/packages/ui/package.json",
+        "$TURBO_ROOT$/apps/storybook/storybook-static/index.json",
+        "docs/**",
+        "!docs/_generated/**"
+      ]
+    },
+    "clean": { "cache": false }
+  }
+}

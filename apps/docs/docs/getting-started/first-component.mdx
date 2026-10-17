@@ -1,0 +1,18 @@
+---
+id: first-component
+title: Use your first component
+---
+
+Import each component from its own subpath. After the [stylesheet](./stylesheet.mdx) and the
+[theme attribute](./theme.mdx) are in place:
+
+```tsx
+import { Button } from "@usecredo/ui/button";
+
+export function Save() {
+  return <Button onClick={() => console.log("saved")}>Save</Button>;
+}
+```
+
+See the [Button page](../components/button.mdx) for a live example, every variant and the API
+table.
