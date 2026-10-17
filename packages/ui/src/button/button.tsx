@@ -52,14 +52,30 @@ export type ButtonVariant = NonNullable<VariantProps<typeof buttonVariants>["var
 export type ButtonSize = NonNullable<VariantProps<typeof buttonVariants>["size"]>;
 
 export interface ButtonProps
-  extends React.ComponentPropsWithoutRef<"button">,
-    VariantProps<typeof buttonVariants> {
-  /** Render the single child element instead of a `button`, merging props onto it (Radix Slot). */
+  extends Omit<React.ComponentPropsWithoutRef<"button">, "className">,
+    Omit<VariantProps<typeof buttonVariants>, "variant" | "size"> {
+  /**
+   * Visual style. Maps to the `actions` and `content` semantic roles.
+   * @default "default"
+   */
+  variant?: ButtonVariant;
+  /**
+   * Control size. Use `icon` for a square, icon-only button and give it an `aria-label`.
+   * @default "md"
+   */
+  size?: ButtonSize;
+  /** Extra classes, merged after the variant classes so they win on conflict. */
+  className?: string;
+  /**
+   * Render the single child element instead of a `button`, merging props onto it (Radix Slot).
+   * @default false
+   */
   asChild?: boolean;
   /**
    * Shows a spinner, sets `aria-busy` and ignores activation. The button stays focusable
    * (`aria-disabled`) so assistive technology can still reach it. With `asChild` no spinner is
    * injected; the state attributes and click blocking still apply.
+   * @default false
    */
   loading?: boolean;
 }
