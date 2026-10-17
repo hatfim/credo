@@ -68,15 +68,45 @@ test("swapped site directories fail on build-info name", () => {
   assert.equal(p.filter((m) => m.includes("swapped")).length, 2);
 });
 
-test("snapshot check: all four changed, one changed, none changed, a changed non-snapshot", () => {
-  const before = { a: "0.0.0", b: "0.0.0", c: "0.0.0", d: "0.0.0" };
-  const snap = "0.0.0-next-20261017061315";
-  assert.deepEqual(checkSnapshot({ before, after: { a: snap, b: snap, c: snap, d: snap } }).problems, []);
-  const one = checkSnapshot({ before, after: { ...before, a: snap } });
-  assert.deepEqual(one.problems, []); assert.deepEqual(one.changed, ["a"]);
-  assert.deepEqual(checkSnapshot({ before, after: before }).changed, []);
-  assert.equal(checkSnapshot({ before, after: { ...before, a: "0.1.0" } }).problems.length, 1);
-  assert.equal(checkSnapshot({ before, after: { ...before, a: "0.0.0-rc.1" } }).problems.length, 1);
+const snap = "0.0.0-next-20261017061315";
+const base = { a: "0.0.0", b: "0.0.0", c: "0.0.0", d: "0.0.0" };
+const onNpmFake = (published) => (n) => published.includes(n);
+
+test("snapshot check: all four changed passes", () => {
+  const r = checkSnapshot({ before: base, after: { a: snap, b: snap, c: snap, d: snap }, isPublished: onNpmFake([]) });
+  assert.deepEqual(r.problems, []);
+});
+test("snapshot check: none changed passes only when the versions are on npm, with a fake npm", () => {
+  const before = { a: "0.1.0", b: "0.1.0", c: "0.1.0", d: "0.1.0" };
+  const r = checkSnapshot({ before, after: before, isPublished: onNpmFake(["a", "b", "c", "d"]) });
+  assert.deepEqual(r.problems, []); assert.deepEqual(r.changed, []);
+});
+test("snapshot check: one changed, the others at 0.1.0 and on npm, passes", () => {
+  const before = { a: "0.1.0", b: "0.1.0", c: "0.1.0", d: "0.1.0" };
+  const r = checkSnapshot({ before, after: { ...before, a: snap }, isPublished: onNpmFake(["b", "c", "d"]) });
+  assert.deepEqual(r.problems, []); assert.deepEqual(r.changed, ["a"]);
+});
+test("snapshot check: ui changed, the others unchanged at 0.0.0 and not on npm, fails (reviewer reproduction)", () => {
+  const r = checkSnapshot({ before: base, after: { ...base, a: snap }, isPublished: onNpmFake([]) });
+  assert.equal(r.problems.length, 3);
+  assert.match(r.problems[0], /would publish it/);
+});
+test("snapshot check: a changed non-snapshot fails", () => {
+  assert.equal(checkSnapshot({ before: base, after: { ...base, a: "0.1.0" }, isPublished: onNpmFake(["b", "c", "d"]) }).problems.length, 1);
+  assert.equal(checkSnapshot({ before: base, after: { ...base, a: "0.0.0-rc.1" }, isPublished: onNpmFake(["b", "c", "d"]) }).problems.length, 1);
+});
+test("snapshot check: npm lookup errors fail closed (503, ENOTFOUND, 502 mentioning E404)", () => {
+  const cases = [
+    { status: 1, stdout: "", stderr: "npm error code E503\nnpm error 503 Service Unavailable" },
+    { status: 1, stdout: "", stderr: "npm error code ENOTFOUND\nnpm error network request failed" },
+    { status: 1, stdout: '{"error":{"code":"E502","summary":"Bad gateway, upstream said E404"}}', stderr: "npm error code E502\nnpm error E404 text" },
+  ];
+  for (const r of cases) {
+    assert.throws(() => checkSnapshot({ before: base, after: { ...base, a: snap }, isPublished: (n, v) => onNpm(n, v, () => r) }));
+  }
+  // A proper 404 means "not on npm": the guard fails with a problem instead of passing.
+  const notFound = () => ({ status: 1, stdout: "", stderr: "npm error code E404\nnpm error 404 Not Found" });
+  assert.equal(checkSnapshot({ before: base, after: { ...base, a: snap }, isPublished: (n, v) => onNpm(n, v, notFound) }).problems.length, 3);
 });
 
 test("npm view: only a genuine E404 means not published; everything else fails closed", () => {

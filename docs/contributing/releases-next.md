@@ -37,7 +37,7 @@ Safety properties:
   credentials. The snapshot version bump exists only in the runner's working tree: it is never
   committed, pushed or tagged.
 - With no changesets pending, the job succeeds and logs "No changesets to snapshot".
-- Every version that changed is checked to be `0.0.0-next-*` before publishing (`scripts/release/snapshot-versions.mjs`; unchanged packages are skipped by `changeset publish`), and `--tag next` is always passed.
+- Every version that changed is checked to be `0.0.0-next-*` before publishing (`scripts/release/snapshot-versions.mjs`; `changeset publish` skips only versions that are already on npm, so an unchanged package must also be a snapshot or already on npm, looked up read-only; a package that is neither, or any lookup error other than a proper 404, stops the job before publishing), and `--tag next` is always passed.
 - The npm token (if used) is read from `secrets.NPM_TOKEN` through `env:` in the one publish step.
 
 `TODO(decision: npm-publish-auth)`: two ways to authenticate. Prefer trusted publishing (OIDC, no stored

@@ -34,9 +34,10 @@ anything is published. The two builds travel as two artifacts, `release-docs` an
 already on npm, so `release-prepare` reports "no release" and skips. Re-running only the failed
 `release-deploy` job from the same run works while the artifacts exist (7 days) and `release-prepare`
 and `release-publish` are still marked successful. Otherwise use the manual path: Actions, Release, Run
-workflow on `main` with `deploy-only` ticked. Job `release-deploy-only` needs `PUBLISH_RELEASE=true`,
+workflow on `main` with `deploy-only` ticked and `dry-run` unticked (a ticked `dry-run` fails early). Job `release-deploy-only` needs `PUBLISH_RELEASE=true`,
 the ref `main`, and every package version already on npm; it has no npm credentials and cannot
-publish. It builds docs and Storybook from the current head of `main`, which can be newer than the
+publish. `--require-published` does not look at pending changesets, so deploy-only can deploy docs
+that describe unreleased changes if `main` has moved on. It builds docs and Storybook from the current head of `main`, which can be newer than the
 release commit, stamps them with that commit and verifies against it. The sites then show the newer
 commit while the packages are from the release commit; the stamp says which. Not verified on a real run.
 
@@ -45,15 +46,21 @@ commit while the packages are from the release commit; the stamp says which. Not
 | Variable (repository, Actions) | Default | Effect |
 | --- | --- | --- |
 | `RELEASE_PR` | unset (off) | `release-pr` opens and updates the release pull request |
-| `PUBLISH_RELEASE` | unset (off) | `release-prepare`, `release-publish` and `release-deploy` run |
+| `PUBLISH_RELEASE` | unset (off) | `release-prepare`, `release-publish`, `release-deploy` and `release-deploy-only` run |
 
-All four jobs run only on `push` to `refs/heads/main` of `hatfim/credo`. There is no `pull_request`
-or tag trigger, so pull requests, forks and other refs run none of them (a fork's push runs in the fork,
-without this repository's secrets or variables). Permissions are `contents: read`; only `release-publish`
-also has `id-token: write`. Concurrency groups never cancel a running job. A queued run can be replaced
-by a newer queued one. The decision is derived from the repository and npm each time, but the replacing
-run works from its own, newer `main` commit: the packages and the sites are then built and stamped with
-that commit, not the release pull request's merge commit.
+Six jobs. `release-pr`, `release-prepare`, `release-publish` and `release-deploy` run only on `push` to
+`refs/heads/main` of `hatfim/credo`. `release-deploy-only` runs only on `workflow_dispatch` with
+`deploy-only` ticked, `dry-run` unticked, ref `main`, the same repository check and `PUBLISH_RELEASE=true`.
+`release-dry-run` runs only on `workflow_dispatch` without `deploy-only`; it has no secrets and needs no
+variable. There is no `pull_request` or tag trigger, so pull requests, forks and other refs run none of
+them (a fork's push runs in the fork, without this repository's secrets or variables). `deploy-only`
+combined with a ticked `dry-run` (the default) fails at once with an error, because it deploys to
+production: untick `dry-run` on purpose. Permissions are `contents: read` everywhere; only
+`release-publish` also has `id-token: write`. `release-deploy-only` has no id-token and no npm
+credentials, so it cannot publish. Concurrency groups never cancel a running job. A queued run can be
+replaced by a newer queued one. The decision is derived from the repository and npm each time, but the
+replacing run works from its own, newer `main` commit: the packages and the sites are then built and
+stamped with that commit, not the release pull request's merge commit.
 Third-party actions are pinned to full SHAs. No third-party release action is used.
 
 ## Owner steps (by hand; the workflow changes none of this)

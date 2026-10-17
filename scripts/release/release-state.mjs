@@ -35,7 +35,9 @@ export function isNotFound({ stdout = "", stderr = "" }) {
 }
 
 export function onNpm(name, version, run = spawnSync) {
-  const r = run("npm", ["view", `${name}@${version}`, "version", "--json", "--registry", "https://registry.npmjs.org/"], { encoding: "utf8" });
+  // RELEASE_NPM_REGISTRY lets tests and local rehearsals point the read-only lookup at a loopback registry.
+  const registry = process.env.RELEASE_NPM_REGISTRY || "https://registry.npmjs.org/";
+  const r = run("npm", ["view", `${name}@${version}`, "version", "--json", "--registry", registry], { encoding: "utf8" });
   if (r.status === 0) return String(r.stdout).trim() !== "";
   if (isNotFound(r)) return false;
   throw new Error(`npm view ${name}@${version} failed: ${r.stderr}`);

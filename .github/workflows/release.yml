@@ -28,7 +28,7 @@ on:
         type: boolean
         default: true
       deploy-only:
-        description: "Re-deploy docs and Storybook from the current main after a release whose deploy failed. Never publishes. Needs PUBLISH_RELEASE=true, ref main, and every package version already on npm."
+        description: "Re-deploy docs and Storybook from the current main after a release whose deploy failed. Never publishes. Needs dry-run UNTICKED, PUBLISH_RELEASE=true, ref main, and every package version already on npm."
         type: boolean
         default: false
 
@@ -191,6 +191,7 @@ jobs:
         with:
           name: release-docs
           path: apps/docs/build
+          include-hidden-files: true
           retention-days: 7
           if-no-files-found: error
       - name: Upload the prepared Storybook
@@ -199,6 +200,7 @@ jobs:
         with:
           name: release-storybook
           path: apps/storybook/storybook-static
+          include-hidden-files: true
           retention-days: 7
           if-no-files-found: error
 
@@ -292,10 +294,12 @@ jobs:
         with:
           name: release-docs
           path: apps/docs/build
+          include-hidden-files: true
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: release-storybook
           path: apps/storybook/storybook-static
+          include-hidden-files: true
 
       # Same check as before publishing, now on the downloaded artifacts. A wrong layout fails here, and
       # the dry run runs the same upload, download and verify (release-dry-run).
@@ -336,6 +340,12 @@ jobs:
     env:
       DOCS_URL: ${{ vars.DOCS_URL }}
     steps:
+      # dry-run defaults to true, so a deploy needs the dry-run box unticked on purpose.
+      - name: Refuse dry-run together with deploy-only
+        if: ${{ inputs.dry-run }}
+        run: |
+          echo "::error::deploy-only deploys to production, so it cannot be combined with dry-run. Untick dry-run (it defaults to true) to deploy, or untick deploy-only for a dry run."
+          exit 1
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.sha }}
@@ -415,12 +425,14 @@ jobs:
         with:
           name: dry-run-docs
           path: apps/docs/build
+          include-hidden-files: true
           retention-days: 1
           if-no-files-found: error
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: dry-run-storybook
           path: apps/storybook/storybook-static
+          include-hidden-files: true
           retention-days: 1
           if-no-files-found: error
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
@@ -435,6 +447,10 @@ jobs:
         run: |
           r="$RUNNER_TEMP/roundtrip"
           test -f "$r/apps/docs/build/index.html" && test -f "$r/apps/storybook/storybook-static/index.html"
+          # Dotfiles must survive the round trip (include-hidden-files).
+          (cd apps/docs/build && find . -name '.*' -type f | sort) > "$RUNNER_TEMP/hidden-src.txt"
+          (cd "$r/apps/docs/build" && find . -name '.*' -type f | sort) > "$RUNNER_TEMP/hidden-rt.txt"
+          diff "$RUNNER_TEMP/hidden-src.txt" "$RUNNER_TEMP/hidden-rt.txt"
           node scripts/release/same-commit.mjs verify --sha "$RELEASE_SHA" --docs "$r/apps/docs/build" --storybook "$r/apps/storybook/storybook-static"
       - name: Evaluate the release guard (reads npm anonymously)
         run: node scripts/release/release-state.mjs
