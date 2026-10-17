@@ -442,6 +442,7 @@ Projects consume the system as versioned npm packages, which keeps them decouple
 | DST-08 | Two representative consumers install packed artifacts from a local registry in CI and must build, render and pass smoke tests. |
 | DST-09 | A consumer test confirms the stylesheet coexists with an app that has its own Tailwind config and its own CSS variables. |
 | DST-10 | The docs site documents the install steps for a new project and for an existing app without mentioning the workspace layout. |
+| DST-11 | Every published package and component works in both a Next.js app (App Router, including server rendering and server components) and a pure React single-page app (Vite). Published code uses no Next.js-only or Vite-only API, client components carry `use client`, and server-safe entries such as the icons server entry contain no client code. A feature that works in only one of them is a defect. |
 
 ## 9. Documentation website and Storybook
 
@@ -752,6 +753,8 @@ Gaps found in step 1 go to the governance process (section 7) as proposals. The 
 
 Two consumers in `consumers/` represent the common situations: a Vite single-page app and a Next.js app with server rendering. Each installs packed artifacts, renders a page that uses a sample of components in light and dark and in two themes, and builds in production mode. The Vite consumer is also configured with its own Tailwind config and its own CSS variables, which verifies DST-09. Real projects are added as consumers once they reach adoption level 2 and agree to be tested.
 
+Both consumers are required for every release (DST-11). The tested targets are the Next.js App Router and a Vite single-page app. The Next.js Pages Router, Next.js on React 18 (Next.js 16 needs React 19), other bundlers such as Webpack, Parcel or Create React App, and a pure React app without Tailwind (which needs the precompiled stylesheet, see D-03) are not covered by a consumer yet. Until a consumer covers them they are best effort, and the docs must not claim support for them.
+
 ### 13.5 Requirements
 
 | ID | Requirement |
@@ -857,7 +860,7 @@ Assumptions for each item are in section 2.1. This register gives the deadline. 
 | ID | Decision | Needed by | Recommended option |
 | --- | --- | --- | --- |
 | D-01 | Name the owner, maintainers and design representative | Phase 0 | Decided: owner hatfim.ydniw, organization Trekant |
-| D-02 | Consumer scope: frameworks, React versions, SSR | Phase 0 | Decided: Next.js and Vite; React 19 with Tailwind v4 baseline, React 18 in the peer range |
+| D-02 | Consumer scope: frameworks, React versions, SSR | Phase 0 | Decided: Next.js and Vite; React 19 with Tailwind v4 baseline, React 18 in the peer range; both stay first-class (DST-11) |
 | D-03 | CSS delivery for consumers with and without Tailwind | Phase 0 | Decided: Tailwind v4 per shadcn/ui; precompiled stylesheet as fallback (spike) |
 | D-04 | Registry, licence and visibility | Phase 0 | Decided: public npm; scope and licence per D-15 |
 | D-05 | Docs framework | Phase 0 (spike) | Decided: Docusaurus; the Phase 0 spike is an acceptance check |
@@ -915,7 +918,7 @@ Every mandatory item in both briefs maps to a PRD section, a requirement ID and 
 | A3 Independent deployment and release schedules | 8.3, 12 | DST-04, DST-05 | Compatibility matrix |
 | A3 Backward compatibility and breaking-change management | 8.3, 13.3 | DST-06, GOV-03, ADP-03 | Release checklist |
 | A3 Project-specific theming | 6 | TOK-05, TOK-06, TOK-10 | Validator on two reference themes |
-| A3 Compatibility testing against representative apps | 13.4 | DST-08, ADP-06, TST-07 | Consumer integration job |
+| A3 Compatibility testing against representative apps | 13.4 | DST-08, DST-11, ADP-06, TST-07 | Consumer integration job |
 | A3 No need to import the whole system; no monorepo coupling | 8.2 | DST-02, DST-03 | Export map test; bundle-size test |
 | A4 Layered token model | 6.1 | TOK-01, TOK-02 | Schema check |
 | A4 CSS variables and Tailwind integration | 6.2 | TOK-03 | Consumer render test |
