@@ -20,11 +20,12 @@
     "test": "turbo run test",
     "test:visual": "turbo run test:visual",
     "test:coverage": "turbo run test:coverage",
-    "check": "syncpack lint && turbo run lint typecheck test build test:storybook check:links check:stories",
+    "check": "syncpack lint && pnpm test:release && turbo run lint typecheck test build test:storybook check:links check:stories",
     "clean": "turbo run clean",
     "lint:deps": "syncpack lint",
     "changeset": "changeset",
     "version-packages": "changeset version",
+    "test:release": "node --test \"scripts/release/*.test.mjs\"",
     "test:consumers": "node scripts/consumers/run.mjs"
   },
   "devDependencies": {
