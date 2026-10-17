@@ -11,6 +11,8 @@ name: Release
 #   release-publish  after release-prepare: publish to npm `latest` with provenance. Same switch.
 #   release-deploy   after release-publish: deploy the prepared builds of that same commit to Vercel,
 #                    then verify the deployed sites report that commit. Same switch.
+#   release-deploy-only  manual only (input deploy-only): the recovery path when release-deploy failed after
+#                    the publish. Builds and deploys from main HEAD; cannot publish.
 #   release-dry-run  manual only (workflow_dispatch, input dry-run, default true): everything up to
 #                    but not including publish and deploy, in the runner's workspace.
 #
@@ -25,6 +27,10 @@ on:
         description: "Dry run: version, pack, build and verify without publishing or deploying. Real releases only run from a push to main."
         type: boolean
         default: true
+      deploy-only:
+        description: "Re-deploy docs and Storybook from the current main after a release whose deploy failed. Never publishes. Needs PUBLISH_RELEASE=true, ref main, and every package version already on npm."
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -177,14 +183,22 @@ jobs:
         if: steps.state.outputs.ready == 'true'
         run: node scripts/release/build-sites.mjs --sha "$RELEASE_SHA"
 
-      - name: Upload the prepared sites
+      # One artifact per site: a multi-path upload is rooted at the least common ancestor (apps/), which
+      # would drop the apps/docs/build layout on download.
+      - name: Upload the prepared docs
         if: steps.state.outputs.ready == 'true'
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: release-sites
-          path: |
-            apps/docs/build
-            apps/storybook/storybook-static
+          name: release-docs
+          path: apps/docs/build
+          retention-days: 7
+          if-no-files-found: error
+      - name: Upload the prepared Storybook
+        if: steps.state.outputs.ready == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-storybook
+          path: apps/storybook/storybook-static
           retention-days: 7
           if-no-files-found: error
 
@@ -228,8 +242,9 @@ jobs:
 
       # TODO(decision: npm-publish-auth): same approach as the next channel
       # (docs/contributing/releases-next.md): trusted publishing (OIDC, npm 11.5.1+) when no NPM_TOKEN
-      # exists, else the NPM_TOKEN secret read only here. npm allows one trusted-publisher workflow per
-      # package, so main.yml and release.yml cannot both be it: see docs/contributing/releasing.md.
+      # exists, else the NPM_TOKEN secret read only here. NPM_TOKEN is the conservative first-publish
+      # default (a trusted publisher can only be configured for an existing package). Whether npm lets
+      # both main.yml and release.yml be trusted publishers should be re-checked after the first publish.
       # TODO(decision: release-tags): --no-git-tag, so no git tags are created or pushed (that would
       # need contents: write). Tags and GitHub release notes (PRD 11.3) are a later decision.
       # --tag latest is explicit; the version guard above refuses prereleases.
@@ -275,64 +290,83 @@ jobs:
       - uses: ./.github/actions/setup
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
-          name: release-sites
-          path: .
+          name: release-docs
+          path: apps/docs/build
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-storybook
+          path: apps/storybook/storybook-static
 
-      # Same check as before publishing, now on the artifacts that are about to be uploaded.
+      # Same check as before publishing, now on the downloaded artifacts. A wrong layout fails here, and
+      # the dry run runs the same upload, download and verify (release-dry-run).
       - name: Verify the prepared builds are from the release commit
         run: >-
           node scripts/release/same-commit.mjs verify --sha "$RELEASE_SHA"
           --docs apps/docs/build --storybook apps/storybook/storybook-static
 
-      # TODO(decision: vercel-deploy-method): the PRD says Vercel builds previews through its GitHub
-      # integration. For the release, the exact artifacts verified above are uploaded with the Vercel
-      # CLI (--prebuilt --prod), so no second, unverified build can differ. The owner must stop the
-      # Git integration from also deploying main to production (releasing.md).
-      # Static output is wrapped in the Vercel Build Output API v3 layout. vercel@64.5.0 is fetched
-      # by pnpm dlx for this step only (Apache-2.0; not a dependency of the repository).
-      - name: Deploy docs to Vercel
+      - uses: ./.github/actions/deploy-sites
+        with:
+          sha: ${{ github.sha }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          project-docs: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
+          project-storybook: ${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}
+          docs-url: ${{ vars.DOCS_URL }}
+          storybook-url: ${{ vars.STORYBOOK_URL }}
+
+  # Recovery when release-deploy failed after the packages were published (re-running the whole workflow
+  # would skip: every version is already on npm). Manual, main only, same switch. It has no id-token and
+  # no npm token, so it cannot publish. It builds from the current head of main, which may be newer than
+  # the release commit; the sites are then stamped with, and verified against, that commit.
+  release-deploy-only:
+    name: release-deploy-only
+    if: >-
+      ${{ github.event_name == 'workflow_dispatch'
+      && inputs.deploy-only
+      && github.repository == 'hatfim/credo'
+      && github.ref == 'refs/heads/main'
+      && vars.PUBLISH_RELEASE == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    concurrency:
+      group: release-deploy
+      cancel-in-progress: false
+    env:
+      DOCS_URL: ${{ vars.DOCS_URL }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Check that the packages are already published
+        run: node scripts/release/release-state.mjs --require-published
+      - name: Check deploy configuration
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
-        run: |
-          [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ] || { echo "::error::Vercel secrets for docs are empty."; exit 1; }
-          stage="$RUNNER_TEMP/vercel-docs"
-          mkdir -p "$stage/.vercel/output/static"
-          cp -R apps/docs/build/. "$stage/.vercel/output/static/"
-          printf '{"version":3}\n' > "$stage/.vercel/output/config.json"
-          cd "$stage"
-          pnpm dlx vercel@64.5.0 deploy --prebuilt --prod --yes
-
-      - name: Deploy Storybook to Vercel
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}
-        run: |
-          [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ] || { echo "::error::Vercel secrets for Storybook are empty."; exit 1; }
-          stage="$RUNNER_TEMP/vercel-storybook"
-          mkdir -p "$stage/.vercel/output/static"
-          cp -R apps/storybook/storybook-static/. "$stage/.vercel/output/static/"
-          printf '{"version":3}\n' > "$stage/.vercel/output/config.json"
-          cd "$stage"
-          pnpm dlx vercel@64.5.0 deploy --prebuilt --prod --yes
-
-      # REL-04: the live sites must report the release commit. Retries for alias propagation.
-      - name: Verify the deployed sites report the release commit
-        env:
-          DOCS_URL: ${{ vars.DOCS_URL }}
+          VERCEL_PROJECT_ID_DOCS: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
+          VERCEL_PROJECT_ID_STORYBOOK: ${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}
           STORYBOOK_URL: ${{ vars.STORYBOOK_URL }}
         run: |
-          for i in 1 2 3 4 5 6 7 8 9 10 11 12; do
-            if node scripts/release/same-commit.mjs verify --sha "$RELEASE_SHA" --docs "$DOCS_URL" --storybook "$STORYBOOK_URL"; then
-              exit 0
-            fi
-            echo "Attempt $i did not match; waiting."
-            sleep 10
+          missing=""
+          for n in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID_DOCS VERCEL_PROJECT_ID_STORYBOOK DOCS_URL STORYBOOK_URL; do
+            [ -n "${!n}" ] || missing="$missing $n"
           done
-          echo "::error::The deployed sites do not report commit $RELEASE_SHA."
-          exit 1
+          [ -z "$missing" ] || { echo "::error::Missing secrets or variables:$missing."; exit 1; }
+      - name: Build docs and Storybook from this commit and verify
+        run: node scripts/release/build-sites.mjs --sha "${{ github.sha }}"
+      - uses: ./.github/actions/deploy-sites
+        with:
+          sha: ${{ github.sha }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          project-docs: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
+          project-storybook: ${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}
+          docs-url: ${{ vars.DOCS_URL }}
+          storybook-url: ${{ vars.STORYBOOK_URL }}
 
   # ---------------------------------------------------------------------------------------------
   # Manual dry run. No publish, no deploy, no push, no tokens. Edits package.json files in the
@@ -340,7 +374,7 @@ jobs:
   # ---------------------------------------------------------------------------------------------
   release-dry-run:
     name: release-dry-run
-    if: ${{ github.event_name == 'workflow_dispatch' && github.repository == 'hatfim/credo' }}
+    if: ${{ github.event_name == 'workflow_dispatch' && !inputs.deploy-only && github.repository == 'hatfim/credo' }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:
@@ -374,5 +408,33 @@ jobs:
           { echo "### Tarballs a release would publish"; echo; cat "$RUNNER_TEMP/tarballs.md"; } >> "$GITHUB_STEP_SUMMARY"
       - name: Build docs and Storybook and verify same commit
         run: node scripts/release/build-sites.mjs --sha "$RELEASE_SHA"
+      # Exercises the artifact hand-off of release-prepare and release-deploy: one artifact per site,
+      # downloaded to its own path, then verified. A layout that does not restore fails here.
+      - name: Upload the sites (one artifact each)
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dry-run-docs
+          path: apps/docs/build
+          retention-days: 1
+          if-no-files-found: error
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dry-run-storybook
+          path: apps/storybook/storybook-static
+          retention-days: 1
+          if-no-files-found: error
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dry-run-docs
+          path: ${{ runner.temp }}/roundtrip/apps/docs/build
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dry-run-storybook
+          path: ${{ runner.temp }}/roundtrip/apps/storybook/storybook-static
+      - name: Verify the downloaded layout
+        run: |
+          r="$RUNNER_TEMP/roundtrip"
+          test -f "$r/apps/docs/build/index.html" && test -f "$r/apps/storybook/storybook-static/index.html"
+          node scripts/release/same-commit.mjs verify --sha "$RELEASE_SHA" --docs "$r/apps/docs/build" --storybook "$r/apps/storybook/storybook-static"
       - name: Evaluate the release guard (reads npm anonymously)
         run: node scripts/release/release-state.mjs

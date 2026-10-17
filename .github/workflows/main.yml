@@ -124,17 +124,10 @@ jobs:
           --filter=@usecredo/tokens --filter=@usecredo/tailwind-config
           --filter=@usecredo/icons --filter=@usecredo/ui
 
-      - name: Check that every version is a snapshot
+      # Only packages whose version changed are checked (changeset publish skips versions already on npm).
+      - name: Check that every changed version is a snapshot
         if: steps.changesets.outputs.present == 'true'
-        run: |
-          for p in tokens tailwind-config icons ui; do
-            v=$(node -p "require('./packages/$p/package.json').version")
-            echo "@usecredo/$p $v"
-            case "$v" in
-              0.0.0-next-*) ;;
-              *) echo "::error::@usecredo/$p is $v, not a next snapshot. Refusing to publish."; exit 1 ;;
-            esac
-          done
+        run: node scripts/release/snapshot-versions.mjs
 
       # TODO(decision: npm-publish-auth): two ways to authenticate, in order of preference.
       #  1. Trusted publishing (OIDC): no stored secret. Needs a trusted publisher configured on npm for

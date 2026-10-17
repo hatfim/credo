@@ -35,6 +35,7 @@ export function compare({ expectedSha, headSha, packages, infos }) {
   if (headSha !== undefined && headSha !== expectedSha) problems.push(`checked-out HEAD ${headSha} differs from release SHA ${expectedSha}`);
   for (const [label, info] of Object.entries(infos)) {
     if (!info) { problems.push(`${label}: no build-info.json`); continue; }
+    if (info.name !== label) problems.push(`${label}: build-info.json says it is the "${info.name}" site (directories swapped?)`);
     if (info.sha !== expectedSha) problems.push(`${label}: built from ${info.sha}, release is ${expectedSha}`);
     for (const [pkg, version] of Object.entries(packages)) {
       if (info.packages?.[pkg] !== version) problems.push(`${label}: ${pkg} is ${info.packages?.[pkg]}, package.json says ${version}`);

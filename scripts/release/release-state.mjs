@@ -4,7 +4,7 @@
 // x.y.z version above the 0.0.0 baseline, and at least one of them is not on npm yet.
 // Refuses (exit 1) on a prerelease or `-next-` version, which must never reach `latest`.
 //
-//   node scripts/release/release-state.mjs [--offline] [--require-ready]   (writes ready=true|false to $GITHUB_OUTPUT)
+//   node scripts/release/release-state.mjs [--offline] [--require-ready] [--require-published]   (writes ready=true|false to $GITHUB_OUTPUT)
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
@@ -28,10 +28,16 @@ export function evaluate({ versions, pendingChangesets, preMode, published }) {
   return { ready: true, reason: `to publish: ${todo.map((n) => `${n}@${versions[n]}`).join(", ")}` };
 }
 
-function onNpm(name, version) {
-  const r = spawnSync("npm", ["view", `${name}@${version}`, "version", "--json", "--registry", "https://registry.npmjs.org/"], { encoding: "utf8" });
-  if (r.status === 0) return r.stdout.trim() !== "";
-  if (/E404/.test(r.stdout + r.stderr)) return false;
+/** Only a real "not found" answer from npm counts as not published; anything else fails closed. */
+export function isNotFound({ stdout = "", stderr = "" }) {
+  try { if (JSON.parse(stdout)?.error?.code === "E404") return true; } catch { /* not JSON */ }
+  return /^npm error code E404$/m.test(stderr) || /^npm error 404 +Not Found\b/m.test(stderr);
+}
+
+export function onNpm(name, version, run = spawnSync) {
+  const r = run("npm", ["view", `${name}@${version}`, "version", "--json", "--registry", "https://registry.npmjs.org/"], { encoding: "utf8" });
+  if (r.status === 0) return String(r.stdout).trim() !== "";
+  if (isNotFound(r)) return false;
   throw new Error(`npm view ${name}@${version} failed: ${r.stderr}`);
 }
 
@@ -42,6 +48,12 @@ function main() {
   const published = process.argv.includes("--offline") ? {} : Object.fromEntries(Object.entries(versions).map(([n, v]) => [n, onNpm(n, v)]));
   const result = evaluate({ versions, pendingChangesets, preMode, published });
   console.log(JSON.stringify({ versions, pendingChangesets, preMode, published, ...result }, null, 2));
+  if (process.argv.includes("--require-published") && !result.refuse) {
+    const missing = Object.keys(versions).filter((n) => !published[n]);
+    if (missing.length) { console.error(`::error::Deploy-only needs every version on npm; not published: ${missing.join(", ")}`); return 1; }
+    console.log("::notice::All versions are on npm; deploy-only may proceed.");
+    return 0;
+  }
   if (result.refuse) { console.error(`::error::Refusing to release: ${result.reason}`); return 1; }
   console.log(`::notice::${result.ready ? "Release ready" : "No release"}: ${result.reason}`);
   if (!result.ready && process.argv.includes("--require-ready")) { console.error(`::error::Not a release commit: ${result.reason}`); return 1; }

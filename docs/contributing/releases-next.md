@@ -37,7 +37,7 @@ Safety properties:
   credentials. The snapshot version bump exists only in the runner's working tree: it is never
   committed, pushed or tagged.
 - With no changesets pending, the job succeeds and logs "No changesets to snapshot".
-- Every version is checked to be `0.0.0-next-*` before publishing, and `--tag next` is always passed.
+- Every version that changed is checked to be `0.0.0-next-*` before publishing (`scripts/release/snapshot-versions.mjs`; unchanged packages are skipped by `changeset publish`), and `--tag next` is always passed.
 - The npm token (if used) is read from `secrets.NPM_TOKEN` through `env:` in the one publish step.
 
 `TODO(decision: npm-publish-auth)`: two ways to authenticate. Prefer trusted publishing (OIDC, no stored
@@ -51,7 +51,7 @@ installing `npm@11.5.1`, the first version with trusted publishing) when it does
 2. First publish: a trusted publisher can only be configured for a package that exists. Create a
    granular access token (publish only, scope `@usecredo`, shortest expiry), add it as the repository
    secret `NPM_TOKEN`. Provenance needs a public repository and the `id-token` permission, both present.
-3. After the first publish, for each of the four packages on npmjs.com: Settings, Trusted
+3. After the first publish (and after re-checking whether npm accepts both `main.yml` and `release.yml` as trusted publishers for one package, see `releasing.md`), for each of the four packages on npmjs.com: Settings, Trusted
    Publisher, GitHub Actions, organisation `hatfim`, repository `credo`, workflow `main.yml`. Then delete
    the `NPM_TOKEN` secret so the OIDC path is used.
 4. Decide about `latest` first (see the warning above): publish a deliberate first stable version of each package, or accept that the first snapshot becomes `latest`.

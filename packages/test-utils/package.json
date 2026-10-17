@@ -6,7 +6,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git@github.com:hatfim/credo.git",
+    "url": "git+https://github.com/hatfim/credo.git",
     "directory": "packages/test-utils"
   },
   "type": "module",

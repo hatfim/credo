@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:hatfim/credo.git",
+    "url": "git+https://github.com/hatfim/credo.git",
     "directory": "packages/tailwind-config"
   },
   "type": "module",
