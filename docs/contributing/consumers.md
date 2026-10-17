@@ -30,6 +30,14 @@ because it needs the network (third-party packages) and a registry process.
    integrity of each `@usecredo/*` package equals the hash of the tarball packed in step 2.
 6. Runs `pnpm run build` and `pnpm run test` in that directory.
 
+The install, build and test children run with `HOME` set to an empty directory, throwaway
+user and global npm config, no token variables, and `@usecredo:registry` pinned to the local
+registry in the consumer `.npmrc`, so a developer or CI `~/.npmrc` cannot redirect `@usecredo/*`.
+The install is retried once on failure (logged).
+
+Verdaccio is dev-only: `pnpm audit` reports advisories for it (3 high, 1 critical). It listens
+on loopback for the length of one test run and is never published or deployed.
+
 Third-party versions come from the repository catalog: the temporary workspace file is the
 root `pnpm-workspace.yaml` without its `packages` list, so `catalog:` specifiers resolve to
 the same versions as in the repository.
@@ -73,7 +81,8 @@ Needs Node 22, network access to npmjs.org for third-party packages, and `npm` o
 - Tailwind v4 has one theme namespace per app. The Credo `theme.css` defines `--radius-*` and
   `--font-sans`/`--font-mono`; an app that defines the same names in its own `@theme` will
   override or be overridden by whichever comes last. The vite consumer avoids those names.
-  TODO(decision: theme-namespace-collisions): decide whether the Credo theme must be namespaced.
+  A collision on `--radius-md` or `--font-sans` would be caught only incidentally (by the Credo variable checks), not by a dedicated test.
+  TODO(decision: theme-namespace-collisions): decide whether the Credo theme must be namespaced; it stays open.
 - The React and Tailwind version matrix (TST-07) is not part of this task.
   TODO(decision: consumer-version-matrix).
 - `next-app` imports `@usecredo/icons` directly for the server entry, although the PRD table

@@ -188,7 +188,7 @@ async function main() {
         "  '**':",
         "    access: $all",
         "    proxy: npmjs",
-        "log: { type: stdout, format: pretty, level: warn }",
+        `log: { type: stdout, format: pretty, level: ${process.env.CREDO_REGISTRY_LOG_LEVEL ?? "warn"} }`,
         "",
       ].join("\n"),
     );
@@ -227,15 +227,34 @@ async function main() {
     }
 
     // 4. Install, build and test each consumer in its own directory.
+    const home = path.join(tmp, "home");
+    fs.mkdirSync(home);
+    const storeDir = capture("pnpm", ["store", "path"], { cwd: repoRoot, env: cleanEnv() }).trim();
     for (const name of CONSUMERS) {
       log(`Consumer ${name}`);
       const dir = path.join(tmp, "work", name);
       copyConsumer(name, dir);
       rewriteManifest(dir, versions);
       writeWorkspaceFile(dir);
-      fs.writeFileSync(path.join(dir, ".npmrc"), `registry=${url}\ncache-dir=${path.join(tmp, "pnpm-cache")}\n`);
-      const env = cleanEnv({ npm_config_registry: url });
-      run("pnpm", ["install", "--no-frozen-lockfile"], { cwd: dir, env });
+      fs.writeFileSync(
+        path.join(dir, ".npmrc"),
+        `registry=${url}\n@usecredo:registry=${url}\ncache-dir=${path.join(tmp, "pnpm-cache")}\nstore-dir=${storeDir}\n`,
+      );
+      // No user or global npm config can reach these children: HOME points at an empty directory.
+      const env = cleanEnv({
+        HOME: home,
+        USERPROFILE: home,
+        XDG_CONFIG_HOME: path.join(home, ".config"),
+        npm_config_userconfig: path.join(home, ".npmrc"),
+        npm_config_globalconfig: emptyGlobal,
+        npm_config_registry: url,
+      });
+      try {
+        run("pnpm", ["install", "--no-frozen-lockfile"], { cwd: dir, env });
+      } catch (err) {
+        console.log(`[consumers] ${name}: install failed (${err.message}); retrying once`);
+        run("pnpm", ["install", "--no-frozen-lockfile"], { cwd: dir, env });
+      }
       assertIsolated(dir, name, url, versions, integrity);
       run("pnpm", ["run", "build"], { cwd: dir, env });
       run("pnpm", ["run", "test"], { cwd: dir, env });
