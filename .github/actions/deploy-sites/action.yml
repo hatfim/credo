@@ -1,0 +1,62 @@
+name: Deploy sites
+description: Deploy the prepared docs build to Vercel (prebuilt, production) and verify the live site reports the given commit. Used by release.yml only.
+
+inputs:
+  sha:
+    description: Full commit SHA the builds were stamped with.
+    required: true
+  docs-dir:
+    description: Docs build directory.
+    default: apps/docs/build
+  vercel-token:
+    required: true
+  vercel-org-id:
+    required: true
+  project-docs:
+    required: true
+  docs-url:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    # TODO(decision: vercel-deploy-method): the PRD says Vercel builds previews through its GitHub
+    # integration. The release uploads the exact builds verified earlier with the Vercel CLI
+    # (--prebuilt --prod) so no second, unverified build can differ. The owner must stop the Git
+    # integration from also deploying main to production (docs/contributing/releasing.md).
+    # The static output is wrapped in a minimal Build Output API v3 layout (static/ + config.json).
+    # vercel@64.5.0 is fetched by pnpm dlx for this step only (Apache-2.0; not a repository dependency).
+    - name: Deploy to Vercel
+      shell: bash
+      env:
+        VERCEL_TOKEN: ${{ inputs.vercel-token }}
+        VERCEL_ORG_ID: ${{ inputs.vercel-org-id }}
+        PROJECT_DOCS: ${{ inputs.project-docs }}
+        DOCS_DIR: ${{ inputs.docs-dir }}
+      run: |
+        [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$PROJECT_DOCS" ] || { echo "::error::Vercel secrets are empty."; exit 1; }
+        deploy() { # name, build dir, project id
+          stage="$RUNNER_TEMP/vercel-$1"
+          mkdir -p "$stage/.vercel/output/static"
+          cp -R "$2"/. "$stage/.vercel/output/static/"
+          printf '{"version":3}\n' > "$stage/.vercel/output/config.json"
+          (cd "$stage" && VERCEL_PROJECT_ID="$3" pnpm dlx vercel@64.5.0 deploy --prebuilt --prod --yes)
+        }
+        deploy docs "$DOCS_DIR" "$PROJECT_DOCS"
+
+    # REL-04: the live site must report the release commit. Retries for alias propagation.
+    - name: Verify the deployed site reports the commit
+      shell: bash
+      env:
+        SHA: ${{ inputs.sha }}
+        DOCS_URL: ${{ inputs.docs-url }}
+      run: |
+        for i in 1 2 3 4 5 6 7 8 9 10 11 12; do
+          if node scripts/release/same-commit.mjs verify --sha "$SHA" --no-git --docs "$DOCS_URL"; then
+            exit 0
+          fi
+          echo "Attempt $i did not match; waiting."
+          sleep 10
+        done
+        echo "::error::The deployed site does not report commit $SHA."
+        exit 1

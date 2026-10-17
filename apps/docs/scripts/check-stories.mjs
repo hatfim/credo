@@ -1,4 +1,5 @@
-// Cross-link check between the docs and Storybook (P1-19, DOC-05, PRD 9.4). Run it after
+// Cross-link check between the docs and Storybook (P1-19, DOC-05, PRD 9.4). Storybook is not hosted
+// (docs/decisions/0003-storybook-not-hosted.md), so docs name stories by ID and never link a URL. Run it after
 // `storybook build`: it reads apps/storybook/storybook-static/index.json. Fails when
 //  1. the Storybook index is missing (it never passes without it);
 //  2. a story ID linked from a docs page is not in the index;
@@ -12,8 +13,8 @@
 // `button`; its docs page is docs/components/button.mdx, its stories are the story files under
 // packages/ui/src/button/.
 //
-// A docs page links a story with a URL containing `path=/story/<id>` or `id=<id>`
-// (for example `<storybook-url>/?path=/story/components-button--default`).
+// A docs page references a story by its ID written as inline code, for example
+// `components-button--default` (the shape is <kind>--<name>).
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 
@@ -50,12 +51,11 @@ const linkedByPage = new Map();
 for (const page of pages) {
   const text = readFileSync(page, "utf8");
   const ids = new Set();
-  for (const m of text.matchAll(/path=\/story\/([A-Za-z0-9_-]+)/g)) ids.add(m[1]);
-  for (const m of text.matchAll(/[?&]id=([A-Za-z0-9_-]+)/g)) ids.add(m[1]);
+  for (const m of text.matchAll(/`([a-z0-9]+(?:-[a-z0-9]+)*--[a-z0-9]+(?:-[a-z0-9]+)*)`/g)) ids.add(m[1]);
   linkedByPage.set(page, ids);
   for (const id of ids) {
     if (!storyIds.has(id)) {
-      problems.push(`${path.relative(root, page)} links story "${id}", which is not in the Storybook index`);
+      problems.push(`${path.relative(root, page)} references story "${id}", which is not in the Storybook index`);
     }
   }
 }
@@ -72,7 +72,7 @@ for (const name of stable) {
   if (!page) {
     problems.push(`stable component "${name}" has no docs page (expected apps/docs/docs/components/${name}.mdx)`);
   } else if ((linkedByPage.get(page)?.size ?? 0) === 0) {
-    problems.push(`docs page for "${name}" links no story`);
+    problems.push(`docs page for "${name}" references no story`);
   }
 
   const marker = `/packages/ui/src/${name}/`;

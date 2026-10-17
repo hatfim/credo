@@ -5,7 +5,6 @@ description: Primary action control with variants, sizes, loading and asChild.
 ---
 
 import { Button } from "@usecredo/ui/button";
-import storybook from "../_generated/storybook.json";
 import ButtonApi from "../_generated/api-button.mdx";
 
 `Button` triggers an action. It renders a native `button`, or the single child you pass when
@@ -79,14 +78,17 @@ also accepts every native `button` attribute and forwards its `ref` to the eleme
 
 ## Stories
 
-State catalog, keyboard check and accessibility checks live in Storybook.
+Storybook is a development and CI tool and is not hosted. To browse the state catalog, the
+keyboard check and the accessibility checks, run `pnpm dev` in the repository and open
+Storybook at `http://localhost:6006`, then find the story by its ID. The docs build checks that
+every ID below exists in the Storybook index.
 
-- <a href={`${storybook.url}/?path=/story/components-button--default`}>Default</a>
-- <a href={`${storybook.url}/?path=/story/components-button--variants`}>Variants</a>
-- <a href={`${storybook.url}/?path=/story/components-button--sizes`}>Sizes</a>
-- <a href={`${storybook.url}/?path=/story/components-button--disabled`}>Disabled</a>
-- <a href={`${storybook.url}/?path=/story/components-button--loading`}>Loading</a>
-- <a href={`${storybook.url}/?path=/story/components-button--as-child`}>As child</a>
-- <a href={`${storybook.url}/?path=/story/components-button--long-text`}>Long text</a>
-- <a href={`${storybook.url}/?path=/story/components-button--themes`}>Themes</a>
-- <a href={`${storybook.url}/?path=/story/components-button--keyboard`}>Keyboard</a>
+- `components-button--default`
+- `components-button--variants`
+- `components-button--sizes`
+- `components-button--disabled`
+- `components-button--loading`
+- `components-button--as-child`
+- `components-button--long-text`
+- `components-button--themes`
+- `components-button--keyboard`

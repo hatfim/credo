@@ -136,11 +136,6 @@ export default function designSystem(context: { siteDir: string }) {
       fs.writeFileSync(path.join(out, "tokens-roles.mdx"), tokens.roles);
       fs.writeFileSync(path.join(out, "tokens-scales.mdx"), tokens.scales + "\n");
       fs.writeFileSync(path.join(out, "tokens-typography.mdx"), tokens.typography + "\n");
-
-      // Origin of the deployed Storybook for story links. Set STORYBOOK_URL in the build environment.
-      // TODO(decision: storybook-url): the default is a placeholder host until the owner's Vercel project exists.
-      const url = (process.env["STORYBOOK_URL"] ?? "https://storybook.example.invalid").replace(/\/$/, "");
-      fs.writeFileSync(path.join(out, "storybook.json"), JSON.stringify({ url }, null, 2) + "\n");
     },
   };
 }

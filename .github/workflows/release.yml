@@ -1,0 +1,422 @@
+name: Release
+
+# PRD 11.3 / 12.3, REL-04, DST-01 / P1-24. The Changesets release flow, run with pnpm scripts and the
+# gh CLI (no third-party release action). See docs/contributing/releasing.md.
+#
+#   release-pr       push to main: version packages on the bot branch changeset-release/main and open or
+#                    update the "Version packages" pull request. OFF unless vars.RELEASE_PR == 'true'.
+#   release-prepare  push to main: when this commit is a release commit, run the full check, build docs
+#                    stamped with the commit SHA, verify it agrees with the packages. OFF unless
+#                    vars.PUBLISH_RELEASE == 'true'.
+#   release-publish  after release-prepare: publish to npm `latest` with provenance. Same switch.
+#   release-deploy   after release-publish: deploy the prepared builds of that same commit to Vercel,
+#                    then verify the deployed site reports that commit. Same switch.
+#   release-deploy-only  manual only (input deploy-only): the recovery path when release-deploy failed after
+#                    the publish. Builds and deploys from main HEAD; cannot publish.
+#   release-dry-run  manual only (workflow_dispatch, input dry-run, default true): everything up to
+#                    but not including publish and deploy, in the runner's workspace.
+#
+# Nothing here publishes or deploys until the owner sets the repository variable PUBLISH_RELEASE to
+# "true". Merging this file changes nothing by itself.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "Dry run: version, pack, build and verify without publishing or deploying. Real releases only run from a push to main."
+        type: boolean
+        default: true
+      deploy-only:
+        description: "Re-deploy the docs site from the current main after a release whose deploy failed. Never publishes. Needs dry-run UNTICKED, PUBLISH_RELEASE=true, ref main, and every package version already on npm."
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+env:
+  CI: "true"
+
+jobs:
+  # ---------------------------------------------------------------------------------------------
+  # Version packages pull request. The branch changeset-release/main is owned by this job and is
+  # force-pushed on every run. It never pushes to main. A pull request created with the default
+  # GITHUB_TOKEN would not start the required checks, so it uses the repository secret GH_PAT (the
+  # same one tokens-sync uses), read only through env in the two steps that talk to GitHub.
+  # ---------------------------------------------------------------------------------------------
+  release-pr:
+    name: release-pr
+    if: >-
+      ${{ github.event_name == 'push'
+      && github.repository == 'hatfim/credo'
+      && github.ref == 'refs/heads/main'
+      && vars.RELEASE_PR == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read # writes go through GH_PAT, not GITHUB_TOKEN
+    concurrency:
+      group: release-pr
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+
+      - name: Look for changesets
+        id: changesets
+        run: |
+          count=$(find .changeset -maxdepth 1 -name '*.md' ! -name README.md | wc -l | tr -d ' ')
+          echo "Pending changesets: $count"
+          echo "present=$([ "$count" != "0" ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+          [ "$count" != "0" ] || echo "::notice::No changesets pending; no release pull request needed."
+
+      - name: Version packages
+        if: steps.changesets.outputs.present == 'true'
+        run: |
+          pnpm exec changeset version
+          # The workspace versions changed; the lockfile must still satisfy --frozen-lockfile.
+          pnpm install --frozen-lockfile
+
+      - name: Commit to changeset-release/main
+        if: steps.changesets.outputs.present == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Secret GH_PAT is empty. The owner must add it (contents and pull requests write). See docs/contributing/releasing.md."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b changeset-release/main
+          git add -A
+          git commit -m "chore: version packages"
+          gh auth setup-git
+          # Explicit refspec: only the bot-owned branch is ever written.
+          git push --force origin HEAD:refs/heads/changeset-release/main
+
+      - name: Open or update the pull request
+        if: steps.changesets.outputs.present == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          {
+            echo "Merging this pull request publishes these versions to npm (when PUBLISH_RELEASE is enabled) and deploys the docs site from the merge commit."
+            echo
+            for p in tokens tailwind-config icons ui; do
+              echo "- \`@usecredo/$p\` $(node -p "require('./packages/$p/package.json').version")"
+            done
+            echo
+            echo "Generated by the release workflow. Do not edit the branch by hand; it is rewritten on every push to main."
+          } > "$RUNNER_TEMP/body.md"
+          number=$(gh pr list --head changeset-release/main --base main --state open --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            gh pr edit "$number" --title "chore: version packages" --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh pr create --base main --head changeset-release/main --title "chore: version packages" --body-file "$RUNNER_TEMP/body.md"
+          fi
+
+  # ---------------------------------------------------------------------------------------------
+  # Release gate. No id-token, no npm token. Builds the docs site before anything is published, so a
+  # divergence stops the release rather than following it.
+  # ---------------------------------------------------------------------------------------------
+  release-prepare:
+    name: release-prepare
+    if: >-
+      ${{ github.event_name == 'push'
+      && github.repository == 'hatfim/credo'
+      && github.ref == 'refs/heads/main'
+      && vars.PUBLISH_RELEASE == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    concurrency:
+      group: release-prepare
+      cancel-in-progress: false
+    outputs:
+      ready: ${{ steps.state.outputs.ready }}
+    env:
+      RELEASE_SHA: ${{ github.sha }}
+      DOCS_URL: ${{ vars.DOCS_URL }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+
+      # Ready = no pending changesets, plain x.y.z versions above 0.0.0, at least one not on npm yet.
+      # Exits non-zero (and the release stops) for a prerelease or -next- version. Reads npm anonymously.
+      - name: Decide whether this commit is a release
+        id: state
+        run: node scripts/release/release-state.mjs
+
+      # The Vercel secrets are checked here, before anything is published, because a release without
+      # the matching site deployment would break REL-04. Values are never printed.
+      - name: Check deploy configuration
+        if: steps.state.outputs.ready == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID_DOCS: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
+        run: |
+          missing=""
+          for n in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID_DOCS DOCS_URL; do
+            [ -n "${!n}" ] || missing="$missing $n"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::Release stopped before publishing. Missing secrets or variables:$missing. The owner must create them (docs/contributing/releasing.md)."
+            exit 1
+          fi
+
+      - name: Full check
+        if: steps.state.outputs.ready == 'true'
+        run: pnpm check
+
+      - name: Build the docs site from this commit and verify
+        if: steps.state.outputs.ready == 'true'
+        run: node scripts/release/build-sites.mjs --sha "$RELEASE_SHA"
+
+      # A multi-path upload is rooted at the least common ancestor (apps/), which
+      # would drop the apps/docs/build layout on download.
+      - name: Upload the prepared docs
+        if: steps.state.outputs.ready == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-docs
+          path: apps/docs/build
+          include-hidden-files: true
+          retention-days: 7
+          if-no-files-found: error
+
+  release-publish:
+    name: release-publish
+    needs: [release-prepare]
+    if: >-
+      ${{ needs.release-prepare.outputs.ready == 'true'
+      && github.event_name == 'push'
+      && github.repository == 'hatfim/credo'
+      && github.ref == 'refs/heads/main'
+      && vars.PUBLISH_RELEASE == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write # npm provenance and trusted publishing (OIDC). Nothing else.
+    # A queued run can be replaced by a newer one; the publish decision is rebuilt from the repository
+    # and npm each time, so the newer run publishes whatever is still missing.
+    concurrency:
+      group: release-publish
+      cancel-in-progress: false
+    outputs:
+      published: ${{ steps.publish.outcome == 'success' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+
+      # Same guard again, in the job that holds the publish credentials.
+      - name: Re-check that this is a stable release commit
+        run: node scripts/release/release-state.mjs --require-ready
+
+      - name: Build the published packages
+        run: >-
+          pnpm exec turbo run build
+          --filter=@usecredo/tokens --filter=@usecredo/tailwind-config
+          --filter=@usecredo/icons --filter=@usecredo/ui
+
+      # TODO(decision: npm-publish-auth): same approach as the next channel
+      # (docs/contributing/releases-next.md): trusted publishing (OIDC, npm 11.5.1+) when no NPM_TOKEN
+      # exists, else the NPM_TOKEN secret read only here. NPM_TOKEN is the conservative first-publish
+      # default (a trusted publisher can only be configured for an existing package). Whether npm lets
+      # both main.yml and release.yml be trusted publishers should be re-checked after the first publish.
+      # TODO(decision: release-tags): --no-git-tag, so no git tags are created or pushed (that would
+      # need contents: write). Tags and GitHub release notes (PRD 11.3) are a later decision.
+      # --tag latest is explicit; the version guard above refuses prereleases.
+      - name: Publish to latest with provenance
+        id: publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
+        run: |
+          if [ -n "$NPM_TOKEN" ]; then
+            echo "Authenticating with the NPM_TOKEN secret."
+            printf '%s\n' "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "$RUNNER_TEMP/npmrc"
+            export NPM_CONFIG_USERCONFIG="$RUNNER_TEMP/npmrc"
+          else
+            echo "No NPM_TOKEN: using trusted publishing (OIDC)."
+            npm install --global npm@11.5.1
+          fi
+          pnpm exec changeset publish --tag latest --no-git-tag
+
+  release-deploy:
+    name: release-deploy
+    needs: [release-prepare, release-publish]
+    if: >-
+      ${{ needs.release-publish.outputs.published == 'true'
+      && github.event_name == 'push'
+      && github.repository == 'hatfim/credo'
+      && github.ref == 'refs/heads/main'
+      && vars.PUBLISH_RELEASE == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    concurrency:
+      group: release-deploy
+      cancel-in-progress: false
+    env:
+      RELEASE_SHA: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-docs
+          path: apps/docs/build
+
+      # Same check as before publishing, now on the downloaded artifacts. A wrong layout fails here, and
+      # the dry run runs the same upload, download and verify (release-dry-run).
+      - name: Verify the prepared builds are from the release commit
+        run: >-
+          node scripts/release/same-commit.mjs verify --sha "$RELEASE_SHA"
+          --docs apps/docs/build
+
+      - uses: ./.github/actions/deploy-sites
+        with:
+          sha: ${{ github.sha }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          project-docs: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
+          docs-url: ${{ vars.DOCS_URL }}
+
+  # Recovery when release-deploy failed after the packages were published (re-running the whole workflow
+  # would skip: every version is already on npm). Manual, main only, same switch. It has no id-token and
+  # no npm token, so it cannot publish. It builds from the current head of main, which may be newer than
+  # the release commit; the site is then stamped with, and verified against, that commit.
+  release-deploy-only:
+    name: release-deploy-only
+    if: >-
+      ${{ github.event_name == 'workflow_dispatch'
+      && inputs.deploy-only
+      && github.repository == 'hatfim/credo'
+      && github.ref == 'refs/heads/main'
+      && vars.PUBLISH_RELEASE == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    concurrency:
+      group: release-deploy
+      cancel-in-progress: false
+    env:
+      DOCS_URL: ${{ vars.DOCS_URL }}
+    steps:
+      # dry-run defaults to true, so a deploy needs the dry-run box unticked on purpose.
+      - name: Refuse dry-run together with deploy-only
+        if: ${{ inputs.dry-run }}
+        run: |
+          echo "::error::deploy-only deploys to production, so it cannot be combined with dry-run. Untick dry-run (it defaults to true) to deploy, or untick deploy-only for a dry run."
+          exit 1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Check that the packages are already published
+        run: node scripts/release/release-state.mjs --require-published
+      - name: Check deploy configuration
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID_DOCS: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
+        run: |
+          missing=""
+          for n in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID_DOCS DOCS_URL; do
+            [ -n "${!n}" ] || missing="$missing $n"
+          done
+          [ -z "$missing" ] || { echo "::error::Missing secrets or variables:$missing."; exit 1; }
+      - name: Build the docs site from this commit and verify
+        run: node scripts/release/build-sites.mjs --sha "${{ github.sha }}"
+      - uses: ./.github/actions/deploy-sites
+        with:
+          sha: ${{ github.sha }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          project-docs: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
+          docs-url: ${{ vars.DOCS_URL }}
+
+  # ---------------------------------------------------------------------------------------------
+  # Manual dry run. No publish, no deploy, no push, no tokens. Edits package.json files in the
+  # runner's working tree only (changeset version) and discards them with the runner.
+  # ---------------------------------------------------------------------------------------------
+  release-dry-run:
+    name: release-dry-run
+    if: ${{ github.event_name == 'workflow_dispatch' && !inputs.deploy-only && github.repository == 'hatfim/credo' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    env:
+      RELEASE_SHA: ${{ github.sha }}
+      DOCS_URL: https://docs.example.invalid
+    steps:
+      - name: Refuse a non-dry run
+        if: ${{ !inputs.dry-run }}
+        run: |
+          echo "::error::Real releases only run from a push to main (release-publish). Manual runs are always dry runs."
+          exit 1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Version packages in the workspace (not committed)
+        run: |
+          pnpm exec changeset version
+          pnpm install --frozen-lockfile
+          git status --short
+      - name: Build the published packages
+        run: >-
+          pnpm exec turbo run build
+          --filter=@usecredo/tokens --filter=@usecredo/tailwind-config
+          --filter=@usecredo/icons --filter=@usecredo/ui
+      - name: Pack the four packages
+        run: |
+          node scripts/release/pack.mjs --out "$RUNNER_TEMP/tarballs" | tee "$RUNNER_TEMP/tarballs.md"
+          { echo "### Tarballs a release would publish"; echo; cat "$RUNNER_TEMP/tarballs.md"; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Build the docs site and verify the commit stamp
+        run: node scripts/release/build-sites.mjs --sha "$RELEASE_SHA"
+      # Exercises the artifact hand-off of release-prepare and release-deploy: one artifact,
+      # downloaded to its own path, then verified. A layout that does not restore fails here.
+      - name: Upload the docs site
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dry-run-docs
+          path: apps/docs/build
+          include-hidden-files: true
+          retention-days: 1
+          if-no-files-found: error
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dry-run-docs
+          path: ${{ runner.temp }}/roundtrip/apps/docs/build
+      - name: Verify the downloaded layout
+        run: |
+          r="$RUNNER_TEMP/roundtrip"
+          test -f "$r/apps/docs/build/index.html"
+          # Dotfiles must survive the round trip (include-hidden-files).
+          (cd apps/docs/build && find . -name '.*' -type f | sort) > "$RUNNER_TEMP/hidden-src.txt"
+          (cd "$r/apps/docs/build" && find . -name '.*' -type f | sort) > "$RUNNER_TEMP/hidden-rt.txt"
+          diff "$RUNNER_TEMP/hidden-src.txt" "$RUNNER_TEMP/hidden-rt.txt"
+          node scripts/release/same-commit.mjs verify --sha "$RELEASE_SHA" --docs "$r/apps/docs/build"
+      - name: Evaluate the release guard (reads npm anonymously)
+        run: node scripts/release/release-state.mjs

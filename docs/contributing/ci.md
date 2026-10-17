@@ -35,5 +35,4 @@ changed by the workflow.
 
 ## Not yet in this workflow
 
-Visual snapshots live in their own workflow (`visual.yml`, see `visual-testing.md`). Consumer integration lives in `consumers.yml` (see `consumers.md`). The changeset check and preview
-deployments (PRD 11.3) belong to later tasks.
+Visual snapshots live in their own workflow (`visual.yml`, see `visual-testing.md`). Consumer integration lives in `consumers.yml` (see `consumers.md`). Main and nightly workflows, and the `next` channel, are in `releases-next.md`. The release workflow (version pull request, publish to `latest`, same-commit docs deploy) is in `releasing.md`. Preview deployments (REL-03) come from Vercel's GitHub integration, not a workflow: see `previews.md`. The changeset check belongs to a later task.
