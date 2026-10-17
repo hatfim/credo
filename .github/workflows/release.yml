@@ -294,12 +294,10 @@ jobs:
         with:
           name: release-docs
           path: apps/docs/build
-          include-hidden-files: true
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: release-storybook
           path: apps/storybook/storybook-static
-          include-hidden-files: true
 
       # Same check as before publishing, now on the downloaded artifacts. A wrong layout fails here, and
       # the dry run runs the same upload, download and verify (release-dry-run).

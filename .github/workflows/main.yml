@@ -124,7 +124,7 @@ jobs:
           --filter=@usecredo/tokens --filter=@usecredo/tailwind-config
           --filter=@usecredo/icons --filter=@usecredo/ui
 
-      # Only packages whose version changed are checked (changeset publish skips versions already on npm).
+      # Changed packages must be snapshots; unchanged ones must be snapshots or already on npm.
       - name: Check that every changed version is a snapshot
         if: steps.changesets.outputs.present == 'true'
         run: node scripts/release/snapshot-versions.mjs
