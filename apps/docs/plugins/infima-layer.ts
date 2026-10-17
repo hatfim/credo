@@ -3,6 +3,26 @@
 // Infima's unlayered element rules (a, p, h1, table, code, ...) would beat layered
 // Tailwind v4 output and leak into live component examples.
 import path from "node:path";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+
+/** Layer order, lowest first. Also asserted on the built CSS by scripts/check-css-layers.mjs. */
+export const LAYER_ORDER = ["infima", "theme", "base", "components", "utilities"] as const;
+
+/**
+ * Docusaurus's default CSS minimizer (cssnano plus clean-css level 2) merges and reorders rules
+ * across cascade layers: it empties `@layer infima` and moves Infima rules out of it. Lightning
+ * CSS minifies layer-aware and keeps blocks and the order intact.
+ */
+async function lightningMinify(data: Record<string, string>) {
+  // Self-contained on purpose: css-minimizer serializes this function into a worker.
+  // Targets are Tailwind v4's supported browsers: Safari 16.4, Chrome 111, Firefox 128.
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { transform } = require("lightningcss") as typeof import("lightningcss");
+  const targets = { safari: (16 << 16) | (4 << 8), chrome: 111 << 16, firefox: 128 << 16 };
+  const [[filename, code]] = Object.entries(data) as [[string, string]];
+  const result = transform({ filename, code: Buffer.from(code), minify: true, targets });
+  return { code: result.code.toString(), warnings: [], errors: [] };
+}
 
 export default function infimaLayer() {
   return {
@@ -17,10 +37,28 @@ export default function infimaLayer() {
       }
       return options;
     },
-    configureWebpack() {
+    // An explicit order statement in <head>, before any stylesheet. Independent of how the
+    // bundler concatenates and minifies CSS files.
+    injectHtmlTags() {
+      return { headTags: [{ tagName: "style", innerHTML: `@layer ${LAYER_ORDER.join(", ")};` }] };
+    },
+    configureWebpack(config: { optimization?: { minimizer?: unknown[] } }, isServer: boolean) {
+      const minimizer = config.optimization?.minimizer;
+      const swapMinimizer =
+        !isServer && minimizer
+          ? {
+              mergeStrategy: { "optimization.minimizer": "replace" },
+              optimization: {
+                minimizer: minimizer.map((m) =>
+                  (m as { constructor: { name: string } }).constructor.name === "CssMinimizerPlugin" ? new CssMinimizerPlugin({ minify: lightningMinify }) : m,
+                ),
+              },
+            }
+          : {};
       const classic = require.resolve("@docusaurus/theme-classic/package.json");
       const infima = require.resolve("infima/dist/css/default/default.css", { paths: [classic] });
       return {
+        ...swapMinimizer,
         module: {
           rules: [
             {
