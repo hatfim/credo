@@ -20,6 +20,10 @@ with `--affected` against the base branch, so unrelated packages are skipped.
 The ruleset matches the bare job name (for example `ci-gate`). GitHub shows it as
 `Pull request / <name>` in the checks list. Later workflows must not reuse these names.
 
+## Package checks (P1-14)
+
+Each of the four published packages runs `check:package` (`publint && attw --pack . --profile esm-only`) as the last step of its `build`, so `pnpm check` covers it. `tokens` and `tailwind-config` pass `--exclude-entrypoints` for their one CSS-only subpath (`./tokens.css`, `./theme.css`) and nothing else. `attw` models only JavaScript, TypeScript and JSON, so it reports a CSS export as an unresolvable import. `publint` still checks that those CSS export targets exist. No `--ignore-rules` are used.
+
 ## Owner steps (by hand)
 
 1. Open a pull request so the workflow runs once and the check names become selectable.
