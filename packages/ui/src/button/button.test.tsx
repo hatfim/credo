@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expectNoA11yViolations } from "@usecredo/test-utils/a11y";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { cn } from "../lib/cn";
@@ -10,6 +12,22 @@ const variants: ButtonVariant[] = ["default", "secondary", "destructive", "outli
 const sizes: ButtonSize[] = ["sm", "md", "lg", "icon"];
 
 describe("Button", () => {
+  it("documents the same defaults it renders (JSDoc @default cannot drift)", () => {
+    const source = readFileSync(path.join(process.cwd(), "src/button/button.tsx"), "utf8");
+    const documented = (prop: string) =>
+      new RegExp(`@default "([^"]+)"\\s*\\*/\\s*${prop}\\?:`).exec(source)?.[1];
+    render(<Button>x</Button>);
+    const button = screen.getByRole("button");
+    expect(documented("variant")).toBe(button.getAttribute("data-variant"));
+    expect(documented("size")).toBe(button.getAttribute("data-size"));
+    expect(button.className).toBe(cn(buttonVariants({ variant: documented("variant") as ButtonVariant, size: documented("size") as ButtonSize })));
+    for (const flag of ["asChild", "loading"]) {
+      expect(new RegExp(`@default false\\s*\\*/\\s*${flag}\\?:`).test(source)).toBe(true);
+    }
+    expect(button).not.toHaveAttribute("aria-busy");
+    expect(button.querySelector("svg")).toBeNull();
+  });
+
   it("renders a button with defaults and data-slot", () => {
     render(<Button>Save</Button>);
     const button = screen.getByRole("button", { name: "Save" });
