@@ -368,7 +368,7 @@ jobs:
       contents: read
     env:
       RELEASE_SHA: ${{ github.sha }}
-      DOCS_URL: https://docs.example.invalid
+      DOCS_URL: https://credo.trekant.dev
     steps:
       - name: Refuse a non-dry run
         if: ${{ !inputs.dry-run }}

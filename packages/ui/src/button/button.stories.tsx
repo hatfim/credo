@@ -4,9 +4,9 @@ import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { Button, type ButtonSize, type ButtonVariant } from "./index";
 
-// TODO(decision: docs-url): placeholder host until the owner's Vercel project exists.
+// decision 0006: the docs host is https://credo.trekant.dev.
 // The route is real: apps/docs/docs/components/button.mdx is served at /components/button.
-const DOCS_PAGE = "https://docs.example.invalid/components/button";
+const DOCS_PAGE = "https://credo.trekant.dev/components/button";
 
 const variants: ButtonVariant[] = ["default", "secondary", "destructive", "outline", "ghost", "link"];
 const sizes: ButtonSize[] = ["sm", "md", "lg"];

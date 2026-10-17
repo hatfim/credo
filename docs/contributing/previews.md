@@ -39,7 +39,7 @@ production (`releasing.md`).
    link on each pull request.
 5. Optional environment variables, scope Preview: `DOCS_URL` (the production docs origin, used for
    canonical URLs) and `DOCS_BASE_URL` if the docs are served below a path. Without them the build uses
-   the `https://example.invalid` placeholder and `/`, which does not break the build.
+   the `https://credo.trekant.dev` default (decision 0006) and `/`, which does not break the build.
 6. Project settings, Git: confirm production deploys from `main` are off. `vercel.json` already
    disables them. Do not set an Ignored Build Step. After a merge, check that Vercel made no
    Git-triggered production deployment.
