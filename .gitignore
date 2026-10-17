@@ -30,3 +30,6 @@ packages/tokens/generated/*
 .env
 .env.*
 !.env.example
+
+# link check output
+link-report
