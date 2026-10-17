@@ -141,7 +141,7 @@ From decisions 0004 to 0009. Do not tick the numbered tasks above because of the
 - [x] Remove the provisional precompiled stylesheet and its docs page (0005, 0009).
 - [x] Set the typography breakpoint constant to 768px and the Tailwind minimum to the 4.3.x peer range (0005).
 - [x] Replace the settled `TODO(decision: ...)` markers in code, config and workflows with references to the decision records (0004 to 0008). The markers in docs files were replaced in Wave 2; the remainder live in code, config and workflows (Wave 3): build-tool, consumer-version-matrix, css-prefix, docs-framework, docs-url, npm-publish-auth, precompiled-stylesheet, radix-packaging, release-tags, second-theme, snapshot-setup, tailwind-minimum, typography-breakpoint, use-client-scope, and vercel-deploy-method (which stays open). `.claude/agents/*` mentions are instructions, not markers.
-- [ ] Add the workflow on `main` that merges `main` into `tokens-sync` (conflicts in `packages/tokens/generated/` keep the `tokens-sync` side; any other conflict stops, comments and fails) (0008).
+- ~~Add the workflow on `main` that merges `main` into `tokens-sync`~~ Dropped, not adopted (0008, revised 2026-10-17): it needs the Workflows read/write permission on `GH_PAT`. The merge stays manual.
 - [ ] Owner: move the four packages to npm trusted publishing and delete `NPM_TOKEN` after verifying (0007).
 - [ ] Owner: reset `latest` on the four packages with `npm dist-tag` so it no longer points at the snapshot (0007).
 - [ ] Owner: rotate `GH_PAT` before 14 January 2027 (reminder on 1 January) (0008).

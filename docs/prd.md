@@ -289,7 +289,7 @@ The owner supplied a working GitHub Actions workflow from an earlier project (it
 5. Runs the Turborepo build, type check and tests, then an optional Chromatic visual run that is skipped when no project token exists.
 6. Opens or updates a pull request from `tokens-sync` to `main`, skips this when the branch has nothing new, and posts a comment with the before and after resolved values.
 
-**Tooling on `tokens-sync` (see decision 0008).** A workflow on `main` merges `main` into `tokens-sync` so the branch has current tooling. On a conflict in `packages/tokens/generated/` it keeps the `tokens-sync` side. On any other conflict it stops, pushes nothing, comments the conflicting files on the open `tokens-sync` pull request if there is one, and fails the run. It creates no issues and never edits the generated file.
+**Tooling on `tokens-sync` (see decision 0008).** A push run reads the workflow file from `tokens-sync` itself, so that branch must carry the current workflow, setup action and `diff` command. The owner merges `main` into `tokens-sync` by hand before the first run and after any merge to `main` that changes them. An automatic merge was considered and not adopted: it needs the Workflows read/write permission on the token (a merge brings workflow file changes), which widens the token more than a rare merge justifies. If the tooling is missing, the first step of the sync workflow fails with a message that says so.
 
 **Keep as is.**
 
