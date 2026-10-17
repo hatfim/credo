@@ -1,0 +1,114 @@
+name: Tokens sync
+
+# PRD 6.7. The Tokens Studio plugin pushes the raw file to `tokens-sync`; this workflow checks it
+# and opens or updates the pull request into `main`. It never edits the token file and commits nothing.
+on:
+  push:
+    branches: [tokens-sync]
+    paths:
+      - packages/tokens/generated/tokens.json
+  workflow_dispatch:
+
+# The default token is read-only on purpose. Pull request work uses the fine-grained PAT in
+# secrets.GH_PAT, so that the required checks start on the pull request it opens (TOK-15).
+permissions:
+  contents: read
+
+concurrency:
+  group: tokens-sync
+  cancel-in-progress: false
+
+env:
+  CI: "true"
+
+jobs:
+  sync:
+    name: sync
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Require the fine-grained token
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "::error::secrets.GH_PAT is not set. See docs/contributing/token-sync.md."
+            exit 1
+          fi
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: tokens-sync
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Check that this branch carries the tooling
+        run: |
+          missing=0
+          for f in .github/actions/setup/action.yml packages/tokens/src/diff.ts; do
+            if [ ! -f "$f" ]; then echo "::error::$f is missing on tokens-sync. Merge main into tokens-sync (docs/contributing/token-sync.md)."; missing=1; fi
+          done
+          exit $missing
+
+      - uses: ./.github/actions/setup
+
+      - name: Compile the token CLI
+        run: pnpm --filter @usecredo/tokens exec tsup
+
+      - name: Validate the raw token file
+        run: pnpm --filter @usecredo/tokens exec node dist/cli.js validate
+
+      - name: Build tokens
+        run: pnpm --filter @usecredo/tokens run build
+
+      - name: Contrast check
+        run: pnpm --filter @usecredo/tokens exec node dist/cli.js contrast
+
+      - name: Check whether the branch has anything new
+        id: ahead
+        run: |
+          # fetch-depth 0 above already fetched origin/main with the default token.
+          ahead=$(git rev-list --count origin/main..HEAD)
+          if [ "$ahead" = "0" ] || git diff --quiet origin/main HEAD -- packages/tokens/generated/tokens.json; then
+            echo "Nothing on tokens-sync differs from main; no pull request needed."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Write the value diff
+        if: steps.ahead.outputs.skip == 'false'
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          # Previous commit first; the CLI falls back to origin/main when it is empty, all zeros or unreadable.
+          pnpm --filter @usecredo/tokens exec node dist/cli.js diff \
+            --before-ref "$BEFORE_SHA" --base-ref origin/main > "$RUNNER_TEMP/token-diff.md"
+          cat "$RUNNER_TEMP/token-diff.md"
+
+      - name: Open or update the pull request
+        if: steps.ahead.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          REPO: ${{ github.repository }}
+        run: |
+          number=$(gh pr list --repo "$REPO" --head tokens-sync --base main --state open --json number --jq '.[0].number // empty')
+          if [ -z "$number" ]; then
+            url=$(gh pr create --repo "$REPO" --head tokens-sync --base main \
+              --title "chore(tokens): sync from Figma" \
+              --body "Raw token file pushed by Tokens Studio. Review the value changes in the comment below. Generated CSS, types and schema are built in CI and are not committed.")
+            number=${url##*/}
+            echo "Opened pull request #$number"
+          else
+            echo "Pull request #$number is already open; it follows the branch."
+          fi
+          # Update the earlier diff comment if there is one, so the thread keeps a single comment.
+          marker='<!-- credo-token-diff -->'
+          id=$(gh api --paginate "repos/$REPO/issues/$number/comments" \
+            --jq ".[] | select(.body | contains(\"$marker\")) | .id" | head -n 1)
+          if [ -n "$id" ]; then
+            gh api --method PATCH "repos/$REPO/issues/comments/$id" -F body=@"$RUNNER_TEMP/token-diff.md" > /dev/null
+            echo "Updated comment $id"
+          else
+            gh pr comment "$number" --repo "$REPO" --body-file "$RUNNER_TEMP/token-diff.md"
+          fi

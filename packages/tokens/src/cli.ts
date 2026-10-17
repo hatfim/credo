@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
 import path from "node:path";
+import { promisify } from "node:util";
 import { buildArtifacts } from "./build";
 import { checkConsistency } from "./consistency";
 import { updateContractDoc } from "./contract";
+import { compareWithFirstAvailable, type BaseCandidate } from "./diff";
 import type { TokenFile } from "./model";
 import { checkTheme, formatResult, type BaselineEntry } from "./theme";
 import { formatIssue, hasErrors, validateText, type Issue } from "./validate";
@@ -14,6 +17,7 @@ Commands
   validate   Check the raw token file (JSON, shape, aliases, literals, alpha sources)
   build      Write tokens.css, token-names.d.ts, tokens.schema.json and tokens-table.json
   contrast   Check completeness, value types and WCAG 2.2 AA contrast
+  diff       Markdown of resolved value changes against a git revision (falls back to --base-ref)
   contract   Rewrite the generated role list in docs/token-contract-v0.md (--check to verify)
 
 Options
@@ -21,6 +25,9 @@ Options
   --out <dir>        Output folder for build (default dist)
   --baseline <path>  Contrast exceptions (default contrast-baseline.json, if present)
   --doc <path>       Contract document (default ../../docs/token-contract-v0.md)
+  --before-ref <rev> diff: previous revision, tried first (ignored if empty, all zeros or unreadable)
+  --base-ref <rev>   diff: fallback revision (default origin/main)
+  --repo-path <path> diff: token file path inside the repository (default packages/tokens/generated/tokens.json)
   --check            contract: fail instead of writing
 `;
 
@@ -106,6 +113,28 @@ async function main(): Promise<number> {
         `${r.failures.length} failing, ${baseline.length} baseline exceptions.`,
     );
     return r.failures.length || hasErrors(r.issues) ? 1 : 0;
+  }
+
+  if (command === "diff") {
+    const run = promisify(execFile);
+    const repoPath = typeof opts["repo-path"] === "string" ? opts["repo-path"] : "packages/tokens/generated/tokens.json";
+    const show = (rev: string) => async () => {
+      try {
+        return (await run("git", ["show", `${rev}:${repoPath}`], { maxBuffer: 64 * 1024 * 1024 })).stdout;
+      } catch {
+        return undefined;
+      }
+    };
+    const candidates: BaseCandidate[] = [];
+    const before = opts["before-ref"];
+    if (typeof before === "string" && before !== "" && !/^0+$/.test(before)) {
+      candidates.push({ label: `the previous commit (\`${before.slice(0, 7)}\`)`, read: show(before) });
+    }
+    const baseRef = typeof opts["base-ref"] === "string" ? opts["base-ref"] : "origin/main";
+    const mainCandidate: BaseCandidate = { label: `\`${baseRef}\``, read: show(baseRef) };
+    candidates.push(mainCandidate);
+    process.stdout.write(await compareWithFirstAvailable(text, candidates, mainCandidate));
+    return 0;
   }
 
   if (command === "contract") {

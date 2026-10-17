@@ -7,3 +7,4 @@ export * from "./theme";
 export * from "./build";
 export * from "./contract";
 export * from "./consistency";
+export * from "./diff";
