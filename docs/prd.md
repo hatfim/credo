@@ -249,7 +249,7 @@ A validator ships in the `tokens` package and runs as a CLI, so projects can run
 | TOK-03 | Tokens are exposed as prefixed CSS variables and integrated with Tailwind CSS through `tailwind-config`. |
 | TOK-04 | Light and dark modes are supported for every component, with element-scoped switching. |
 | TOK-05 | A project can supply its own theme without editing platform code. |
-| TOK-06 | The validator rejects incomplete, mistyped or non-contract themes and runs in platform CI and in consumer CI. |
+| TOK-06 | The validator rejects incomplete, mistyped or non-contract themes and runs in platform CI and in consumer CI (consumer CI use is planned for Phase 2). |
 | TOK-07 | The validator checks WCAG 2.2 AA contrast for every foreground and background pair in the contract. |
 | TOK-08 | A token consistency check confirms that the CSS output, TypeScript types and docs token tables derive from the same source. |
 | TOK-09 | Token ownership and the change rules in 6.4 are documented on the docs site. |
@@ -607,10 +607,10 @@ packages:
 | `test:coverage` | `^build` | Yes | As `test` | `coverage/**` |
 | `test:storybook` | `build` of the Storybook app | Yes | Stories, theme decorators | Test reports |
 | `check:links` | `build` of the docs app | Yes | Docs content, story index | Report |
-| `check` | `lint`, `typecheck`, `test`, `build` | Via its parts |  |  |
+| `check` | root script, not a Turborepo task: `syncpack lint`, `test:release`, then `turbo run lint typecheck test build test:storybook check:links check:stories` | Via its parts |  |  |
 | `clean` | none | No |  |  |
 
-Root scripts wrap these, for example `pnpm check` runs `turbo run lint typecheck test build`. Because `build` depends on `^build`, a change in `tokens` rebuilds `tailwind-config`, `ui`, the docs site and Storybook, while a docs-only change rebuilds only the docs site. The two apps have no dependency on each other, so they build in parallel.
+Root scripts wrap these, for example `pnpm check` runs `syncpack lint`, the release script tests and `turbo run lint typecheck test build test:storybook check:links check:stories`. Because `build` depends on `^build`, a change in `tokens` rebuilds `tailwind-config`, `ui`, the docs site and Storybook, while a docs-only change rebuilds only the docs site. The two apps have no dependency on each other, so they build in parallel.
 
 ```json
 {
@@ -652,7 +652,7 @@ The repository is on GitHub, so the workflows above are assumed to run on GitHub
 | BLD-01 | `apps/docs` and `apps/storybook` are registered in `pnpm-workspace.yaml` with explicit workspace dependencies on `ui`, `tokens` and `tailwind-config`. |
 | BLD-02 | Each application starts independently in development with its own command. |
 | BLD-03 | The lockfile is committed and CI installs with a frozen lockfile. |
-| BLD-04 | Turborepo defines `dev`, `build`, `lint`, `typecheck`, `test`, `test:coverage`, `check` and `clean`, with outputs and inputs declared. |
+| BLD-04 | Turborepo defines `dev`, `build`, `lint`, `typecheck`, `test`, `test:coverage` and `clean`; the root `check` script runs them with `syncpack` and the other gates, with outputs and inputs declared. |
 | BLD-05 | Builds respect upstream dependencies; a change to `ui` or `tokens` invalidates dependent builds and checks. |
 | BLD-06 | Independent tasks run in parallel; unrelated tasks are skipped using affected-only execution. |
 | BLD-07 | Cache configuration lists every output and every environment variable that changes output. |
