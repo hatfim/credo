@@ -1,0 +1,44 @@
+name: Update visual baselines
+
+# Manual only. Regenerates every baseline on the CI runner (Linux) and uploads them as an artifact.
+# It never pushes or commits: a person downloads the artifact and commits it through a pull request,
+# so a baseline change is always a reviewed diff. Pick the branch to regenerate from in the Run
+# workflow dialog (or `gh workflow run visual-update.yml --ref <branch>`).
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CI: "true"
+
+jobs:
+  update:
+    name: update
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Build Storybook
+        run: pnpm exec turbo run build --filter=@usecredo/storybook
+      - name: Install Playwright Chromium
+        working-directory: apps/storybook
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Regenerate baselines
+        working-directory: apps/storybook
+        env:
+          VISUAL_UPDATE: "1"
+        run: |
+          rm -f visual/__snapshots__/*.png
+          pnpm run test:visual
+      - name: Upload baselines
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: visual-baselines
+          path: apps/storybook/visual/__snapshots__
+          retention-days: 14
+          if-no-files-found: error

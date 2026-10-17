@@ -35,5 +35,5 @@ changed by the workflow.
 
 ## Not yet in this workflow
 
-Changed-story visual checks, consumer integration, changeset check and preview
+Visual snapshots live in their own workflow (`visual.yml`, see `visual-testing.md`). Consumer integration, changeset check and preview
 deployments (PRD 11.3) belong to later tasks.

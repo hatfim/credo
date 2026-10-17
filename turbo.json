@@ -31,6 +31,12 @@
       "dependsOn": ["build"],
       "inputs": ["$TURBO_DEFAULT$", ".storybook/**"]
     },
+    "test:visual": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "env": ["CI", "VISUAL_UPDATE", "VISUAL_SNAPSHOT_DIR", "VISUAL_PORT"],
+      "outputs": ["playwright-report/**", "test-results/**"]
+    },
     "check:links": {
       "dependsOn": ["build"],
       "outputs": ["link-report/**"]

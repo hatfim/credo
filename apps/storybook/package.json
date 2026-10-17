@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "test": "echo \"no tests yet\"",
     "test:storybook": "vitest run",
-    "clean": "rm -rf dist build storybook-static test-results .turbo"
+    "test:visual": "playwright test",
+    "clean": "rm -rf dist build storybook-static test-results playwright-report .turbo"
   },
   "dependencies": {
     "@usecredo/tailwind-config": "workspace:*",
@@ -29,6 +30,7 @@
     "@usecredo/typescript-config": "workspace:*",
     "eslint": "catalog:",
     "typescript": "catalog:",
+    "@playwright/test": "catalog:",
     "@storybook/addon-a11y": "catalog:",
     "@storybook/addon-docs": "catalog:",
     "@storybook/react-vite": "catalog:",

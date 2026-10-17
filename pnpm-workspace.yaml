@@ -47,6 +47,8 @@ catalog:
   storybook: ^10.6.2
   "@tailwindcss/vite": 4.3.3
   vite: ^8.3.4
+  # Visual snapshots (P1-22). Apache-2.0. Browsers are installed separately in CI, never by pnpm install.
+  "@playwright/test": ^1.64.1
   "@docusaurus/core": ^3.10.2
   "@docusaurus/preset-classic": ^3.10.2
   "@docusaurus/theme-common": ^3.10.2
