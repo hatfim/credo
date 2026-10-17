@@ -1,11 +1,12 @@
-// Type-checked only until the Storybook app exists (P1-17); not yet run in a browser.
-// TODO(decision: story-imports): stories import ./index because a package cannot import its own
-// subpath before it is built; Storybook should alias @usecredo/ui/button to this entry.
+// Stories import the component source (./index) so Storybook and the story tests exercise the code
+// under edit without a build. The docs site and consumers import the public path @usecredo/ui/button.
 import type { Meta, StoryObj } from "@storybook/react";
-import { within } from "@testing-library/dom";
-import userEvent from "@testing-library/user-event";
 import * as React from "react";
 import { Button, type ButtonSize, type ButtonVariant } from "./index";
+
+// TODO(decision: docs-url): placeholder host until the owner's Vercel project exists.
+// The route is real: apps/docs/docs/components/button.mdx is served at /components/button.
+const DOCS_PAGE = "https://docs.example.invalid/components/button";
 
 const variants: ButtonVariant[] = ["default", "secondary", "destructive", "outline", "ghost", "link"];
 const sizes: ButtonSize[] = ["sm", "md", "lg"];
@@ -21,14 +22,13 @@ const meta = {
     asChild: { control: false },
   },
   parameters: {
-    // TODO(decision: docs-url): replace with the real docs page once the docs app exists (P1-18).
     docs: {
       description: {
         component:
-          "Primary action control. Docs page: /docs/components/button. Design caveat: in light mode the primary fill is lime on white (about 1.3:1 against the page), so the default variant carries a border (`border-border-interactive`) to read as a shape. Revisit with the design owner.",
+          "Primary action control. Docs page with the API table: " + DOCS_PAGE + ". Design caveat: in light mode the primary fill is lime on white (about 1.3:1 against the page), so the default variant carries a border (`border-border-interactive`) to read as a shape. Revisit with the design owner.",
       },
     },
-    links: [{ title: "Docs: Button", url: "/docs/components/button" }],
+    links: [{ title: "Docs: Button", url: DOCS_PAGE }],
   },
 } satisfies Meta<typeof Button>;
 export default meta;
@@ -99,7 +99,7 @@ export const AsChild: Story = {
 
 export const LongText: Story = {
   args: { children: "A very long label that should still read well on narrow screens and not break the layout" },
-  parameters: { viewport: { defaultViewport: "mobile" } },
+  globals: { viewport: { value: "mobile", isRotated: false } },
   decorators: [(Story) => <div style={{ maxWidth: "20rem" }}><Story /></div>],
 };
 
@@ -129,14 +129,14 @@ export const Keyboard: Story = {
       </Button>
     );
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const user = userEvent.setup();
-    await user.tab();
+  // canvas and userEvent come from the play context (instrumented by Storybook, so the steps show
+  // in the Interactions panel). Plain checks throw so the story fails in the browser and in tests.
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.tab();
     const button = canvas.getByRole("button");
     if (document.activeElement !== button) throw new Error("Tab should focus the button");
-    await user.keyboard("{Enter}");
-    await user.keyboard(" ");
+    await userEvent.keyboard("{Enter}");
+    await userEvent.keyboard(" ");
     if (!button.textContent?.includes("Pressed 2")) throw new Error("Enter and Space should activate");
   },
 };
