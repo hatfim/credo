@@ -1,0 +1,15 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".storybook/**",
+        "$TURBO_ROOT$/packages/ui/src/**/*.stories.tsx",
+        "$TURBO_ROOT$/packages/ui/src/**/*.mdx",
+        "$TURBO_ROOT$/docs/token-contract-v0.md"
+      ]
+    }
+  }
+}
