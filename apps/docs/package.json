@@ -12,7 +12,8 @@
     "test": "echo \"no tests yet\"",
     "check:links": "node scripts/check-links.mjs",
     "clean": "rm -rf dist build .docusaurus link-report .turbo",
-    "check:css": "node scripts/check-css-layers.mjs"
+    "check:css": "node scripts/check-css-layers.mjs",
+    "check:stories": "node scripts/check-stories.mjs"
   },
   "dependencies": {
     "@usecredo/tailwind-config": "workspace:*",
