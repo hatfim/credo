@@ -36,6 +36,7 @@ const isObject = (v: unknown): v is Record<string, unknown> =>
   typeof v === "object" && v !== null && !Array.isArray(v);
 
 const SCALE_ORDERED = ["spacing", "radius", "border-width"];
+const NAMED_SCALE_ORDER = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "full"];
 
 function toPx(v: unknown): number | undefined {
   const m = /^(-?(?:\d+|\d*\.\d+))(px|rem)$/.exec(String(v));
@@ -225,7 +226,7 @@ export function validateTokens(input: unknown): Issue[] {
   // themed per mode, so they are exempt from contrast and light/dark parity.
   const lightCtx = contexts.find((c) => c.name === "light")!.ctx;
   for (const group of SCALE_ORDERED) {
-    let previous: { path: string; px: number } | undefined;
+    const entries: { t: FlatToken; px: number; rank: number; named: boolean }[] = [];
     for (const t of bySet(SETS.primitives).filter((x) => x.path.split(".")[0] === group)) {
       if (t.type !== "dimension") {
         add({ code: "scale-type", set: t.set, path: t.path, message: `${group} tokens must be dimensions, but this one is "${t.type ?? "untyped"}".` });
@@ -237,10 +238,23 @@ export function validateTokens(input: unknown): Issue[] {
         add({ code: "scale-type", set: t.set, path: t.path, message: `Value ${JSON.stringify(res.value ?? t.value)} is not a px or rem dimension.` });
         continue;
       }
-      if (previous && px <= previous.px) {
-        add({ code: "scale-order", set: t.set, path: t.path, message: `${t.path} (${px}px) must be larger than ${previous.path} (${previous.px}px). Scales are ascending.` });
+      // Order by the key, not by object key order: numeric keys by number, named keys by the declared list.
+      const key = t.path.slice(group.length + 1);
+      const num = /^\d+(\.\d+)?$/.test(key) ? Number(key) : undefined;
+      const named = NAMED_SCALE_ORDER.indexOf(key);
+      if (num === undefined && named === -1) {
+        add({ severity: "warning", code: "scale-name", set: t.set, path: t.path, message: `"${key}" is not a numeric key or a known size name (${NAMED_SCALE_ORDER.join(", ")}), so its order is not checked.` });
+        continue;
       }
-      previous = { path: t.path, px };
+      entries.push({ t, px, rank: num ?? named, named: num === undefined });
+    }
+    entries.sort((x, y) => Number(x.named) - Number(y.named) || x.rank - y.rank);
+    for (let i = 1; i < entries.length; i++) {
+      const prev = entries[i - 1]!;
+      const cur = entries[i]!;
+      if (prev.named === cur.named && cur.px <= prev.px) {
+        add({ code: "scale-order", set: cur.t.set, path: cur.t.path, message: `${cur.t.path} (${cur.px}px) must be larger than ${prev.t.path} (${prev.px}px). Scales are ascending.` });
+      }
     }
   }
 

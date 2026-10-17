@@ -71,6 +71,12 @@ describe("consistency (fixture)", () => {
 });
 
 describe("consistency (real token file and contract document)", () => {
+  it("contract document role list matches the file (runs in pnpm check)", () => {
+    const file = JSON.parse(readFileSync(new URL("../generated/tokens.json", import.meta.url), "utf8")) as TokenFile;
+    const doc = readFileSync(new URL("../../../docs/token-contract-v0.md", import.meta.url), "utf8");
+    expect(updateContractDoc(doc, file)).toBe(doc);
+  });
+
   it("CSS, types, schema, table and docs agree with the file", async () => {
     const file = JSON.parse(readFileSync(new URL("../generated/tokens.json", import.meta.url), "utf8")) as TokenFile;
     const doc = readFileSync(new URL("../../../docs/token-contract-v0.md", import.meta.url), "utf8");
