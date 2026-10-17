@@ -30,13 +30,15 @@ const BOTTOM_UP = {
 };
 
 /** Import-boundary restrictions for the workspace that owns `dirname`. */
-function boundaryPatterns(kind, name) {
+function boundaryPatterns(kind, name, { testFile = false } = {}) {
   const patterns = [DEEP, NO_REPO_PATHS];
   if (kind === "packages") {
     patterns.push(
       forbid([...APPS, ...CONSUMERS], "Packages never import from apps or consumers."),
     );
-    const blocked = (BOTTOM_UP[name] ?? []).map((n) => `@usecredo/${n}`);
+    const blocked = (BOTTOM_UP[name] ?? [])
+      .filter((n) => !(testFile && name === "ui" && n === "test-utils"))
+      .map((n) => `@usecredo/${n}`);
     if (blocked.length) patterns.push(forbid(blocked, `'${name}' must not import these.`));
   } else if (kind === "apps") {
     patterns.push(
@@ -92,6 +94,18 @@ export function createConfig(dirname) {
         "no-restricted-imports": ["error", { patterns: boundaryPatterns(kind, name) }],
       },
     },
+    // Tests and stories in ui may use the private test-utils package (never shipped).
+    kind === "packages" && name === "ui"
+      ? {
+          files: ["**/*.test.{ts,tsx}", "**/*.stories.{ts,tsx}"],
+          rules: {
+            "no-restricted-imports": [
+              "error",
+              { patterns: boundaryPatterns(kind, name, { testFile: true }) },
+            ],
+          },
+        }
+      : {},
     kind === "apps"
       ? {
           files: SOURCE,

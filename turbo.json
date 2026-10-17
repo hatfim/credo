@@ -6,9 +6,9 @@
     "dev": { "cache": false, "persistent": true },
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", "!**/*.md", "!**/*.test.*", "!**/*.stories.*"],
+      "inputs": ["$TURBO_DEFAULT$", "!**/*.md", "!**/*.test.*", "!**/*.stories.*", "$TURBO_ROOT$/docs/token-contract-v0.md"],
       "outputs": ["dist/**", "storybook-static/**", "build/**", ".next/**", "!.next/cache/**"],
-      "env": ["NODE_ENV", "DOCS_BASE_URL"]
+      "env": ["NODE_ENV", "DOCS_BASE_URL", "DOCS_URL"]
     },
     "typecheck": {
       "dependsOn": ["^build"],
@@ -20,17 +20,16 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", "vitest.config.*", "test/**", "fixtures/**"]
+      "inputs": ["$TURBO_DEFAULT$", "vitest.config.*", "test/**", "fixtures/**", "$TURBO_ROOT$/docs/token-contract-v0.md"]
     },
     "test:coverage": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", "vitest.config.*", "test/**", "fixtures/**"],
+      "inputs": ["$TURBO_DEFAULT$", "vitest.config.*", "test/**", "fixtures/**", "$TURBO_ROOT$/docs/token-contract-v0.md"],
       "outputs": ["coverage/**"]
     },
     "test:storybook": {
       "dependsOn": ["build"],
-      "inputs": ["$TURBO_DEFAULT$", ".storybook/**"],
-      "outputs": ["test-results/**"]
+      "inputs": ["$TURBO_DEFAULT$", ".storybook/**"]
     },
     "check:links": {
       "dependsOn": ["build"],

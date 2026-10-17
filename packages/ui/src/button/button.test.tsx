@@ -1,7 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-// Interim: eslint-config blocks ui -> test-utils for every file. Needs a test-file exception (reported to lead).
-// eslint-disable-next-line no-restricted-imports
 import { expectNoA11yViolations } from "@usecredo/test-utils/a11y";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
