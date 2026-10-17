@@ -127,7 +127,8 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### H. Gate
 
-- [ ] **P1-27 Gate 1 review.** Follow Button from source to story, docs page, `next` snapshot and both consumers, then check BLD-01 to BLD-09. *Accept:* every item is ticked and the PRD is updated for anything that changed.
+- [x] **P1-27 Gate 1 review.** Follow Button from source to story, docs page, `next` snapshot and both consumers, then check BLD-01 to BLD-09. *Accept:* every item is ticked and the PRD is updated for anything that changed.
+  *Closed 2026-10-17.* Verified by the reviewer on a clean checkout: the Button journey, BLD-01 to BLD-09 (BLD-04 wording fixed in the PRD), `pnpm check` (40 tasks), consumers, the `next` snapshot on npm with provenance for all four packages, a green nightly and a release dry run. Confirmed by the owner, not re-run by an agent: the token sync comment updating on a second Figma push, and the manual Button review (keyboard, screen reader, contrast). Phase 0 is still open (P0-01 to P0-11, `docs/adoption/baselines.md`, the `TODO(decision: ...)` markers) and is the precondition for Phase 2.
 
 ## Phase 2: pilot catalog
 
