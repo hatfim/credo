@@ -81,7 +81,7 @@ Third-party actions are pinned to full SHAs. No third-party release action is us
    Vercel CLI so the deployed bytes are the verified bytes. The Build Output API layout used
    (`static/` plus `config.json`) is minimal and untested on Vercel: on the first deploy, check that a
    missing page returns the 404 page and that extensionless routes (for example `/docs/intro`) resolve. Vercel's own Git integration (used for
-   previews, P1-25) must not also deploy `main` to production: turn off production deployments from Git in
+   previews, see `previews.md`; its `vercel.json` already disables `main`) must not also deploy `main` to production: turn off production deployments from Git in
    each project (or use an ignored build step), otherwise an unverified build can overwrite the release.
 4. The first release needs a changeset for all four packages. All four sit at the `0.0.0` baseline;
    if only some are versioned, `release-state` refuses (a mix of `0.0.0` and versioned packages would

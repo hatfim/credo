@@ -8,7 +8,7 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", "!**/*.md", "!**/*.test.*", "!**/*.stories.*", "$TURBO_ROOT$/docs/token-contract-v0.md"],
       "outputs": ["dist/**", "storybook-static/**", "build/**", ".next/**", "!.next/cache/**"],
-      "env": ["NODE_ENV", "DOCS_BASE_URL", "DOCS_URL"]
+      "env": ["NODE_ENV", "DOCS_BASE_URL", "DOCS_URL", "STORYBOOK_URL"]
     },
     "typecheck": {
       "dependsOn": ["^build"],

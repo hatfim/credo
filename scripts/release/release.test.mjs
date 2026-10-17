@@ -118,3 +118,18 @@ test("npm view: only a genuine E404 means not published; everything else fails c
   assert.throws(() => onNpm("p", "1.0.0", run({ status: 1, stdout: '{"error":{"code":"E502","summary":"Bad gateway, upstream said E404 earlier"}}', stderr: "npm error code E502\nnpm error Bad gateway (mentions E404 and 404 Not Found text)" })));
   assert.equal(isNotFound({ stderr: "npm error network ETIMEDOUT while fetching E404 page" }), false);
 });
+
+// P1-25: the per-app Vercel configs must stay consistent with the release build layout.
+const repoRoot = path.resolve(import.meta.dirname, "..", "..");
+for (const [app, name, out] of [["docs", "@usecredo/docs", "build"], ["storybook", "@usecredo/storybook", "storybook-static"]]) {
+  test(`apps/${app}/vercel.json matches the build layout and leaves main to the release workflow`, () => {
+    const cfg = JSON.parse(fs.readFileSync(path.join(repoRoot, "apps", app, "vercel.json"), "utf8"));
+    const pkg = JSON.parse(fs.readFileSync(path.join(repoRoot, "apps", app, "package.json"), "utf8"));
+    assert.equal(pkg.name, name);
+    assert.equal(cfg.outputDirectory, out);
+    assert.match(cfg.installCommand, /pnpm install --frozen-lockfile$/);
+    assert.ok(cfg.buildCommand.includes(`--filter=${name}...`));
+    assert.equal(cfg.git.deploymentEnabled.main, false);
+    assert.ok(!("ignoreCommand" in cfg), "an ignore command could skip builds that change dependencies");
+  });
+}
