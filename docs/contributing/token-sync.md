@@ -45,3 +45,13 @@ comment says which one it used and is found again through the hidden marker
 The checkout uses the default read-only token (it works for private repositories too) and fetches
 all branches, so `origin/main` is available without the PAT. The PAT is only used by `gh`.
 The comment shows the change since the previous commit and a one-line total against `main`.
+
+## Troubleshooting
+
+`GraphQL: Resource not accessible by personal access token (addComment)` in the step "Open or
+update the pull request". Cause: `gh pr comment` and `gh pr create` call GraphQL mutations
+(`addComment`, `createPullRequest`) that a fine-grained PAT may be refused, while the REST
+endpoints accept it. The workflow now uses only REST through `gh api` (list, create and comment on
+pull requests; update the marker comment). Required PAT permissions: Contents read/write and Pull
+requests read/write. Only if the comment call still returns 403, also add Issues read/write; that
+is an owner change to the token.

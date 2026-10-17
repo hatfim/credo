@@ -91,13 +91,17 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
           REPO: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
         run: |
-          number=$(gh pr list --repo "$REPO" --head tokens-sync --base main --state open --json number --jq '.[0].number // empty')
+          # REST only: the fine-grained PAT is refused by the GraphQL mutations behind `gh pr create`
+          # and `gh pr comment` (docs/contributing/token-sync.md, troubleshooting).
+          number=$(gh api "repos/$REPO/pulls?head=$OWNER:tokens-sync&base=main&state=open" --jq '.[0].number // empty')
           if [ -z "$number" ]; then
-            url=$(gh pr create --repo "$REPO" --head tokens-sync --base main \
-              --title "chore(tokens): sync from Figma" \
-              --body "Raw token file pushed by Tokens Studio. Review the value changes in the comment below. Generated CSS, types and schema are built in CI and are not committed.")
-            number=${url##*/}
+            number=$(gh api --method POST "repos/$REPO/pulls" \
+              -f head=tokens-sync -f base=main \
+              -f title="chore(tokens): sync from Figma" \
+              -f body="Raw token file pushed by Tokens Studio. Review the value changes in the comment below. Generated CSS, types and schema are built in CI and are not committed." \
+              --jq '.number')
             echo "Opened pull request #$number"
           else
             echo "Pull request #$number is already open; it follows the branch."
@@ -110,5 +114,6 @@ jobs:
             gh api --method PATCH "repos/$REPO/issues/comments/$id" -F body=@"$RUNNER_TEMP/token-diff.md" > /dev/null
             echo "Updated comment $id"
           else
-            gh pr comment "$number" --repo "$REPO" --body-file "$RUNNER_TEMP/token-diff.md"
+            gh api --method POST "repos/$REPO/issues/$number/comments" -F body=@"$RUNNER_TEMP/token-diff.md" > /dev/null
+            echo "Posted comment on #$number"
           fi
