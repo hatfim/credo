@@ -98,6 +98,8 @@ describe("Button", () => {
     expect(button).toHaveClass("disabled:bg-state-disabled-background", "disabled:text-state-disabled-foreground");
     await userEvent.click(button);
     expect(onClick).not.toHaveBeenCalled();
+    await userEvent.tab();
+    expect(button).not.toHaveFocus();
   });
 
   describe("loading", () => {

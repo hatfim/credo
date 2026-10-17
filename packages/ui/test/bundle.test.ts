@@ -1,9 +1,11 @@
 // @vitest-environment node
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { gzipSync } from "node:zlib";
 import { build } from "esbuild";
+import { build as tsupBuild } from "tsup";
 import { describe, expect, it } from "vitest";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -59,16 +61,13 @@ describe("Button bundle (DST-02, DST-03)", () => {
     expect(Object.keys(globalThis).length).toBe(before);
   });
 
-  it("keeps the use client directive in the built entry", () => {
-    // Skipped quietly when dist is absent (tests can run before a build).
-    let built: string;
-    try {
-      built = readFileSync(path.join(root, "dist/button.js"), "utf8");
-    } catch {
-      return;
-    }
+  it("keeps the use client directive in the built entry", async () => {
+    // Builds into a temp dir so it does not race with the package build.
+    const outDir = mkdtempSync(path.join(tmpdir(), "ui-"));
+    await tsupBuild({ config: path.join(root, "tsup.config.ts"), outDir, dts: false, sourcemap: false, silent: true });
+    const built = readFileSync(path.join(outDir, "button.js"), "utf8");
     expect(built.startsWith('"use client";')).toBe(true);
-  });
+  }, 30_000);
 });
 
 const BUDGET_GZIP_BYTES = 14_000;
