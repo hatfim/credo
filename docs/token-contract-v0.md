@@ -41,8 +41,7 @@ hyphens.
 | `state.focus.ring` | `--cr-state-focus-ring` |
 
 The prefix lives in one constant (`CSS_PREFIX` in `packages/tokens/src/constants.ts`).
-`TODO(decision: css-prefix)`: `--cr-` is proposed and stays provisional until the decision
-record is accepted.
+The prefix `--cr-` is accepted (decision 0004).
 
 Themes switch by attribute and are element scoped: `:root` and `[data-theme="light"]` carry
 the light values, `[data-theme="dark"]` the dark ones. A nested element with its own
@@ -50,7 +49,7 @@ the light values, `[data-theme="dark"]` the dark ones. A nested element with its
 
 Besides the roles, the stylesheet carries the radius, spacing, border-width and font-family
 scales and the typography styles (desktop by default, mobile under a media query,
-`TODO(decision: typography-breakpoint)`).
+the breakpoint is 768px per decision 0005; the constant in code still holds the old value until the Wave 3 change).
 
 ## Tailwind utilities
 

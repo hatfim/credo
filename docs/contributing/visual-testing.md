@@ -4,9 +4,8 @@ Workflows: `.github/workflows/visual.yml` (check `visual`) and
 `.github/workflows/visual-update.yml` (manual). Code: `apps/storybook/playwright.config.ts`
 and `apps/storybook/visual/` (SBK-04, TST-06, D-07).
 
-`TODO(decision: snapshot-setup)`: spike C (P0-07) has not run. This is the conservative setup from
-D-07: self-hosted Playwright snapshots against the built Storybook, Chromium only, baselines
-committed in the repository, generated on Linux CI only. Revisit when the spike lands or if reviewing
+Decided without a spike (decisions 0006 and 0011). The setup, from D-07: self-hosted Playwright snapshots against the built Storybook, Chromium only, baselines
+committed in the repository, generated on Linux CI only. Any diff fails and baselines change only through CI approval. Revisit if reviewing
 diffs becomes a burden (D-07 allows a hosted service).
 
 ## What is covered

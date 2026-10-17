@@ -82,14 +82,13 @@ Needs Node 22, network access to npmjs.org for third-party packages, and `npm` o
   `--font-sans`/`--font-mono`; an app that defines the same names in its own `@theme` will
   override or be overridden by whichever comes last. The vite consumer avoids those names.
   A collision on `--radius-md` or `--font-sans` would be caught only incidentally (by the Credo variable checks), not by a dedicated test.
-  TODO(decision: theme-namespace-collisions): decide whether the Credo theme must be namespaced; it stays open.
+  Decision 0005: documented for now; namespace later only if collisions cause real problems. No collision case is under test today; adding one to `vite-app` is a follow-up.
 - The nightly matrix (`releases-next.md`) crosses Node 22/24 and React 18/19 (`CONSUMER_REACT_MAJOR`,
   `vite-app` only on 18). Tailwind versions are not in it.
-  TODO(decision: consumer-version-matrix).
+  Decision 0006 keeps this matrix (React 18 on the Vite consumer only; Next.js App Router only for now).
 - `next-app` imports `@usecredo/icons` directly for the server entry, although the PRD table
-  lists only `ui`, `tokens` and `tailwind-config` for consumers. TODO(decision: icons-direct-use).
-- The precompiled stylesheet is not exercised: both consumers use Tailwind.
-  TODO(decision: precompiled-stylesheet) stays with spike A.
+  lists only `ui`, `tokens` and `tailwind-config` for consumers. Decision 0006: yes, `@usecredo/icons` is a public export and consumers may import it directly.
+- There is no precompiled stylesheet: both consumers use Tailwind v4 (decisions 0005 and 0009).
 
 ## Owner steps (by hand)
 

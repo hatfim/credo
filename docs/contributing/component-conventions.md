@@ -44,8 +44,8 @@ tag. Slot merges props, `className` and refs onto the single child. When `asChil
 behaviour that only makes sense on the native element (such as `disabled`) must also be
 expressed as `aria-*` and `data-*` attributes.
 
-`TODO(decision: radix-packaging)`: scoped `@radix-ui/react-*` packages until the decision
-record picks between them and the unified `radix-ui` package.
+Radix is consumed through the scoped `@radix-ui/react-*` packages, not the unified `radix-ui`
+package (decision 0004).
 
 ## `data-slot`
 

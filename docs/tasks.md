@@ -29,7 +29,7 @@ consumers/* simulate external apps and install packed tarballs only.
 ## Rules
 - Apps depend on packages, never the reverse. No component code lives in apps/.
 - Components read only semantic or component tokens. CSS variables carry one
-  organization prefix (proposed --cr-, fixed in the Phase 0 decision records).
+  organization prefix (--cr-, accepted in decision 0004).
 - Never edit generated token output. Tokens come from the Tokens Studio sync file.
 - No direct pushes to main. Changes to a published package need a changeset.
 - Pin every third-party GitHub Action to a version or commit SHA.
@@ -60,9 +60,9 @@ Phase 0 sets up the accounts, runs three spikes, records the decisions and measu
 
 ### Spikes (throwaway branches, results go into decision records)
 
-- [ ] **P0-05 Spike A, Tailwind delivery.** Build one Button with Tailwind v4 classes in a scratch package. Consume it from three apps: one with Tailwind v4, one without Tailwind that uses a precompiled stylesheet, and one whose Tailwind config already defines a `surface` color. *Accept:* a written result says whether the fallback stylesheet builds, whether it avoids class and variable collisions, what it costs, and whether to keep it. (D-03, DST-09, 6.2)
-- [ ] **P0-06 Spike B, Docusaurus.** *Accept:* all five hold in a scratch site: it renders a live component in the default and a second theme, builds with Tailwind v4 without style leakage, searches offline in CI, creates a versioned snapshot, and fails the build on a broken link. If one fails, try Astro Starlight and record why. (D-05, 9.1)
-- [ ] **P0-07 Spike C, Playwright snapshots.** Build a Storybook with three stories in two themes and take screenshots in GitHub Actions. *Accept:* three unchanged runs give zero diffs, a deliberate change uploads diff images as a workflow artifact, and the size of one baseline set is noted. (D-07, 10)
+- [ ] **P0-05 Spike A, Tailwind delivery.** Build one Button with Tailwind v4 classes in a scratch package. Consume it from three apps: one with Tailwind v4, one without Tailwind that uses a precompiled stylesheet, and one whose Tailwind config already defines a `surface` color. *Accept:* a written result says whether the fallback stylesheet builds, whether it avoids class and variable collisions, what it costs, and whether to keep it. (D-03, DST-09, 6.2) *Amended by decisions 0005 and 0009: decided without a spike; the precompiled stylesheet is dropped and Tailwind v4 is required. The `surface` collision scenario is untested and becomes a follow-up below.*
+- [ ] **P0-06 Spike B, Docusaurus.** *Accept:* all five hold in a scratch site: it renders a live component in the default and a second theme, builds with Tailwind v4 without style leakage, searches offline in CI, creates a versioned snapshot, and fails the build on a broken link. If one fails, try Astro Starlight and record why. (D-05, 9.1) *Amended by decision 0010: decided without a spike (Docusaurus already builds); Astro Starlight stays the fallback. The second theme is deferred (0005), so the live component is shown in light and dark.*
+- [ ] **P0-07 Spike C, Playwright snapshots.** Build a Storybook with three stories in two themes and take screenshots in GitHub Actions. *Accept:* three unchanged runs give zero diffs, a deliberate change uploads diff images as a workflow artifact, and the size of one baseline set is noted. (D-07, 10) *Amended by decisions 0006 and 0011: decided without a spike; Playwright snapshots on the built Storybook are kept, any diff fails, and baselines change only through CI approval.*
 
 ### Baselines
 
@@ -71,7 +71,7 @@ Phase 0 sets up the accounts, runs three spikes, records the decisions and measu
 
 ### Decision records
 
-- [ ] **P0-10 Decision records.** Write short records in `docs/decisions/`: the 17 decisions of 16 October and the naming decision (Credo, scope @usecredo, repository hatfim/credo) (link to the PRD for detail), the Radix packaging approach, the library build tool, the Tailwind v4 minimum version, the token file format (W3C DTCG or the plugin's legacy format), the CSS variable prefix (`--cr-` is proposed), how React 18 support is implemented, the npm publishing method, and the outcome of spikes A to C. *Accept:* one record per decision, each with status accepted. (16.1)
+- [ ] **P0-10 Decision records.** Write short records in `docs/decisions/`: the 17 decisions of 16 October and the naming decision (Credo, scope @usecredo, repository hatfim/credo) (link to the PRD for detail), the Radix packaging approach, the library build tool, the Tailwind v4 minimum version, the token file format (W3C DTCG or the plugin's legacy format), the CSS variable prefix (`--cr-` is proposed), how React 18 support is implemented, the npm publishing method, and the outcome of spikes A to C. *Accept:* one record per decision, each with status accepted. (16.1) *Amended by decisions 0004 to 0011: the records are written (packaging, styling and fonts, testing and docs, release policy, token sync operations, spikes A to C). `--cr-` is accepted (0004), not proposed.*
 - [ ] **P0-11 Gate 0 review.** Walk the Phase 0 row in PRD 15.3 and tick each criterion. Update the PRD wherever a spike changed an assumption. *Accept:* decision records signed and baselines recorded.
 
 ## Phase 1: foundation
@@ -96,7 +96,7 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### C. Tailwind integration
 
-- [x] **P1-11 `tailwind-config`.** Map the prefixed variables to Tailwind theme values with `@theme inline`, add the radius scale, and add the precompiled stylesheet if spike A kept it. *Accept:* `bg-surface-page` resolves to the active theme in the Vite consumer. (TOK-03, D-03)
+- [x] **P1-11 `tailwind-config`.** Map the prefixed variables to Tailwind theme values with `@theme inline`, add the radius scale, and add the precompiled stylesheet if spike A kept it. *Accept:* `bg-surface-page` resolves to the active theme in the Vite consumer. (TOK-03, D-03) *Amended by decisions 0005 and 0009: the precompiled stylesheet is dropped, so the provisional `precompiled.css` is removed in the Wave 3 code change (see the follow-ups below). The box stays ticked.*
 
 ### D. `ui` and `icons`
 
@@ -107,7 +107,7 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### E. Test utilities and the two apps
 
-- [x] **P1-16 `test-utils`.** Storybook theme decorator (light, dark, second theme), viewport presets, Vitest setup and an accessibility helper. *Accept:* Storybook and unit tests both use it. (9.3)
+- [x] **P1-16 `test-utils`.** Storybook theme decorator (light, dark; a second theme is deferred, decision 0005), viewport presets, Vitest setup and an accessibility helper. *Accept:* Storybook and unit tests both use it. (9.3)
 - [x] **P1-17 Storybook app.** Storybook with CSF in TypeScript, the accessibility addon, interaction tests and a theme toolbar, plus Button stories with a keyboard `play` function. *Accept:* it builds, and a smoke test renders every story. (SBK-02, SBK-03, SBK-05)
 - [x] **P1-18 Docs app.** Docusaurus (as confirmed by spike B) with a Getting started skeleton, a token reference generated from the token source, and a Button page that has a live example using the real component, an API table generated from its types, and a link to its stories. Search and the link check are on. *Accept:* it builds, and a deliberately broken link fails the build. (DOC-02 to DOC-06) *Amended by decision 0003 (Storybook is not hosted): the Button page names stories by ID in text and says how to run Storybook locally; no hosted link.*
 - [x] **P1-19 Cross-link check.** Read the Storybook index and fail if a story ID linked from the docs is missing, or if a stable component lacks a docs page or stories. *Accept:* removing a story fails the check. (DOC-05, 9.4) *Amended by decision 0003 (Storybook is not hosted): story IDs are referenced as inline-code text, not URLs; the failure cases are unchanged.*
@@ -130,11 +130,28 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 - [x] **P1-27 Gate 1 review.** Follow Button from source to story, docs page, `next` snapshot and both consumers, then check BLD-01 to BLD-09. *Accept:* every item is ticked and the PRD is updated for anything that changed.
   *Closed 2026-10-17.* Verified by the reviewer on a clean checkout: the Button journey, BLD-01 to BLD-09 (BLD-04 wording fixed in the PRD), `pnpm check` (40 tasks), consumers, the `next` snapshot on npm with provenance for all four packages, a green nightly and a release dry run. Confirmed by the owner, not re-run by an agent: the token sync comment updating on a second Figma push, and the manual Button review (keyboard, screen reader, contrast). Phase 0 is still open (P0-01 to P0-11, `docs/adoption/baselines.md`, the `TODO(decision: ...)` markers) and is the precondition for Phase 2.
 
+### I. Follow-ups from the 2026-10-17 decisions (not numbered tasks)
+
+From decisions 0004 to 0009. Do not tick the numbered tasks above because of these.
+
+- [ ] Add a collision test case to `consumers/vite-app` (for example the app defines `--radius-md`, `--font-sans` or a `surface` colour) and assert what wins (0005).
+- [ ] Add a fixture test that swaps `scale.primary` to the indigo palette and checks contrast (0005).
+- [ ] Owner: change `font-family.mono` to Geist Mono in Figma and push it. Then self-host Lexend and Geist Mono in `apps/docs` and `apps/storybook` (check size and licence first) and regenerate the 10 visual baselines once (0005).
+- [ ] Replace the placeholder docs host with `https://credo.trekant.dev` everywhere (0006).
+- [ ] Remove the provisional precompiled stylesheet and its docs page (0005, 0009).
+- [ ] Set the typography breakpoint constant to 768px and the Tailwind minimum to the 4.3.x peer range (0005).
+- [ ] Replace the settled `TODO(decision: ...)` markers in code, config and workflows with references to the decision records (0004 to 0008). The markers in docs files were replaced in Wave 2; the remainder live in code, config and workflows (Wave 3): build-tool, consumer-version-matrix, css-prefix, docs-framework, docs-url, npm-publish-auth, precompiled-stylesheet, radix-packaging, release-tags, second-theme, snapshot-setup, tailwind-minimum, typography-breakpoint, use-client-scope, and vercel-deploy-method (which stays open). `.claude/agents/*` mentions are instructions, not markers.
+- [ ] Add the workflow on `main` that merges `main` into `tokens-sync` (conflicts in `packages/tokens/generated/` keep the `tokens-sync` side; any other conflict stops, comments and fails) (0008).
+- [ ] Owner: move the four packages to npm trusted publishing and delete `NPM_TOKEN` after verifying (0007).
+- [ ] Owner: reset `latest` on the four packages with `npm dist-tag` so it no longer points at the snapshot (0007).
+- [ ] Owner: rotate `GH_PAT` before 14 January 2027 (reminder on 1 January) (0008).
+- [ ] Owner: disable Vercel production Git deploys of `main` (0007).
+
 ## Phase 2: pilot catalog
 
 Phase 2 builds the other 14 pilot components to the full definition of done (PRD 7.3), completes the docs at MVP depth, and turns on the remaining quality gates. It closes at gate 2: all 15 components stable, docs and Storybook gates green, consumers passing the integration matrix, and targets added to PRD section 14.
 
-Every component task below has the same base acceptance: stories for each state the component supports, unit and interaction tests, no serious accessibility violations, keyboard behavior checked, a docs page with generated API table and story links, a changeset, and light, dark and second-theme rendering. The line under each task adds only what is specific to that component.
+Every component task below has the same base acceptance: stories for each state the component supports, unit and interaction tests, no serious accessibility violations, keyboard behavior checked, a docs page with generated API table and story links, a changeset, and light and dark rendering (second theme deferred, decision 0005). The line under each task adds only what is specific to that component.
 
 ### A. Process
 
@@ -153,15 +170,15 @@ Every component task below has the same base acceptance: stories for each state 
 
 ### C. Themes and quality gates
 
-- [ ] **P2-10 Second reference theme.** A contrasting brand as extra token sets, shown in Storybook and the docs. *Accept:* both reference themes pass the validator and every component story renders in both. (TOK-10)
-- [ ] **P2-11 Visual regression coverage.** Playwright snapshots for every stable component in light, dark and the second theme, with the approval workflow written in the docs. *Accept:* a deliberate style change produces a diff that must be approved before baselines update. (TST-05, TST-06)
+- [ ] **P2-10 Second reference theme.** A contrasting brand as extra token sets, shown in Storybook and the docs. *Accept:* both reference themes pass the validator and every component story renders in both. (TOK-10) *Amended by decision 0005: the second theme is deferred and no second brand is planned; it is dropped from the MVP gate. Replace the acceptance by a fixture test that swaps `scale.primary` to the indigo palette and checks contrast, with `actions.primary.foreground` noted as hard-wired to the dark ink. (TOK-10)*
+- [ ] **P2-11 Visual regression coverage.** Playwright snapshots for every stable component in light, dark and the second theme, with the approval workflow written in the docs. *Accept:* a deliberate style change produces a diff that must be approved before baselines update. (TST-05, TST-06) *Amended by decision 0005: snapshots in light and dark only, with the real fonts (baselines regenerated once, see the follow-ups below).*
 - [ ] **P2-12 Manual accessibility review.** For each interactive component, run a keyboard and screen reader checklist and record the result on its docs page. *Accept:* every interactive component has a recorded review. (7.4, 10.1)
 - [ ] **P2-13 Coverage ratchet.** The PRD expects a baseline at the end of Phase 1; record it first if it was missed. Then enforce thresholds that cannot decrease. *Accept:* a pull request that lowers coverage fails. (TST-08)
-- [ ] **P2-14 Consumer matrix.** Nightly and pre-release runs across React 18 and 19, Vite and Next.js, and the Tailwind and precompiled-stylesheet paths (if spike A kept the fallback). Add a duplicate-dependency check. *Accept:* the matrix is green, and the duplicate check fails when a second React or Radix copy appears. (DST-05, TST-07)
+- [ ] **P2-14 Consumer matrix.** Nightly and pre-release runs across React 18 and 19, Vite and Next.js, and the Tailwind and precompiled-stylesheet paths (if spike A kept the fallback). Add a duplicate-dependency check. *Accept:* the matrix is green, and the duplicate check fails when a second React or Radix copy appears. (DST-05, TST-07) *Amended by decisions 0005 and 0006: no stylesheet path; the matrix is Node 22 and 24 with React 18 and 19 (React 18 on the Vite consumer only) and Next.js App Router only for now.*
 
 ### D. Documentation and governance
 
-- [ ] **P2-15 Docs: onboarding, foundations, theming.** Getting started for a new project and for an existing app (including coexistence), the token reference for color, type, spacing, radius, shadows and responsive principles, and theming (writing and validating a theme, Tailwind integration). *Accept:* a person reaches a themed, rendered component using only these pages. (DOC-01, ADP-01, DST-10)
+- [ ] **P2-15 Docs: onboarding, foundations, theming.** Getting started for a new project and for an existing app (including coexistence), the token reference for color, type, spacing, radius, shadows and responsive principles, and theming (writing and validating a theme, Tailwind integration). *Accept:* a person reaches a themed, rendered component using only these pages. (DOC-01, ADP-01, DST-10) *Amended by decision 0005: the docs state Tailwind v4 required (4.3.x tested), no precompiled stylesheet, and how to load Lexend and Geist Mono; the theming page covers light and dark only.*
 - [ ] **P2-16 Docs: patterns, guidelines, accessibility.** Recipes for form composition, dialogs and feedback, do and don't examples, naming conventions and principles, and accessibility guidance. *Accept:* pages exist and their code examples are type-checked in CI. (DOC-01, DOC-07)
 - [ ] **P2-17 Docs: development, release, migration.** Repository setup, scripts, architecture, contribution workflow, testing, the ownership table (PRD 12.4), a compatibility matrix page generated from the CI matrix, and an upgrade guide template. *Accept:* pages exist and the matrix page updates from CI results. (DOC-01, DST-05, REL-07)
 - [ ] **P2-18 Governance files.** An RFC template and a decision-record template in the repository, lifecycle labels (experimental, stable, deprecated) shown on component pages and stories, and an `experimental` entry point with a docs banner. *Accept:* a component marked experimental shows its label in both places. (GOV-01, GOV-02, GOV-05, 7.2)
@@ -176,7 +193,7 @@ Every component task below has the same base acceptance: stories for each state 
 
 Phase 3 ships 1.0, publishes the migration material and proves the system on one real project. It closes at gate 3: the MVP exit criteria in PRD 14.1 are met.
 
-- [ ] **P3-01 Release candidate.** Freeze the catalog and publish an `rc` prerelease of every package with Changesets. *Accept:* the `rc` versions are on npm with provenance and both consumers pass the matrix against them. (REL-04, DST-07)
+- [ ] **P3-01 Release candidate.** Freeze the catalog and publish an `rc` prerelease of every package with Changesets. *Accept:* the `rc` versions are on npm with provenance and both consumers pass the matrix against them. (REL-04, DST-07) *Amended by decision 0007: the first `0.1.0` comes after the Phase 2 pilot gate and `1.0.0` at the Phase 3 gate; until then only snapshots under `next`. Git tags and GitHub releases start with the first stable release.*
 - [ ] **P3-02 Versioned docs and Storybook.** Create the 1.0 docs snapshot, deploy Storybook for 1.0, and set the `latest` and `next` aliases. *Accept:* the docs have a version selector and the 1.0 Storybook has a stable URL. (DOC-08, REL-05) *Amended by decision 0003 (Storybook is not hosted): version and alias the docs site only; skip the Storybook deployment.*
 - [ ] **P3-03 Migration and upgrade guides.** The incremental migration guide with its legacy-component mapping template, the 1.0 release notes, and the upgrade guide structure for future majors. *Accept:* a trial migration of one screen from an eligible project follows the guide without extra help. (ADP-02, ADP-03, REL-06)
 - [ ] **P3-04 Security and support.** A `SECURITY.md`, response targets for security fixes, weekly automated dependency updates, a nightly audit, and a support channel with regular office hours. *Accept:* the policy is published and update pull requests arrive weekly. (12.4)

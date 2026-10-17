@@ -27,7 +27,7 @@ comment says which one it used and is found again through the hidden marker
    pull request it opened would never get the required checks (PRD 6.7, TOK-15). The repository
    setting "Allow GitHub Actions to create and approve pull requests" is therefore not needed.
    A PAT belongs to a person; consider a machine user or a GitHub App later and set a rotation
-   date. TODO(decision: token-sync-pr-token)
+   date. Decision 0008: keep the owner's fine-grained `GH_PAT`; rotate it before it expires on 14 January 2027 (owner reminder on 1 January).
 3. Make sure the plugin pushes to a branch named `tokens-sync`, and that the `protect-main`
    ruleset does not restrict that branch.
 4. Open a manual run once to confirm the secret works.
@@ -37,8 +37,9 @@ comment says which one it used and is found again through the hidden marker
    `main` that changes them (the plugin only adds commits that touch the token file, so a merge
    commit is safe). Manual runs: Actions, Tokens sync, Run workflow, "Use workflow from:
    `tokens-sync`". If the tooling is missing, the first step fails with a message saying so.
-   TODO(decision: tokens-sync-tooling-source) whether to automate this merge or move the
-   tooling into a workflow that lives on `main`.
+   Decision 0008: a workflow on `main` will automate this merge (conflicts in
+   `packages/tokens/generated/` keep the `tokens-sync` side; any other conflict stops and fails). Until it
+   lands, the manual merge above is the interim.
 6. Anyone with write access to `tokens-sync` can change the workflow on that branch, and it runs
    with `GH_PAT`. Limit write access to that branch, and do not let the ruleset block pushes to it.
 

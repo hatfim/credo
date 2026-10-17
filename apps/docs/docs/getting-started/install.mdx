@@ -5,11 +5,13 @@ title: Install
 
 The packages live in the public `@usecredo` scope.
 
-{/* TODO(decision: first-release): the packages are at 0.0.0 and not yet published; the commands below work once the first release is out. */}
+Until the first stable release (`0.1.0`, after the Phase 2 pilot gate; decision 0007) only
+`next` snapshots are published, so install the `next` tag, for example
+`pnpm add @usecredo/ui@next`. The `latest` tag is not reliable until then.
 
 ```bash
-pnpm add @usecredo/ui @usecredo/tokens
-pnpm add -D @usecredo/tailwind-config tailwindcss
+pnpm add @usecredo/ui@next @usecredo/tokens@next
+pnpm add -D @usecredo/tailwind-config@next tailwindcss
 ```
 
 | Package | Role |
@@ -22,7 +24,8 @@ Peer requirements:
 
 - `react` and `react-dom` `^18.0.0 || ^19.0.0` (peers of `@usecredo/ui`).
 - `@usecredo/tokens` (peer of `@usecredo/ui` and `@usecredo/tailwind-config`).
-- `tailwindcss` `^4.3.3` (peer of `@usecredo/tailwind-config`).
+- `tailwindcss` `^4.3.3` (peer of `@usecredo/tailwind-config`). Tailwind v4 is required, 4.3.x is
+  the tested version and there is no precompiled stylesheet (decision 0005).
 
 All packages are ESM only. Import from the documented subpaths; deep imports are not part of
 the public API.

@@ -66,7 +66,7 @@ Third-party actions are pinned to full SHAs. No third-party release action is us
 ## Owner steps (by hand; the workflow changes none of this)
 
 1. npm: create the `@usecredo` organisation. Authentication is the same decision as for `next`
-   (`TODO(decision: npm-publish-auth)`). `NPM_TOKEN` (granular, publish-only) is the conservative
+   (decision 0007: trusted publishing after the first publish, then delete `NPM_TOKEN`). `NPM_TOKEN` (granular, publish-only) is the conservative
    first-publish default, because a trusted publisher can only be configured for a package that already
    exists. After the first publish, re-check how npm handles trusted publishers for two workflow files
    (`main.yml` and `release.yml`; npm's documentation now describes a multiple-trusted-publishers mode,
@@ -97,9 +97,9 @@ in `release-prepare`, before publishing, and never prints values.
 
 ## Tags and release notes
 
-`TODO(decision: release-tags)`: `--no-git-tag`, so no git tags are created or pushed (that needs
-`contents: write` on the publish job). The PRD also lists tags and release notes for the release; until
-decided, the generated `CHANGELOG.md` files in each package are the release notes.
+Decision 0007: git tags and GitHub releases only from the first stable release. Until then the
+workflow uses `--no-git-tag`, so no tags are created or pushed (that needs `contents: write` on the
+publish job), and the generated `CHANGELOG.md` files in each package are the release notes.
 
 ## Verify a release
 
