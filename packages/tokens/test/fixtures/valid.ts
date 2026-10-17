@@ -1,16 +1,41 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { TokenFile } from "../../src/model";
+import { requiredRoles } from "../../src/theme";
 
 const c = (value: string) => ({ $type: "color", $value: value });
 const d = (value: string) => ({ $type: "dimension", $value: value });
 
 /** A small but complete token file: every set, every role group, all contract rules satisfied. */
 // Tests mutate nested tokens freely, so the fixture is deliberately loosely typed.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function makeValid(): TokenFile & Record<string, any> {
   const semantic = (mode: "light" | "dark") => {
     const ink = mode === "light" ? "{scale.neutral.900}" : "{scale.neutral.50}";
     const page = mode === "light" ? "{scale.neutral.50}" : "{scale.neutral.900}";
-    return {
+    // Every required role gets a value that passes contrast: ink on page-coloured surfaces,
+    // white on the destructive fill, dark ink on the lime fill.
+    const filled: Record<string, any> = {};
+    for (const role of requiredRoles()) {
+      const value = /^surface\.|container$|container-|\.subtle(-hover|-pressed)?$|\.background$/.test(role)
+        ? page
+        : /^actions\.[a-z]+\.(default|hover|pressed)$/.test(role)
+          ? "{scale.primary.500}"
+          : /^feedback\.[a-z]+\.(default|hover|pressed)$/.test(role)
+            ? "{scale.destructive.600}"
+            : role.startsWith("feedback.") && role.endsWith(".foreground")
+              ? "{color.white}"
+              : role.startsWith("actions.") && role.endsWith(".foreground") && !role.includes("subtle")
+                ? "{scale.neutral.900}"
+                : ink;
+      const parts = role.split(".");
+      let node = filled;
+      for (const part of parts.slice(0, -1)) node = node[part] ??= {};
+      node[parts[parts.length - 1]!] = c(value);
+    }
+    const merge = (a: any, b: any): any => {
+      for (const k of Object.keys(b)) a[k] = a[k] && !("$value" in b[k]) ? merge(a[k], b[k]) : b[k];
+      return a;
+    };
+    return merge(filled, {
       surface: { page: c(page), container: c(page) },
       content: { primary: c(ink), secondary: c(ink), tertiary: c(ink), disabled: c("{scale.neutral.500}") },
       field: { background: c(page), border: c(ink), "border-focus": c(ink) },
@@ -31,7 +56,7 @@ export function makeValid(): TokenFile & Record<string, any> {
         destructive: { "5": c(mode === "light" ? "#cf33590d" : "#de4b690d") },
       },
       shadow: { color: { default: c("#00000012") } },
-    };
+    });
   };
   const typography = (size: string) => ({ display: { large: { "font-size": d(size) } } });
   return {

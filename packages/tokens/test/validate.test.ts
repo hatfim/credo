@@ -130,4 +130,29 @@ describe("validateTokens", () => {
     f["Primitives/Default"].radius = { sm: { $type: "dimension", $value: "4px" }, full: { $type: "dimension", $value: "9999px" } };
     expect(codes(f)).toEqual([]);
   });
+
+  const dim = (v: string) => ({ $type: "dimension", $value: v });
+  const scaleCodes = (f: unknown) => codes(f).filter((i) => i.code.startsWith("scale-"));
+
+  it("orders scales by key, so fractional keys are not judged by object key order", () => {
+    const f = makeValid();
+    f["Primitives/Default"].spacing = { "0": dim("0rem"), "1": dim("0.25rem"), "0.5": dim("0.125rem"), "2.5": dim("0.625rem"), "2": dim("0.5rem"), "160": dim("10rem") };
+    expect(scaleCodes(f)).toEqual([]);
+  });
+
+  it("fails a fractional-key scale with one value out of order", () => {
+    const f = makeValid();
+    f["Primitives/Default"].spacing = { "0": dim("0rem"), "1": dim("0.25rem"), "0.5": dim("0.3rem"), "2": dim("0.5rem") };
+    expect(scaleCodes(f).map(formatIssue)).toEqual([
+      "error [scale-order] Primitives/Default spacing.1: spacing.1 (4px) must be larger than spacing.0.5 (4.8px). Scales are ascending.",
+    ]);
+  });
+
+  it("resolves aliases inside a scale group before checking order", () => {
+    const f = makeValid();
+    f["Primitives/Default"].spacing = { "12": dim("0.75rem"), "16": dim("1rem"), "24": dim("{spacing.12}") };
+    expect(scaleCodes(f).map(formatIssue)).toEqual([
+      "error [scale-order] Primitives/Default spacing.24: spacing.24 (12px) must be larger than spacing.16 (16px). Scales are ascending.",
+    ]);
+  });
 });

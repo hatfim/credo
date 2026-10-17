@@ -91,6 +91,21 @@ describe("checkTheme", () => {
     expect(labels).toContain("border.strong on surface.container");
   });
 
+  it("fails a missing required role instead of skipping its pairs", () => {
+    for (const [role, group, a, b] of [
+      ["border.strong", "border", "strong", ""],
+      ["feedback.error.foreground", "feedback", "error", "foreground"],
+    ] as const) {
+      const f = makeValid();
+      f["Semantic/Light"][group][a] = { ...f["Semantic/Light"][group][a] };
+      if (b) delete f["Semantic/Light"][group][a][b];
+      else delete f["Semantic/Light"][group][a];
+      const messages = checkTheme(f).issues.filter((i) => i.code === "required-role").map((i) => i.message);
+      expect(messages).toContain(`Required role ${role} missing in light mode.`);
+      expect(messages).not.toContain(`Required role ${role} missing in dark mode.`);
+    }
+  });
+
   it("reports incomplete themes", () => {
     const f = makeValid();
     delete f["Semantic/Dark"].content.secondary;

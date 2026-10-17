@@ -32,10 +32,34 @@ export interface BaselineEntry {
   reason: string;
 }
 
+/**
+ * Roles every pair depends on. A missing one is an error, never a silently skipped pair.
+ * Only the pairs built from roles discovered in the file stay optional: extra surface or
+ * ring variants, extra actions or feedback families, and the alpha tint pairs.
+ */
+export function requiredRoles(): string[] {
+  const out: string[] = [];
+  const surfaces = ["page", "container", "container-subtle", "container-elevated", "overlay"];
+  for (const s of surfaces) out.push(`surface.${s}`);
+  for (const s of surfaces.slice(1)) out.push(`surface.${s}-hover`, `surface.${s}-pressed`);
+  for (const t of ["primary", "secondary", "tertiary", "link", "link-subtle", "link-external", "link-danger"]) out.push(`content.${t}`);
+  for (const f of ["background", "foreground", "placeholder", "border", "border-hover", "border-focus"]) out.push(`field.${f}`);
+  for (const v of ["primary", "secondary", "destructive"]) {
+    for (const r of ["default", "hover", "pressed", "foreground", "subtle", "subtle-hover", "subtle-pressed", "subtle-foreground"]) out.push(`actions.${v}.${r}`);
+  }
+  for (const v of ["error", "success", "warning", "info"]) {
+    for (const r of ["default", "hover", "pressed", "foreground", "content", "container", "container-hover", "container-pressed"]) out.push(`feedback.${v}.${r}`);
+  }
+  for (const r of ["ring", "ring-error", "ring-success", "ring-warning"]) out.push(`state.focus.${r}`);
+  for (const s of ["loading", "read-only"]) out.push(`state.${s}.foreground`, `state.${s}.background`);
+  for (const r of ["strong", "strong-hover", "interactive", "interactive-hover", "interactive-pressed"]) out.push(`border.${r}`);
+  return out;
+}
+
 const isState = (p: string) => /-(hover|pressed)$/.test(p);
 
 /**
- * Foreground/background pairs derived from the role list. Disabled states are exempt
+ * Foreground/background pairs derived (the `has` guards below only skip optional pairs; see requiredRoles) from the role list. Disabled states are exempt
  * from WCAG contrast and are not checked.
  */
 export function buildPairs(roles: string[]): Pair[] {
@@ -142,6 +166,9 @@ export function checkTheme(file: TokenFile, baseline: BaselineEntry[] = []): The
 
     // Completeness and value types.
     const own = new Set(flattenSet(set, file[set]).map((t) => t.path));
+    for (const r of requiredRoles()) {
+      if (!own.has(r)) issues.push({ severity: "error", code: "required-role", set, path: r, message: `Required role ${r} missing in ${mode} mode.` });
+    }
     for (const r of roles) {
       if (!own.has(r)) issues.push({ severity: "error", code: "incomplete", set, path: r, message: `Role is missing in ${mode} mode.` });
     }
