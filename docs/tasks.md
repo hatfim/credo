@@ -135,11 +135,11 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 From decisions 0004 to 0009. Do not tick the numbered tasks above because of these.
 
 - [ ] Add a collision test case to `consumers/vite-app` (for example the app defines `--radius-md`, `--font-sans` or a `surface` colour) and assert what wins (0005).
-- [ ] Add a fixture test that swaps `scale.primary` to the indigo palette and checks contrast (0005).
+- [x] Add a fixture test that swaps `scale.primary` to the indigo palette and checks contrast (0005).
 - [ ] Owner: change `font-family.mono` to Geist Mono in Figma and push it. Then self-host Lexend and Geist Mono in `apps/docs` and `apps/storybook` (check size and licence first) and regenerate the 10 visual baselines once (0005).
 - [ ] Replace the placeholder docs host with `https://credo.trekant.dev` everywhere (0006).
-- [ ] Remove the provisional precompiled stylesheet and its docs page (0005, 0009).
-- [ ] Set the typography breakpoint constant to 768px and the Tailwind minimum to the 4.3.x peer range (0005).
+- [x] Remove the provisional precompiled stylesheet and its docs page (0005, 0009).
+- [x] Set the typography breakpoint constant to 768px and the Tailwind minimum to the 4.3.x peer range (0005).
 - [ ] Replace the settled `TODO(decision: ...)` markers in code, config and workflows with references to the decision records (0004 to 0008). The markers in docs files were replaced in Wave 2; the remainder live in code, config and workflows (Wave 3): build-tool, consumer-version-matrix, css-prefix, docs-framework, docs-url, npm-publish-auth, precompiled-stylesheet, radix-packaging, release-tags, second-theme, snapshot-setup, tailwind-minimum, typography-breakpoint, use-client-scope, and vercel-deploy-method (which stays open). `.claude/agents/*` mentions are instructions, not markers.
 - [ ] Add the workflow on `main` that merges `main` into `tokens-sync` (conflicts in `packages/tokens/generated/` keep the `tokens-sync` side; any other conflict stops, comments and fails) (0008).
 - [ ] Owner: move the four packages to npm trusted publishing and delete `NPM_TOKEN` after verifying (0007).

@@ -16,7 +16,6 @@
       "import": "./dist/index.js"
     },
     "./theme.css": "./dist/theme.css",
-    "./precompiled.css": "./dist/precompiled.css",
     "./package.json": "./package.json"
   },
   "files": [
@@ -34,7 +33,7 @@
   },
   "peerDependencies": {
     "@usecredo/tokens": "workspace:^",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@types/node": "catalog:",

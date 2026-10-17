@@ -49,7 +49,7 @@ the light values, `[data-theme="dark"]` the dark ones. A nested element with its
 
 Besides the roles, the stylesheet carries the radius, spacing, border-width and font-family
 scales and the typography styles (desktop by default, mobile under a media query,
-the breakpoint is 768px per decision 0005; the constant in code still holds the old value until the Wave 3 change).
+the breakpoint is 768px per decision 0005: mobile below 768px, desktop at 768px and above).
 
 ## Tailwind utilities
 

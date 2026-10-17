@@ -21,14 +21,3 @@ export function buildThemeCss(table: TokenTable): string {
   lines.push("}");
   return lines.join("\n") + "\n";
 }
-
-/** Candidate class names the provisional precompiled stylesheet includes. */
-export function precompiledCandidates(table: TokenTable): string[] {
-  const out: string[] = [];
-  for (const r of table.roles) {
-    const n = colorName(r.path);
-    out.push(`bg-${n}`, `text-${n}`, `border-${n}`, `ring-${n}`);
-  }
-  for (const s of table.scales) if (s.path.startsWith("radius.")) out.push(`rounded-${s.path.split(".")[1]}`);
-  return out;
-}
