@@ -1,6 +1,5 @@
 import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 
-// TODO(P1-18 wave 2): add Foundations > Tokens (generated) and Components > Button.
 const sidebars: SidebarsConfig = {
   main: [
     "intro",
@@ -14,6 +13,8 @@ const sidebars: SidebarsConfig = {
         "getting-started/first-component",
       ],
     },
+    { type: "category", label: "Foundations", items: ["foundations/tokens"] },
+    { type: "category", label: "Components", items: ["components/button"] },
   ],
 };
 

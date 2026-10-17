@@ -3,10 +3,31 @@ id: stylesheet
 title: Import the stylesheet
 ---
 
-Import the token stylesheet and the Tailwind mapping once, in your global CSS.
+Import the token stylesheet and the Tailwind mapping once, in your global CSS, after
+Tailwind itself. Tell Tailwind where to find the component class names with `@source`.
 
 ```css
 @import "tailwindcss";
-/* TODO(P1-18 wave 2): exact import paths from the built @usecredo/tokens and
-   @usecredo/tailwind-config exports. */
+@import "@usecredo/tokens/tokens.css";
+@import "@usecredo/tailwind-config/theme.css";
+@source "../node_modules/@usecredo/ui/dist";
 ```
+
+- `@usecredo/tokens/tokens.css` declares the CSS variables for every theme. Colour roles are
+  scoped by `data-theme`; scales (spacing, radius, border width, typography) apply to `:root`.
+- `@usecredo/tailwind-config/theme.css` maps those variables to Tailwind theme values, so
+  utilities such as `bg-actions-primary-default` exist.
+- `@source` points at the built components so Tailwind generates the utilities they use. Adjust
+  the relative path to where your CSS file sits relative to `node_modules`.
+
+The CSS variable prefix is `--cr-`.
+{/* TODO(decision: css-prefix): `--cr-` is the proposed prefix, not yet accepted. */}
+
+`@usecredo/tailwind-config/precompiled.css` is a provisional stylesheet for projects that
+cannot run Tailwind.
+{/* TODO(decision: precompiled-stylesheet): spike A has not decided whether it stays. */}
+
+The default font stack names Lexend. The packages do not load font files.
+{/* TODO(decision: fonts): how fonts are delivered. */}
+
+Next: [set the theme attribute](./theme.mdx).

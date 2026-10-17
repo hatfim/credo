@@ -1,0 +1,92 @@
+---
+id: button
+title: Button
+description: Primary action control with variants, sizes, loading and asChild.
+---
+
+import { Button } from "@usecredo/ui/button";
+import storybook from "../_generated/storybook.json";
+import ButtonApi from "../_generated/api-button.mdx";
+
+`Button` triggers an action. It renders a native `button`, or the single child you pass when
+you set `asChild` (Radix Slot), so the same styling can sit on a link.
+
+```tsx
+import { Button } from "@usecredo/ui/button";
+```
+
+## Examples
+
+The examples below are the real `@usecredo/ui/button` component, styled by the real token and
+Tailwind stylesheets. The toggle sets `data-theme` on the example frame only.
+
+### Variants
+
+<div className="credo-example-frame">
+  <div className="credo-example" data-theme="light">
+    <div className="credo-row">
+      <Button>Default</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="destructive">Destructive</Button>
+      <Button variant="outline">Outline</Button>
+      <Button variant="ghost">Ghost</Button>
+      <Button variant="link">Link</Button>
+    </div>
+  </div>
+</div>
+
+### Sizes
+
+<div className="credo-example-frame">
+  <div className="credo-example" data-theme="light">
+    <div className="credo-row">
+      <Button size="sm">Small</Button>
+      <Button size="md">Medium</Button>
+      <Button size="lg">Large</Button>
+    </div>
+  </div>
+</div>
+
+### Disabled and loading
+
+A loading button shows a spinner, sets `aria-busy` and ignores activation, but stays focusable.
+
+<div className="credo-example-frame">
+  <div className="credo-example" data-theme="light">
+    <div className="credo-row">
+      <Button disabled>Disabled</Button>
+      <Button loading>Loading</Button>
+    </div>
+  </div>
+</div>
+
+### As a link
+
+<div className="credo-example-frame">
+  <div className="credo-example" data-theme="light">
+    <Button asChild variant="secondary">
+      <a href="#stories">Rendered as a link</a>
+    </Button>
+  </div>
+</div>
+
+## API
+
+Generated from the TypeScript declarations of `@usecredo/ui/button` at build time. `Button`
+also accepts every native `button` attribute and forwards its `ref` to the element.
+
+<ButtonApi />
+
+## Stories
+
+State catalog, keyboard check and accessibility checks live in Storybook.
+
+- <a href={`${storybook.url}/?path=/story/components-button--default`}>Default</a>
+- <a href={`${storybook.url}/?path=/story/components-button--variants`}>Variants</a>
+- <a href={`${storybook.url}/?path=/story/components-button--sizes`}>Sizes</a>
+- <a href={`${storybook.url}/?path=/story/components-button--disabled`}>Disabled</a>
+- <a href={`${storybook.url}/?path=/story/components-button--loading`}>Loading</a>
+- <a href={`${storybook.url}/?path=/story/components-button--as-child`}>As child</a>
+- <a href={`${storybook.url}/?path=/story/components-button--long-text`}>Long text</a>
+- <a href={`${storybook.url}/?path=/story/components-button--themes`}>Themes</a>
+- <a href={`${storybook.url}/?path=/story/components-button--keyboard`}>Keyboard</a>

@@ -6,12 +6,14 @@
   "license": "MIT",
   "scripts": {
     "dev": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "docusaurus build && node scripts/check-css-layers.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "echo \"no tests yet\"",
     "check:links": "node scripts/check-links.mjs",
-    "clean": "rm -rf dist build .docusaurus link-report .turbo"
+    "clean": "rm -rf dist build .docusaurus link-report .turbo",
+    "check:css": "node scripts/check-css-layers.mjs",
+    "check:stories": "node scripts/check-stories.mjs"
   },
   "dependencies": {
     "@usecredo/tailwind-config": "workspace:*",
@@ -22,8 +24,11 @@
     "react-dom": "catalog:",
     "@docusaurus/core": "catalog:",
     "@docusaurus/preset-classic": "catalog:",
+    "@docusaurus/theme-common": "catalog:",
     "@easyops-cn/docusaurus-search-local": "catalog:",
-    "@mdx-js/react": "catalog:"
+    "@mdx-js/react": "catalog:",
+    "@tailwindcss/postcss": "catalog:",
+    "tailwindcss": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",
@@ -34,6 +39,10 @@
     "typescript": "catalog:",
     "@docusaurus/module-type-aliases": "catalog:",
     "@docusaurus/types": "catalog:",
-    "@types/node": "catalog:"
+    "@types/node": "catalog:",
+    "css-minimizer-webpack-plugin": "catalog:",
+    "lightningcss": "catalog:",
+    "postcss": "catalog:",
+    "react-docgen-typescript": "catalog:"
   }
 }

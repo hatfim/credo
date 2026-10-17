@@ -1,1 +1,4 @@
 link-report/
+
+# Generated at build time by plugins/design-system.ts from the built packages.
+docs/_generated
