@@ -673,7 +673,7 @@ The docs site is a static build (Storybook is built in CI but not hosted, see de
 | Fit with the organization's existing infrastructure, identity and compliance | Avoids a parallel platform to operate |
 | Build cost and speed, CDN and caching | A docs build runs on every pull request |
 | Custom domain and TLS | Stable, memorable URLs |
-| Exit cost | Both sites are plain static output, so the host should be replaceable |
+| Exit cost | The docs site is plain static output, so the host should be replaceable |
 
 Vercel was chosen by the owner, so no other host is evaluated. Versioned Storybook snapshots are not published while Storybook is not hosted (see decision 0003); how versioned docs are published is settled in Phase 1.
 
@@ -937,7 +937,7 @@ Every mandatory item in both briefs maps to a PRD section, a requirement ID and 
 | B1 Both apps first-class in pnpm and Turborepo; structure validated | 5, 11 | BLD-01, BLD-04 | CI |
 | B2 Docs sections (nine) | 9.5 | DOC-01 | Docs review against the checklist |
 | B2 Search, navigation, responsive, highlighted and copyable code, live examples | 9.6 | DOC-02, DOC-03, DOC-04 | Playwright smoke tests |
-| B2 Links between docs and Storybook | 9.4 | DOC-05 | Cross-link CI check |
+| B2 Links between docs and Storybook | 9.4 | DOC-05 (by story ID, see decision 0003) | Cross-link CI check |
 | B2 Build and link validation in CI | 10, 11.3 | DOC-06 | CI |
 | B2 Framework evaluated and recommended | 9.1 | D-05 | Phase 0 spike |
 | B3 Stories for every production-ready component, relevant states only | 9.3 | SBK-01 | Coverage check in CI |

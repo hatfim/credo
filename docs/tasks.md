@@ -119,7 +119,7 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 - [x] **P1-22 Playwright snapshot job.** Use the setup from spike C as a required check that reports diffs for approval. *Accept:* a changed story uploads diff images, and baselines change only through CI. (SBK-04, TST-06)
 - [x] **P1-23 Main and nightly workflows.** On `main`: the full check and a snapshot publish to the `next` channel. Nightly: the full visual run and the compatibility matrix. *Accept:* a `next` version appears on npm and a nightly run is green. (DST-07, 10)
 - [x] **P1-24 Release workflow.** Changesets release pull request, publish with provenance, deploy docs and Storybook from the same commit, and fail if the commits differ. *Accept:* a dry run completes, or any limit is documented. (REL-04, DST-01) *Amended by decision 0003 (Storybook is not hosted): only the docs site is deployed and compared with the release commit.*
-- [ ] **P1-25 Preview deployments.** Docs and Storybook previews on every pull request. *Accept:* both preview links appear on a test pull request. (REL-03) *Amended by decision 0003 (Storybook is not hosted): a docs preview only; the acceptance is one preview link on a test pull request.*
+- [x] **P1-25 Preview deployments.** Docs and Storybook previews on every pull request. *Accept:* both preview links appear on a test pull request. (REL-03) *Amended by decision 0003 (Storybook is not hosted): a docs preview only; the acceptance is one preview link on a test pull request.*
 
 ### G. Consumers
 
