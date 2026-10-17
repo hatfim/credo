@@ -2,15 +2,16 @@
   "name": "@usecredo/consumer-vite-app",
   "version": "0.0.0",
   "private": true,
-  "description": "Vite consumer simulating an external app (placeholder)",
+  "description": "Vite single-page app that consumes the packed Credo packages like an external adopter",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "tsc --noEmit",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"no tests yet\"",
-    "clean": "rm -rf dist build storybook-static .turbo"
+    "test": "vitest run",
+    "clean": "rm -rf dist build .turbo"
   },
   "dependencies": {
     "@usecredo/tailwind-config": "workspace:*",
@@ -20,11 +21,20 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "catalog:",
+    "@testing-library/dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@usecredo/eslint-config": "workspace:*",
-    "@usecredo/typescript-config": "workspace:*",
+    "@vitejs/plugin-react": "catalog:",
     "eslint": "catalog:",
-    "typescript": "catalog:"
+    "jsdom": "catalog:",
+    "postcss": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
   }
 }

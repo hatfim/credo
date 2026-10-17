@@ -61,6 +61,11 @@ catalog:
   postcss: ^8.5.30
   lightningcss: ^1.32.0
   css-minimizer-webpack-plugin: ^5.0.1
+  # Representative consumers (P1-26). All MIT. Next is large (about 190 MB unpacked) but only consumers/next-app uses it.
+  next: ^16.4.2
+  "@vitejs/plugin-react": ^6.1.2
+  # Local registry for the consumer job (MIT). Exact pin: it serves the tarballs under test. Publishes only to 127.0.0.1.
+  verdaccio: 6.10.5
 
 onlyBuiltDependencies:
   - esbuild

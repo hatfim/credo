@@ -1,0 +1,50 @@
+/* This app owns a normal Tailwind v4 setup: its own import, its own theme and its own CSS
+ * variables. The Credo stylesheets are added next to them, in the order the docs give. */
+@import "tailwindcss";
+
+/* Credo: token variables per theme, then the Tailwind mapping of the token contract. */
+@import "@usecredo/tokens/tokens.css";
+@import "@usecredo/tailwind-config/theme.css";
+
+/* Tailwind skips node_modules when it scans. The Vite plugin also reads the modules it bundles,
+ * but the explicit source keeps this working with every Tailwind integration. */
+@source "../node_modules/@usecredo/ui/dist";
+
+/* The app's own CSS variables. The names are deliberately the ones apps already use
+ * (shadcn/ui style), to prove they do not collide with the --cr- prefix. */
+:root {
+  --background: #fdf6e3;
+  --foreground: #073642;
+  --primary: #d33682;
+  --primary-foreground: #fdfdfd;
+  --radius: 0.25rem;
+}
+
+/* The app's own Tailwind theme, mapped onto its own variables. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-brand: #268bd2;
+  --breakpoint-3xl: 120rem;
+}
+
+@utility app-card {
+  border-radius: var(--radius);
+  border: 1px dashed var(--primary);
+  padding: 1rem;
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  /* Credo themes are element scoped: a themed region paints its own surface. */
+  [data-theme] {
+    background-color: var(--cr-surface-page);
+    color: var(--cr-content-primary);
+    font-family: var(--cr-font-family-sans);
+  }
+}

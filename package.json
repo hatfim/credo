@@ -24,11 +24,13 @@
     "clean": "turbo run clean",
     "lint:deps": "syncpack lint",
     "changeset": "changeset",
-    "version-packages": "changeset version"
+    "version-packages": "changeset version",
+    "test:consumers": "node scripts/consumers/run.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
     "syncpack": "catalog:",
-    "turbo": "catalog:"
+    "turbo": "catalog:",
+    "verdaccio": "catalog:"
   }
 }
