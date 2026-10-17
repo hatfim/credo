@@ -1,0 +1,35 @@
+---
+id: tokens
+title: Token reference
+description: Semantic roles, scales and typography generated from the token build.
+---
+
+import Roles from "../_generated/tokens-roles.mdx";
+import Scales from "../_generated/tokens-scales.mdx";
+import Typography from "../_generated/tokens-typography.mdx";
+
+Every table on this page is generated at build time from `@usecredo/tokens/table.json`, the
+output of the token build. Nothing is typed by hand, so the values here are the values the
+stylesheet ships. Components read semantic roles and scale tokens only.
+
+Colour roles have a light and a dark value. The second reference theme has no tokens yet.
+{/* TODO(decision: second-theme): add a third value column when the theme exists. */}
+
+Usage notes per role are not part of the token build output yet.
+{/* TODO(decision: token-usage-notes): the table has no `usage` field; add it to the token source first. */}
+
+## Roles
+
+<Roles />
+
+## Scales
+
+Radius, spacing, border width and font families. They are not themed per mode.
+
+<Scales />
+
+## Typography
+
+The mobile value replaces the desktop value under the mobile media query.
+
+<Typography />

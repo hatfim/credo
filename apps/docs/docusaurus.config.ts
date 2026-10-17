@@ -23,7 +23,8 @@ const config: Config = {
       },
     ],
   ],
-  plugins: ["./plugins/infima-layer.ts"],
+  clientModules: ["./src/client/example-theme.ts"],
+  plugins: ["./plugins/infima-layer.ts", "./plugins/design-system.ts"],
   themes: [
     [
       "@easyops-cn/docusaurus-search-local",

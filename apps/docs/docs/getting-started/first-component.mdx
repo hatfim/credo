@@ -3,11 +3,16 @@ id: first-component
 title: Use your first component
 ---
 
-Import each component from its own subpath.
+Import each component from its own subpath. After the [stylesheet](./stylesheet.mdx) and the
+[theme attribute](./theme.mdx) are in place:
 
 ```tsx
-// TODO(P1-18 wave 2): replace with the type-checked Button example (DOC-07).
 import { Button } from "@usecredo/ui/button";
+
+export function Save() {
+  return <Button onClick={() => console.log("saved")}>Save</Button>;
+}
 ```
 
-A live example and the API table arrive with the Button page.
+See the [Button page](../components/button.mdx) for a live example, every variant and the API
+table.
