@@ -123,7 +123,7 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 ### G. Consumers
 
-- [ ] **P1-26 Representative consumers.** `vite-app` and `next-app` install packed tarballs from a local registry in CI and render Button in light and dark. `vite-app` also has its own Tailwind config and its own CSS variables. *Accept:* both build and pass a smoke test, and the coexistence check passes. (DST-08, DST-09)
+- [x] **P1-26 Representative consumers.** `vite-app` and `next-app` install packed tarballs from a local registry in CI and render Button in light and dark. `vite-app` also has its own Tailwind config and its own CSS variables. *Accept:* both build and pass a smoke test, and the coexistence check passes. (DST-08, DST-09)
 
 ### H. Gate
 
