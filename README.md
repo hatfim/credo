@@ -77,4 +77,4 @@ Components read only semantic roles (`surface`, `content`, `field`, `actions`, `
 
 ## Licence
 
-MIT, as declared in each package's `package.json`.
+[MIT](LICENSE), copyright Trekant. Each package's `package.json` declares the same licence.
