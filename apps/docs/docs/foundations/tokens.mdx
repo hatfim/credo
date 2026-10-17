@@ -12,11 +12,11 @@ Every table on this page is generated at build time from `@usecredo/tokens/table
 output of the token build. Nothing is typed by hand, so the values here are the values the
 stylesheet ships. Components read semantic roles and scale tokens only.
 
-Colour roles have a light and a dark value. The second reference theme has no tokens yet.
-{/* TODO(decision: second-theme): add a third value column when the theme exists. */}
+Colour roles have a light and a dark value. A second reference theme is deferred (decision
+0005).
 
-Usage notes per role are not part of the token build output yet.
-{/* TODO(decision: token-usage-notes): the table has no `usage` field; add it to the token source first. */}
+Usage notes per role are not part of the token build output yet; they can be added later as
+token `$description` fields (decision 0005).
 
 ## Roles
 
@@ -24,12 +24,17 @@ Usage notes per role are not part of the token build output yet.
 
 ## Scales
 
-Radius, spacing, border width and font families. They are not themed per mode.
+Radius, spacing, border width and font families. They are not themed per mode. The sans
+family is Lexend and the mono family is Geist Mono; see
+[Import the stylesheet](../getting-started/stylesheet.mdx) for loading them. Geist Mono is the
+target: the generated table below still says Illinois Mono until the owner pushes the Figma
+change (decision 0005).
 
 <Scales />
 
 ## Typography
 
-The mobile value replaces the desktop value under the mobile media query.
+The mobile value replaces the desktop value below the 768px breakpoint; desktop values apply
+at 768px and above (decision 0005).
 
 <Typography />

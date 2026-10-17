@@ -18,8 +18,8 @@ The Base Design System is a versioned, independently adoptable UI platform (toke
 | Topic | Recommendation | Settled in |
 | --- | --- | --- |
 | Distribution | Versioned npm packages as the default. shadcn/ui-style source or registry distribution is an optional later channel. | Section 8 |
-| Styling delivery | Tailwind CSS v4 with CSS variables and @theme inline, following shadcn/ui. A precompiled stylesheet stays as a fallback for consumers without Tailwind v4, subject to a spike. | Sections 5, 8 (D-03) |
-| Docs framework | Docusaurus (decided). The Phase 0 spike against VitePress and Astro Starlight is an acceptance check. | Section 9 (D-05) |
+| Styling delivery | Tailwind CSS v4 with CSS variables and @theme inline, following shadcn/ui. Tailwind v4 is required: the precompiled stylesheet fallback is dropped for the MVP (see decisions 0005 and 0009). | Sections 5, 8 (D-03) |
+| Docs framework | Docusaurus (decided). Accepted without a further spike (see decisions 0006 and 0010); Astro Starlight is the fallback. | Section 9 (D-05) |
 | Versioning | Semantic versioning with Changesets. The token contract counts as public API. | Section 8 |
 | Visual regression | Self-hosted Playwright snapshots to start (decided). | Section 10 (D-07) |
 | Hosting | GitHub for the repository, Vercel for the docs site (decided); Storybook is not hosted (see decision 0003). Per-PR previews of the docs site. | Section 12 (D-06) |
@@ -37,12 +37,12 @@ Fourteen items in the briefs need an owner decision. Five of them (D-02, D-03, D
 | --- | --- | --- | --- |
 | D-01 | No owner, team size or funding named. | Governance, support and release duties need a named owner. | Decided: owner hatfim.ydniw, organization Trekant. Maintainer and design representative: hatfim (hatfim@trekant.dev). |
 | D-02 | The consuming projects are not identified: how many, which frameworks (Vite, Next.js, Remix), React versions, SSR or React Server Components. | Decides peer-dependency ranges, `use client` handling and the integration test matrix. | Decided by following shadcn/ui: Next.js and Vite are the tested frameworks, React 19 with Tailwind v4 is the baseline, and React 18 stays in the peer range (see D-16). |
-| D-03 | Consumers may not use Tailwind. Components styled with Tailwind classes need the consumer's Tailwind build to see them, or a precompiled stylesheet. | The largest adoption blocker for existing apps; shapes the token and CSS delivery. | Decided by following shadcn/ui: Tailwind v4 with CSS variables and @theme inline is the styling contract. A precompiled stylesheet stays as a fallback for consumers without Tailwind v4; a spike confirms it is cheap enough to keep. |
+| D-03 | Consumers may not use Tailwind. Components styled with Tailwind classes need the consumer's Tailwind build to see them, or a precompiled stylesheet. | The largest adoption blocker for existing apps; shapes the token and CSS delivery. | Decided by following shadcn/ui: Tailwind v4 with CSS variables and @theme inline is the styling contract. The precompiled stylesheet fallback is dropped for the MVP and Tailwind v4 is required (see decisions 0005 and 0009). Revisit trigger: a second eligible project without Tailwind. Known limit: a pure React app without Tailwind cannot use Credo. |
 | D-04 | Package registry not stated (public npm, private registry, or both) and no licence. | Decides publishing, access control and provenance. | Decided: public npm. Package scope, licence and repository visibility are settled in D-15. |
-| D-05 | Docs framework left to evaluation. | Affects authoring, versioning and search. | Decided: Docusaurus. The Phase 0 spike in 9.1 now acts as an acceptance check, with Starlight as the fallback if it fails. |
+| D-05 | Docs framework left to evaluation. | Affects authoring, versioning and search. | Decided: Docusaurus. Accepted without a further spike (see decisions 0006 and 0010), with Starlight as the fallback. |
 | D-06 | Hosting provider and CI platform not chosen; the briefs forbid assuming a provider. | Previews, access control and cost. | Decided: GitHub for the repository, Vercel for the docs site (Storybook is not hosted, see decision 0003). CI is assumed to be GitHub Actions (to confirm). |
 | D-07 | Visual regression tool not chosen. | Cost, baseline storage and review workflow. | Decided: self-hosted Playwright snapshots in GitHub Actions to start. Move to a hosted service if reviewing diffs becomes a burden. |
-| D-08 | Icons are "if needed" and "where justified", with no library named. | Bundle size and consistency. | Decided: Phosphor Icons, re-exported from the icons package with the server-rendering entry for server components. No custom set in the MVP (see 5.3). |
+| D-08 | Icons are "if needed" and "where justified", with no library named. | Bundle size and consistency. | Decided: Phosphor Icons, re-exported from the icons package with the server-rendering entry for server components. No custom set in the MVP (see 5.3). `@usecredo/icons` is a public export (see decision 0006). |
 | D-09 | No design tool or token source of truth named (for example Figma). | Decides whether tokens flow from design files into code or only from code. | Decided: Figma is the source of truth, synced to the repository with Tokens Studio. A build step turns the synced token files into CSS variables and types (see 6.6). The free Tokens Studio plan is enough (D-17). |
 | D-10 | No support policy: how many major versions stay supported, and for how long. | Needed for versioned docs and security fixes. | Decided: the current major plus the previous major, the latter for security and critical fixes only. |
 | D-11 | No browser, locale or direction targets (RTL, i18n), no motion policy. | Affects CSS features, logical properties and testing. | Decided: the browsers Tailwind v4 supports (Chrome 111, Safari 16.4, Firefox 128 and newer). Use CSS logical properties from the start. Respect reduced-motion preferences. RTL and translations are post-MVP. |
@@ -155,9 +155,9 @@ design-system/
 | Package | Responsibility | Allowed dependencies | Published |
 | --- | --- | --- | --- |
 | `tokens` | Token source (primitive, semantic), built CSS variables, TypeScript types, theme schema and validator CLI | None at runtime | Yes |
-| `tailwind-config` | Maps the semantic tokens to Tailwind theme values and ships the precompiled stylesheet entry | `tokens` | Yes |
+| `tailwind-config` | Maps the semantic tokens to Tailwind theme values (no precompiled stylesheet entry; see decisions 0005 and 0009) | `tokens` | Yes |
 | `ui` | Components, hooks and utilities that implement the public API | `tokens` (peer), Radix UI, class-variance helpers; React as a peer | Yes |
-| `icons` | Re-exports or wraps one icon set | React as a peer | Yes, only if justified |
+| `icons` | Re-exports or wraps one icon set. `@usecredo/icons` is a public export for consumers; components still re-export the icons they use (see decision 0006) | React as a peer | Yes |
 | `test-utils` | Storybook decorators, Vitest setup, accessibility helpers, fixtures | `ui`, `tokens` | No |
 | `typescript-config`, `eslint-config` | Shared tooling configuration | None | No |
 | `apps/docs`, `apps/storybook` | Documentation site and Storybook | `ui`, `tokens`, `tailwind-config`, `test-utils` | No, `apps/docs` deployed only; Storybook is not hosted (see decision 0003) |
@@ -174,15 +174,15 @@ design-system/
 | Layer | Choice | Compatibility requirement |
 | --- | --- | --- |
 | UI library | React with TypeScript (strict mode) | Peer range React 18 and 19; types ship with the package |
-| Primitives | Radix UI | Pin one approach (the unified `radix-ui` package or scoped `@radix-ui/react-*`) in an ADR to avoid duplicate copies in consumer bundles |
-| Styling | Tailwind CSS v4 with CSS variables | Decided under D-03, following shadcn/ui. Consumers on Tailwind v3 or without Tailwind get the precompiled stylesheet as a fallback |
+| Primitives | Radix UI | Scoped `@radix-ui/react-*` packages, not the unified `radix-ui` package, to keep bundles per component (see decision 0004) |
+| Styling | Tailwind CSS v4 with CSS variables | Decided under D-03, following shadcn/ui. Tailwind v4 is required (tested 4.3.x; older v4 versions unsupported until tested). Tailwind v3 and no-Tailwind consumers are not covered and there is no precompiled stylesheet (see decisions 0005 and 0009) |
 | Conventions | shadcn/ui patterns: variant helpers, `asChild`, composed parts, consistent naming | Reference only; no source copied from consumer projects |
 | Workspace | pnpm workspaces; Node LTS | Pin pnpm through the `packageManager` field; commit the lockfile |
 | Task runner | Turborepo | Remote cache optional; see section 11 |
 | Component workbench | Storybook (current stable major at kickoff, React with Vite) | Stories in CSF with TypeScript |
 | Unit and interaction tests | Vitest with Testing Library; Storybook interaction tests | Run in CI on every pull request |
 | End-to-end and visual | Playwright (docs site and visual checks) | Tool choice for visual regression is D-07 |
-| Build output | ESM with type declarations, one subpath export per component | `sideEffects: false`; verified by a bundle-size test |
+| Build output | ESM with type declarations, one subpath export per component, built with tsup (see decision 0004) | `sideEffects: false`; `use client` per entry point; verified by a bundle-size test |
 | Release | Changesets with semantic versioning | See section 8 |
 
 No layer is duplicated: one TypeScript base, one lint base and one test setup are shared through the private config packages.
@@ -214,13 +214,15 @@ Tokens are the shared contract between the platform and every project's brand. P
 
 The semantic set uses its own role taxonomy (surface, content, field, actions, state, border, feedback, alpha, shadow), in the same names in light and dark. The names are the platform's own: shadcn/ui is a reference for component patterns only, not a naming contract, and tailwind-config exposes these roles directly (for example bg-surface-page). A brand scale layer (neutral, primary, secondary, destructive, success, warning, info, steps 50 to 1200) sits between the primitives and the semantic roles, so a project sets its brand by pointing scale.primary at its own palette. Scale tokens (spacing, radius, border width and the typography styles) are part of the contract and components may read them directly; they are not themed per mode and are exempt from the contrast check. The final list is frozen as "semantic contract v1" before the first stable release.
 
+**Typography and fonts (see decision 0005).** `font-family.sans` is Lexend (body and default, fallback `ui-sans-serif, system-ui, sans-serif`) and `font-family.mono` is Geist Mono, replacing Illinois Mono; the owner edits it in Figma and `tokens.json` is never hand-edited. There is no serif. The docs site and Storybook self-host the fonts; published packages ship no font files and only name the fonts with a system fallback stack, and the docs show both consumer routes (self-hosted files, or the Google Fonts link or `next/font/google`). Mobile typography applies below 768px and desktop typography at 768px and above.
+
 ### 6.2 Delivery to CSS and Tailwind
 
 - Tokens are authored in Figma with Tokens Studio and synced to the repository as JSON (section 6.6). A build step turns those files into CSS custom properties, TypeScript types and a JSON schema.
-- CSS variables carry an organization prefix (for example `--cr-surface-page`) so adopting the system in an existing app cannot collide with variables the app already defines. Unprefixed names, as in shadcn/ui, are a collision risk during incremental migration.
+- CSS variables carry the organization prefix `--cr-` (accepted, see decision 0004; for example `--cr-surface-page`) so adopting the system in an existing app cannot collide with variables the app already defines. Unprefixed names, as in shadcn/ui, are a collision risk during incremental migration.
 - `tailwind-config` maps the prefixed variables to Tailwind theme values so utilities such as `bg-surface-page` and `text-content-primary` resolve to the active theme.
 - Light and dark modes switch through a theme attribute on any ancestor element, with an optional `prefers-color-scheme` default. Because the switch is scoped to an element, two brands or modes can coexist on one page.
-- The D-03 spike must test a consumer whose Tailwind config already defines a `surface` color, to confirm the class names and the precompiled stylesheet do not collide.
+- Spike A was decided without a spike (see decision 0009). Collisions with a consumer Tailwind config that already defines names such as `surface` are documented, not yet tested. Adding a collision case to `consumers/vite-app` is a to-do (see decision 0005); namespace the class names later only if collisions cause real problems.
 
 ### 6.3 Theme validation
 
@@ -253,7 +255,7 @@ A validator ships in the `tokens` package and runs as a CLI, so projects can run
 | TOK-07 | The validator checks WCAG 2.2 AA contrast for every foreground and background pair in the contract. |
 | TOK-08 | A token consistency check confirms that the CSS output, TypeScript types and docs token tables derive from the same source. |
 | TOK-09 | Token ownership and the change rules in 6.4 are documented on the docs site. |
-| TOK-10 | At least two reference themes ship in the repository (a default and a contrasting brand) and both pass validation. |
+| TOK-10 | Deferred (decision 0005): at least two reference themes, a default and a contrasting brand, both pass validation. Now: the default theme (light and dark) ships in the repository and passes validation. A second reference theme is deferred and no second brand is planned (see decision 0005). Instead, a fixture test swaps `scale.primary` to the indigo palette and checks contrast. Caveat: `actions.primary.foreground` is currently hard-wired to the dark ink, so a future dark brand colour needs that role overridden. |
 
 ### 6.6 Figma token pipeline (D-09)
 
@@ -267,7 +269,7 @@ Figma is the source of truth for tokens. Designers edit them in the Tokens Studi
 
 Setup notes from Tokens Studio's documentation (checked 16 October 2026): the repository needs an initial commit, such as a README; the plugin authenticates with a GitHub personal access token, so use a fine-grained token limited to this repository with contents read and write, and keep it out of the repository; and the token file format (W3C DTCG or the plugin's legacy format) is a plugin setting, which this project chooses once and records.
 
-**Plan (D-17, resolved).** The owner confirmed the free plan is enough. The plugin's documentation lists folder (multi-file) sync, Themes and branch switching as Pro features, so on the free plan tokens sync as a single file with no Themes feature. Light, dark and the second reference theme are therefore separate token sets in that file. Section 6.7 describes the sync workflow.
+**Plan (D-17, resolved).** The owner confirmed the free plan is enough. The plugin's documentation lists folder (multi-file) sync, Themes and branch switching as Pro features, so on the free plan tokens sync as a single file with no Themes feature. Light and dark are therefore separate token sets in that file; a second reference theme is deferred (see decision 0005). Section 6.7 describes the sync workflow.
 
 | ID | Requirement |
 | --- | --- |
@@ -280,12 +282,14 @@ Setup notes from Tokens Studio's documentation (checked 16 October 2026): the re
 
 The owner supplied a working GitHub Actions workflow from an earlier project (it still names `@monitpay` packages). It is the starting point for this repository. In order, it does the following:
 
-1. Runs when the Tokens Studio plugin pushes to the `tokens-sync` branch and the raw sync file changed, or when started by hand. A concurrency group stops two quick pushes from racing.
+1. Runs when the Tokens Studio plugin pushes to the `tokens-sync` branch and the raw sync file changed, or when started by hand. A concurrency group stops two quick pushes from racing. Keep the owner's fine-grained `GH_PAT`; it expires on 14 January 2027, so rotate it before then (owner reminder on 1 January; see decision 0008).
 2. Checks out with a fine-grained personal access token (contents and pull requests, read and write), then installs with a frozen lockfile.
 3. Validates the raw file first: valid JSON, token shape, and that every alias resolves.
 4. Builds the tokens with Style Dictionary, then runs a WCAG AA contrast check on the generated CSS.
 5. Runs the Turborepo build, type check and tests, then an optional Chromatic visual run that is skipped when no project token exists.
 6. Opens or updates a pull request from `tokens-sync` to `main`, skips this when the branch has nothing new, and posts a comment with the before and after resolved values.
+
+**Tooling on `tokens-sync` (see decision 0008).** A workflow on `main` merges `main` into `tokens-sync` so the branch has current tooling. On a conflict in `packages/tokens/generated/` it keeps the `tokens-sync` side. On any other conflict it stops, pushes nothing, comments the conflicting files on the open `tokens-sync` pull request if there is one, and fails the run. It creates no issues and never edits the generated file.
 
 **Keep as is.**
 
@@ -349,7 +353,7 @@ Every proposal is scored against the criteria in the brief. The thresholds below
 ### 7.3 Definition of done for a stable component
 
 - Built on the Radix primitive where one exists, following the shadcn/ui composition conventions.
-- Reads only semantic or component tokens; works in light and dark and with the reference themes.
+- Reads only semantic or component tokens; works in light and dark (a second reference theme is deferred; see decision 0005).
 - Typed public API, documented props and variants, `ref` forwarding and `className` support.
 - Keyboard and screen reader behavior verified, with no serious accessibility violations in Storybook checks.
 - Unit tests and interaction tests for meaningful behavior.
@@ -408,7 +412,7 @@ Projects consume the system as versioned npm packages, which keeps them decouple
 - ESM output with bundled type declarations; each component has its own subpath export (for example `@org/ui/button`).
 - An `exports` map blocks deep imports into internal files. Anything not in the map is not public API.
 - `sideEffects: false` for JavaScript. CSS entry points are listed explicitly.
-- Components that need client behavior carry the `use client` directive so they work under React Server Components (D-02).
+- Components that need client behavior carry the `use client` directive, added per entry point (see decision 0004), so they work under React Server Components (D-02).
 - React is a peer dependency. `tokens` is a peer dependency of `ui` and `tailwind-config` with a documented range.
 - Packages publish to the public npm registry with provenance enabled (D-04), which requires publishing from a public GitHub repository (D-15).
 
@@ -440,7 +444,7 @@ Projects consume the system as versioned npm packages, which keeps them decouple
 | DST-06 | Breaking changes include a migration guide; codemods are provided where the change is mechanical. |
 | DST-07 | Pre-release and per-pull-request snapshot versions are available for consumers to test. |
 | DST-08 | Two representative consumers install packed artifacts from a local registry in CI and must build, render and pass smoke tests. |
-| DST-09 | A consumer test confirms the stylesheet coexists with an app that has its own Tailwind config and its own CSS variables. |
+| DST-09 | A consumer test confirms the stylesheet coexists with an app that has its own Tailwind config and its own CSS variables. The collision case (the app defines names such as `--radius-md`, `--font-sans` or a `surface` colour) is a to-do, not yet under test (see decisions 0005 and 0009). |
 | DST-10 | The docs site documents the install steps for a new project and for an existing app without mentioning the workspace layout. |
 | DST-11 | Every published package and component works in both a Next.js app (App Router, including server rendering and server components) and a pure React single-page app (Vite). Published code uses no Next.js-only or Vite-only API, client components carry `use client`, and server-safe entries such as the icons server entry contain no client code. A feature that works in only one of them is a defect. |
 
@@ -450,7 +454,7 @@ The docs site is the source of truth for adoption and conventions. Storybook is 
 
 ### 9.1 Documentation framework recommendation (D-05)
 
-Recommendation: **Docusaurus**, decided by the owner, with a time-boxed spike in Phase 0 as an acceptance check. The comparison below reflects general knowledge of each tool and must be re-verified in the spike against current versions.
+Recommendation: **Docusaurus**, decided by the owner, accepted without a further spike because it already builds (see decisions 0006 and 0010); Astro Starlight is the fallback. The comparison below reflects general knowledge of each tool.
 
 | Criterion | Docusaurus | VitePress | Astro Starlight |
 | --- | --- | --- | --- |
@@ -462,7 +466,7 @@ Recommendation: **Docusaurus**, decided by the owner, with a time-boxed spike in
 | Authoring | Markdown and MDX | Markdown | Markdown and MDX |
 | Long-term fit | Large ecosystem, React-aligned, versioning solves the support-window need | Excellent speed, weaker fit with a React-only system | Strong static output, younger versioning story |
 
-The spike passes when Docusaurus renders a live `ui` component with the default and a second theme, builds with Tailwind v4 without style leakage, searches offline in CI, creates a versioned snapshot, and fails the build on a broken link. If it fails, Starlight is the fallback.
+The acceptance check was that Docusaurus renders a live `ui` component in the default theme (light and dark; the second theme is deferred, see decision 0005), builds with Tailwind v4 without style leakage, searches offline in CI, creates a versioned snapshot, and fails the build on a broken link. If it fails, Starlight is the fallback.
 
 ### 9.2 Content ownership
 
@@ -486,7 +490,7 @@ Every stable component has stories for each of the following that it supports. I
 - Error and validation states where applicable.
 - Controlled and uncontrolled behavior where applicable.
 - Keyboard interaction, shown with a `play` function.
-- Theme variations: light, dark and the second reference theme.
+- Theme variations: light and dark (the second reference theme is deferred; see decision 0005).
 - Responsive behavior across the configured viewports.
 - Edge cases (long text, empty content) and composition patterns.
 
@@ -542,7 +546,7 @@ Fast, deterministic checks run on every pull request and block merge. Slower or 
 | Shared | Component unit tests (Vitest, Testing Library) | Yes |  |
 | Shared | Package build validation: export map and type checks (for example with `publint` and `arethetypeswrong`) | Yes |  |
 | Shared | Token consistency: CSS, types and docs derive from one source | Yes |  |
-| Shared | Reference themes pass the theme validator | Yes |  |
+| Shared | The default theme passes the theme validator; a fixture swaps `scale.primary` to indigo and checks contrast (see decision 0005) | Yes |  |
 | Shared | Bundle-size test for per-component imports | Yes |  |
 | Shared | Consumer integration tests: two consumers install packed artifacts and build | Affected packages only | Full matrix across React and Tailwind versions, nightly and before release |
 | Docs | Production build and broken-link check | Yes |  |
@@ -552,7 +556,7 @@ Fast, deterministic checks run on every pull request and block merge. Slower or 
 | Storybook | Production build; every story renders (smoke test) | Yes |  |
 | Storybook | Interaction tests for stories with `play` functions | Yes |  |
 | Storybook | Accessibility checks on every story | Yes |  |
-| Storybook | Light, dark and second-theme rendering | Yes (changed stories) | Full run nightly |
+| Storybook | Light and dark rendering (second theme deferred; see decision 0005) | Yes (changed stories) | Full run nightly |
 | Storybook | Visual regression | Changed stories if the tool supports it (D-07) | Full run nightly and on release candidates |
 | Release | Changeset present for any change to published packages | Yes |  |
 | Release | Compatibility matrix and migration-guide check |  | Release candidate |
@@ -642,9 +646,9 @@ The file is an illustration of the structure to validate during Phase 1, not a f
 | Pull request | Every pull request | Affected `lint`, `typecheck`, `test`, `build` for all packages and both apps; docs link check; Storybook smoke and accessibility tests; changed-story visual checks; affected consumer integration; changeset check; preview deployments of the docs site | Required status checks. Failed docs or Storybook builds block merge. |
 | Main | Push to the default branch | Full `check`, snapshot publish to the `next` channel, deploy the next docs site | Failure alerts maintainers |
 | Nightly | Schedule | Full visual regression, full accessibility crawl, full compatibility matrix, dependency audit | Failures open issues |
-| Release | Changesets release pull request merged | Full `check`, publish with provenance, deploy the versioned docs site, tag, release notes | Required before publish |
+| Release | Changesets release pull request merged | Full `check`, publish with provenance, deploy the versioned docs site, tag, release notes (git tags and GitHub releases only for stable versions, from the first stable release; see decision 0007) | Required before publish |
 
-The repository is on GitHub, so the workflows above are assumed to run on GitHub Actions (to confirm under D-06). Vercel builds the docs site for previews through its GitHub integration (production deploys come from the release workflow), while the required status checks still run in CI.
+The repository is on GitHub, so the workflows above are assumed to run on GitHub Actions (to confirm under D-06). Vercel builds the docs site for previews through its GitHub integration (production deploys come from the release workflow, with production Git deploys of `main` disabled; see decision 0007), while the required status checks still run in CI.
 
 ### 11.4 Requirements
 
@@ -683,6 +687,8 @@ Vercel was chosen by the owner, so no other host is evaluated. Versioned Storybo
 Recommendation: the docs site on its own subdomain, for example `docs.<org-domain>`, with versions as path prefixes. Storybook is not hosted (see decision 0003); if it is hosted later, a second subdomain under the same parent keeps deployments, previews and rollbacks independent.
 
 ### 12.3 Releases and alignment
+
+**Versions and publishing (see decision 0007).** `0.1.0` after the Phase 2 pilot gate and `1.0.0` at the Phase 3 gate. Until then only snapshots are published, under `next`; if `latest` points at a snapshot the owner resets it with `npm dist-tag`. After the first publish, all four packages move to npm trusted publishing and `NPM_TOKEN` is deleted (owner, by hand). Nightly failure alerts use the default GitHub email only.
 
 1. Changesets collects changes and opens a release pull request.
 2. Merging it triggers one release workflow on one commit: full `check`, publish packages with provenance, then build and deploy the docs site from that same commit under the new version path.
@@ -751,9 +757,9 @@ Gaps found in step 1 go to the governance process (section 7) as proposals. The 
 
 ### 13.4 Compatibility testing against representative consumers
 
-Two consumers in `consumers/` represent the common situations: a Vite single-page app and a Next.js app with server rendering. Each installs packed artifacts, renders a page that uses a sample of components in light and dark and in two themes, and builds in production mode. The Vite consumer is also configured with its own Tailwind config and its own CSS variables, which verifies DST-09. Real projects are added as consumers once they reach adoption level 2 and agree to be tested.
+Two consumers in `consumers/` represent the common situations: a Vite single-page app and a Next.js app with server rendering. Each installs packed artifacts, renders a page that uses a sample of components in light and dark, and builds in production mode. The Vite consumer is also configured with its own Tailwind config and its own CSS variables, which verifies DST-09. Real projects are added as consumers once they reach adoption level 2 and agree to be tested.
 
-Both consumers are required for every release (DST-11). The tested targets are the Next.js App Router and a Vite single-page app. The Next.js Pages Router, Next.js on React 18 (Next.js 16 needs React 19), other bundlers such as Webpack, Parcel or Create React App, and a pure React app without Tailwind (which needs the precompiled stylesheet, see D-03) are not covered by a consumer yet. Until a consumer covers them they are best effort, and the docs must not claim support for them.
+Both consumers are required for every release (DST-11). The tested targets are the Next.js App Router and a Vite single-page app. The Next.js Pages Router, Next.js on React 18 (Next.js 16 needs React 19), other bundlers such as Webpack, Parcel or Create React App, and a pure React app without Tailwind (there is no precompiled stylesheet, see D-03 and decision 0005) are not covered by a consumer. The Next.js Pages Router is covered only if a real consumer needs it (see decision 0006); the matrix is Node 22 and 24 with React 18 and 19 (React 18 on the Vite consumer only). Until a consumer covers them they are best effort, and the docs must not claim support for them.
 
 ### 13.5 Requirements
 
@@ -769,7 +775,7 @@ Both consumers are required for every release (DST-11). The tested targets are t
 
 ## 14. Success metrics
 
-Success is measured across the organization, and no numeric target is set until Phase 0 records a baseline. Targets are added to this table at the Phase 2 exit review, and each target needs an owner.
+Success is measured across the organization, and no numeric target is set until Phase 0 records a baseline. Targets are added to this table at the Phase 2 exit review, and each target needs an owner. A new project in development with nothing to migrate records "not applicable" for the baselines and is measured after adoption instead (see `docs/adoption/baselines.md`).
 
 | Indicator | Definition | Data source | Baseline to record in Phase 0 |
 | --- | --- | --- | --- |
@@ -799,7 +805,7 @@ The MVP is complete when the following hold. They restate the acceptance criteri
 
 | ID | Requirement |
 | --- | --- |
-| MET-01 | Baselines for every indicator above are recorded before any target is set. |
+| MET-01 | Baselines for every indicator above are recorded before any target is set. A new project in development with nothing to migrate records "not applicable" and the post-adoption measures in `docs/adoption/baselines.md` instead. |
 | MET-02 | Measurement tooling for adoption, reuse and duplication runs on a schedule and its results are published. |
 | MET-03 | A satisfaction survey runs before launch and then each quarter. |
 | MET-04 | Targets are added at the Phase 2 exit review, each with an owner. |
@@ -813,7 +819,7 @@ The MVP proves the foundation on a deliberately small catalog: package boundarie
 | In the MVP | Out of the MVP |
 | --- | --- |
 | Monorepo with the packages in 5.1, both apps and two representative consumers | Components beyond the pilot set |
-| Token contract v1, Figma token sync, validator, two reference themes, Tailwind integration | Syncing components, not tokens, between Figma and code |
+| Token contract v1, Figma token sync, validator, default theme in light and dark (second theme deferred, see decision 0005), Tailwind integration | Syncing components, not tokens, between Figma and code |
 | Pilot component set (15.2) at the full definition of done | Source or registry distribution channel |
 | Docs site with all nine sections at the depth in 9.5, versioned from 1.0 | RTL and translations (D-11) |
 | Storybook with the checks in section 10 | A custom icon set |
@@ -837,9 +843,9 @@ The diamond at the end of each phase is its exit gate. The table below lists the
 
 | Phase | Work | Exit gate |
 | --- | --- | --- |
-| 0. Decisions and baseline | Close D-12 and the open items in section 16.1. Run three spikes: Tailwind delivery, docs framework, visual regression. Audit adopting projects. Record metric baselines. Write the first decision records. | Decision records signed for the architecture decisions, including those of 16 October. Baselines recorded. |
+| 0. Decisions and baseline | Close D-12 and the open items in section 16.1. Spikes A to C (Tailwind delivery, docs framework, visual regression) were decided without a spike (see decisions 0009 to 0011). Audit adopting projects. Record metric baselines. Write the first decision records. | Decision records signed for the architecture decisions, including those of 16 October. Baselines recorded. |
 | 1. Foundation | Monorepo skeleton, `tokens` v0 with the validator, `tailwind-config`, shared tooling packages, both apps rendering one component with theme switching, CI with required checks, preview deployments, consumers scaffolded | Button flows end to end: source, story, docs page, published snapshot, installed by both consumers. BLD-01 to BLD-09 pass. |
-| 2. Pilot catalog | Build the 15 components to the definition of done. Complete docs sections at MVP depth. Cross-link checks. Visual regression and accessibility gates. Reference themes. | All 15 components stable. Docs and Storybook gates green. Consumers pass the integration matrix. Targets added to section 14. |
+| 2. Pilot catalog | Build the 15 components to the definition of done. Complete docs sections at MVP depth. Cross-link checks. Visual regression and accessibility gates. Default theme in light and dark; the second reference theme is deferred (see decision 0005). | All 15 components stable. Docs and Storybook gates green. Consumers pass the integration matrix. Targets added to section 14. |
 | 3. Release and first adoption | 1.0 release candidate, versioned docs, migration and upgrade guides, one real project pilots adoption to level 2, governance process exercised on a real RFC | MVP exit criteria in 14.1 met. |
 | Beyond MVP | Catalog expansion by RFC, codemods, optional source distribution, design-tool sync, RTL and translations, more consumers | Governed by the roadmap the governance group publishes |
 
@@ -861,11 +867,11 @@ Assumptions for each item are in section 2.1. This register gives the deadline. 
 | --- | --- | --- | --- |
 | D-01 | Name the owner, maintainers and design representative | Phase 0 | Decided: owner hatfim.ydniw, organization Trekant |
 | D-02 | Consumer scope: frameworks, React versions, SSR | Phase 0 | Decided: Next.js and Vite; React 19 with Tailwind v4 baseline, React 18 in the peer range; both stay first-class (DST-11) |
-| D-03 | CSS delivery for consumers with and without Tailwind | Phase 0 | Decided: Tailwind v4 per shadcn/ui; precompiled stylesheet as fallback (spike) |
+| D-03 | CSS delivery for consumers with and without Tailwind | Phase 0 | Decided: Tailwind v4 per shadcn/ui and required; precompiled stylesheet dropped for the MVP (see decisions 0005 and 0009) |
 | D-04 | Registry, licence and visibility | Phase 0 | Decided: public npm; scope and licence per D-15 |
-| D-05 | Docs framework | Phase 0 (spike) | Decided: Docusaurus; the Phase 0 spike is an acceptance check |
+| D-05 | Docs framework | Phase 0 (spike) | Decided: Docusaurus; accepted without a further spike (see decisions 0006 and 0010) |
 | D-06 | Hosting provider and CI platform | Phase 0 | Decided: GitHub and Vercel; CI assumed GitHub Actions. Acceptance checklist: 12.1 criteria |
-| D-07 | Visual regression tool | Phase 0 (spike) | Decided: self-hosted Playwright snapshots to start |
+| D-07 | Visual regression tool | Phase 0 (spike) | Decided: self-hosted Playwright snapshots to start (see decisions 0006 and 0011) |
 | D-08 | Icon library | Phase 1 | Decided: Phosphor Icons |
 | D-09 | Token source and design-tool sync | Phase 1 | Decided: Figma tokens through Tokens Studio sync (6.6) |
 | D-10 | Support window for old majors | Phase 2 | Decided: current plus previous major |
@@ -874,22 +880,22 @@ Assumptions for each item are in section 2.1. This register gives the deadline. 
 | D-13 | Definition of an eligible project and measurement method | Phase 0 | Decided: the owner declares which projects are eligible |
 | D-14 | Accessibility conformance target | Phase 0 | Decided: WCAG 2.2 AA |
 
-Three smaller decisions are settled by decision records during Phase 1: the Radix packaging approach, the library build tool, and the Tailwind v4 minimum version.
+Three smaller decisions are settled by decision records: the Radix packaging approach (scoped packages), the library build tool (tsup) and the Tailwind v4 minimum version (tested 4.3.x); see decisions 0004 and 0005.
 
 **Items confirmed on 16 October 2026**
 
 - **D-15, npm scope, licence and repository visibility.** Confirmed: scope `@usecredo` (this replaces the earlier @trekant scope; the npm organization usecredo must be created by the owner, the product is named Credo, and the repository is git@github.com:hatfim/credo.git), the MIT licence (each published package carries a LICENSE file and the license field), and a public GitHub repository, because npm provenance requires publishing from one. Everything in a public package and repository is public, so no internal-only content may live there.
 - **D-16, React 18 support.** shadcn/ui's current components target React 19 and no longer use `forwardRef`. Keeping React 18 in the peer range means keeping `forwardRef` and a React 18 row in the test matrix. Confirmed: keep React 18 and 19 until the adoption data (D-13) shows no consumer on 18.
-- **D-03 follow-up.** shadcn/ui avoids the CSS delivery problem by copying source into the consumer's own Tailwind build. A packaged library cannot, so the spike decides whether the precompiled stylesheet fallback stays.
+- **D-03 follow-up.** shadcn/ui avoids the CSS delivery problem by copying source into the consumer's own Tailwind build. A packaged library cannot, so the precompiled stylesheet fallback was considered; it is dropped for the MVP (see decisions 0005 and 0009).
 - **CI platform.** GitHub Actions is assumed because the repository is on GitHub. Confirm.
 
-**Resolved: D-17, Tokens Studio plan.** The owner confirmed the free plan is enough, using the sync workflow in 6.7. Tokens sync as a single file with no Themes feature, so light, dark and the second reference theme are separate token sets.
+**Resolved: D-17, Tokens Studio plan.** The owner confirmed the free plan is enough, using the sync workflow in 6.7. Tokens sync as a single file with no Themes feature, so light and dark are separate token sets (the second reference theme is deferred, see decision 0005).
 
 ### 16.2 Risks
 
 | Risk | Impact | Mitigation |
 | --- | --- | --- |
-| Existing apps without Tailwind cannot adopt cleanly | Low adoption | D-03 spike; precompiled stylesheet; coexistence test (DST-09) |
+| Existing apps without Tailwind cannot adopt cleanly | Low adoption (accepted) | Accepted limit: Tailwind v4 is required and the precompiled stylesheet is dropped (see decisions 0005 and 0009). Revisit trigger: a second eligible project without Tailwind. Coexistence test (DST-09) stays |
 | Class or variable collisions with legacy styles | Broken screens during migration | Prefixed variables, cascade layers, coexistence fixture |
 | Catalog grows before conventions are proven | Rework and API churn | MVP-01; experimental stage in 7.2; admission criteria |
 | Docs and Storybook drift from shipped code | Loss of trust | Generated API tables, type-checked examples, cross-link CI, same-commit deploys |
@@ -917,7 +923,7 @@ Every mandatory item in both briefs maps to a PRD section, a requirement ID and 
 | A3 Integration into existing apps and new projects | 8.4, 13 | ADP-01, ADP-02, DST-10 | Timed onboarding; coexistence test (DST-09) |
 | A3 Independent deployment and release schedules | 8.3, 12 | DST-04, DST-05 | Compatibility matrix |
 | A3 Backward compatibility and breaking-change management | 8.3, 13.3 | DST-06, GOV-03, ADP-03 | Release checklist |
-| A3 Project-specific theming | 6 | TOK-05, TOK-06, TOK-10 | Validator on two reference themes |
+| A3 Project-specific theming | 6 | TOK-05, TOK-06, TOK-10 | Validator on the default theme and the indigo fixture (see decision 0005) |
 | A3 Compatibility testing against representative apps | 13.4 | DST-08, DST-11, ADP-06, TST-07 | Consumer integration job |
 | A3 No need to import the whole system; no monorepo coupling | 8.2 | DST-02, DST-03 | Export map test; bundle-size test |
 | A4 Layered token model | 6.1 | TOK-01, TOK-02 | Schema check |
@@ -942,7 +948,7 @@ Every mandatory item in both briefs maps to a PRD section, a requirement ID and 
 | B2 Search, navigation, responsive, highlighted and copyable code, live examples | 9.6 | DOC-02, DOC-03, DOC-04 | Playwright smoke tests |
 | B2 Links between docs and Storybook | 9.4 | DOC-05 (by story ID, see decision 0003) | Cross-link CI check |
 | B2 Build and link validation in CI | 10, 11.3 | DOC-06 | CI |
-| B2 Framework evaluated and recommended | 9.1 | D-05 | Phase 0 spike |
+| B2 Framework evaluated and recommended | 9.1 | D-05 | Decision record 0010 |
 | B3 Stories for every production-ready component, relevant states only | 9.3 | SBK-01 | Coverage check in CI |
 | B3 Controls, autogenerated docs, a11y, interaction, visual, themes, viewports, keyboard, TypeScript, decorators | 9.3, 10 | SBK-03, SBK-04, TST-04, TST-05 | Storybook CI |
 | B3 Stories use real shared components | 9.3 | SBK-02, BLD-09 | Lint rule |

@@ -3,6 +3,10 @@ id: stylesheet
 title: Import the stylesheet
 ---
 
+Credo requires Tailwind CSS v4. The tested version is 4.3.x; older v4 versions are
+unsupported until they are tested. There is no precompiled stylesheet, so a project without
+Tailwind v4 cannot use the components yet.
+
 Import the token stylesheet and the Tailwind mapping once, in your global CSS, after
 Tailwind itself. Tell Tailwind where to find the component class names with `@source`.
 
@@ -20,14 +24,24 @@ Tailwind itself. Tell Tailwind where to find the component class names with `@so
 - `@source` points at the built components so Tailwind generates the utilities they use. Adjust
   the relative path to where your CSS file sits relative to `node_modules`.
 
-The CSS variable prefix is `--cr-`.
-{/* TODO(decision: css-prefix): `--cr-` is the proposed prefix, not yet accepted. */}
+The CSS variable prefix is `--cr-` (decision 0004).
 
-`@usecredo/tailwind-config/precompiled.css` is a provisional stylesheet for projects that
-cannot run Tailwind.
-{/* TODO(decision: precompiled-stylesheet): spike A has not decided whether it stays. */}
+If your Tailwind config or CSS already defines names such as `--radius-md`, `--font-sans` or
+a `surface` colour, they can collide with Credo's mapping. This case is documented, not yet
+tested (decision 0005).
 
-The default font stack names Lexend. The packages do not load font files.
-{/* TODO(decision: fonts): how fonts are delivered. */}
+## Fonts
+
+`font-family.sans` is Lexend (body and default, with a `ui-sans-serif, system-ui, sans-serif`
+fallback) and `font-family.mono` is Geist Mono. Credo packages ship no font files; they only
+name the fonts, so you choose how to load them (decision 0005). Either route works:
+
+- Self-hosted files: install the font files from an open-source font package, or download
+  them, serve them from your own origin and declare them with `@font-face`.
+- Google Fonts: add the stylesheet `<link>` for Lexend and Geist Mono to your document head.
+  In Next.js use `next/font/google` instead and apply the font through the same CSS variables
+  or class on `<html>`.
+
+Without the font files the fallback stack applies and the layout still works.
 
 Next: [set the theme attribute](./theme.mdx).

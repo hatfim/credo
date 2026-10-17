@@ -40,8 +40,8 @@ Safety properties:
 - Every version that changed is checked to be `0.0.0-next-*` before publishing (`scripts/release/snapshot-versions.mjs`; `changeset publish` skips only versions that are already on npm, so an unchanged package must also be a snapshot or already on npm, looked up read-only; a package that is neither, or any lookup error other than a proper 404, stops the job before publishing), and `--tag next` is always passed.
 - The npm token (if used) is read from `secrets.NPM_TOKEN` through `env:` in the one publish step.
 
-`TODO(decision: npm-publish-auth)`: two ways to authenticate. Prefer trusted publishing (OIDC, no stored
-secret); fall back to the `NPM_TOKEN` secret. The step uses the secret when it exists and OIDC (after
+Decision 0007: after the first publish all four packages move to trusted publishing (OIDC) and the owner
+deletes `NPM_TOKEN` by hand. Until then the `NPM_TOKEN` secret is used. The step uses the secret when it exists and OIDC (after
 installing `npm@11.5.1`, the first version with trusted publishing) when it does not.
 
 ## Owner steps (by hand; the workflow changes none of this)
@@ -82,14 +82,14 @@ Matrix:
 React 18 is applied by `CONSUMER_REACT_MAJOR=18`, which `scripts/consumers/run.mjs` writes into the
 temporary catalog (react, react-dom and their types). `next-app` is not run on React 18 because the
 Next.js App Router requires React 19. Tailwind versions and extra React minors are not in the matrix:
-`TODO(decision: consumer-version-matrix)`. The PRD's nightly full accessibility crawl and dependency
+(decision 0006). The PRD's nightly full accessibility crawl and dependency
 audit are not part of this task.
 
 Failure reporting: a scheduled workflow that fails emails the user who last changed the cron
 schedule, and shows red under Actions. Options for the owner: watch the repository with "Custom,
 Actions" notifications, or add a Slack or issue-opening step later. The PRD says nightly failures
 open issues; this is not implemented, to keep the workflow free of `issues: write`.
-`TODO(decision: nightly-failure-alerts)`.
+Decision 0007: default GitHub email only, no issue creation.
 
 GitHub disables scheduled workflows after 60 days without repository activity. Run
 `gh workflow run nightly.yml` by hand to check it before relying on the schedule.

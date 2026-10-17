@@ -16,11 +16,11 @@ Facts below were read from each repository's manifests and config. Re-check them
 - **UI today:** 14 `.tsx` files, 7 components in `apps/web/src/components` (forms, buttons, a controls panel, route upload). No Tailwind yet, no CSS files, no CSS modules and no `className` usage. Styling is inline `style` objects (for example the root layout) and the PDF renderer's own styles. There is no design system or token layer yet.
 - **Fit with Credo:**
   - React 19 and Next.js App Router match the supported range, and the `next-app` consumer covers the same setup.
-  - The project has no Tailwind today, but the owner will adopt it (2026-10-17). It should start on Tailwind v4 so it matches Credo's `@usecredo/tailwind-config`, which removes the need for the precompiled stylesheet fallback for this project. One project does not settle `TODO(decision: precompiled-stylesheet)` or `TODO(decision: tailwind-minimum)`; record it as input to spike A.
+  - The project has no Tailwind today, but the owner will adopt it (2026-10-17). Tailwind v4 is required (decision 0005) and the stylesheet fallback is dropped (0009), so Switchback adopts Tailwind v4 (4.3.x tested) to match Credo's `@usecredo/tailwind-config`.
   - Server components can import icons from `@usecredo/icons/server`. Client components such as the forms would use `@usecredo/ui`.
   - `transpilePackages` and `outputFileTracingRoot` in `next.config.ts` are already set for a monorepo on Vercel.
-- **Baseline numbers (P0-09):** not recorded yet. Still needed: duplicated components, an accessibility check on sample screens, and setup time for UI foundations in a recent project.
+- **Baseline numbers (P0-09):** not applicable for a new project; see [`baselines.md`](baselines.md) for what is measured after adoption.
 
 ## How to add a project
 
-Add a row with the framework, React version and Tailwind status read from the project's manifests, the owner's declaration date and the commit checked. Add a section only if the project needs notes. Metric baselines go in `docs/adoption/baselines.md` (P0-09).
+Add a row with the framework, React version and Tailwind status read from the project's manifests, the owner's declaration date and the commit checked. Add a section only if the project needs notes. Metric baselines go in [`docs/adoption/baselines.md`](baselines.md) (P0-09).

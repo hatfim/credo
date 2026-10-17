@@ -15,5 +15,6 @@ variables are declared per attribute value, so a nested element with its own `da
 overrides its ancestors. The live examples in these docs do exactly that: each example frame
 carries its own `data-theme` and the site's own colour mode is unaffected.
 
-A second reference theme is planned.
-{/* TODO(decision: second-theme): name and value of the second reference theme. */}
+Credo ships light and dark only. A second reference theme is deferred and no second brand is
+planned (decision 0005). To brand a project, point `scale.primary` at your own palette and run
+the theme validator.

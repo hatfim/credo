@@ -14,12 +14,12 @@ conservative option, leave a `TODO(decision: <name>)` comment, and say so in you
   `packageManager` field. The lockfile is committed; CI installs with a frozen lockfile.
 - React and TypeScript (strict). Peer range React 18 and 19, so components keep
   `forwardRef` until adoption data shows nobody is on React 18.
-- Radix UI primitives. Follow shadcn/ui composition conventions: variant helpers,
+- Radix UI primitives, scoped `@radix-ui/react-*` packages (decision 0004). Follow shadcn/ui composition conventions: variant helpers,
   `asChild` through Slot, `data-slot` attributes, composed parts. Reference only, never
   copy source from other projects.
 - Tailwind CSS v4 with CSS variables and `@theme inline`. Supported browsers are the
-  ones Tailwind v4 supports. A precompiled stylesheet fallback is kept only if spike A
-  keeps it.
+  ones Tailwind v4 supports. Tailwind v4 is required (tested 4.3.x); the precompiled
+  stylesheet fallback is dropped for the MVP (decisions 0005 and 0009).
 - Icons: Phosphor through `@phosphor-icons/react`, imported only inside `packages/icons`.
 - Storybook (React, Vite) for the component catalog. Docusaurus for the docs site.
 - Vitest and Testing Library for tests. Playwright for visual snapshots and docs checks.
@@ -59,8 +59,7 @@ consumers/*         simulate external apps; install packed tarballs only   priva
 - Components read only semantic or component tokens, never color primitives or raw
   values. Scale tokens (spacing, radius, border width, typography styles) are part of the
   contract and may be read directly; they are not themed per mode.
-  CSS variables carry one organization prefix. The prefix is proposed as `--cr-` and
-  stays a TODO until its decision record is accepted.
+  CSS variables carry one organization prefix, `--cr-` (accepted, decision 0004).
 - The semantic contract uses the role taxonomy in the token file (`surface`, `content`,
   `field`, `actions`, `state`, `border`, `feedback`, `alpha`, `shadow`). shadcn/ui is a
   reference for component patterns only: do not copy its role names or add aliases for
@@ -82,7 +81,8 @@ consumers/*         simulate external apps; install packed tarballs only   priva
 
 - Built on the Radix primitive where one exists. Typed public API, `ref` support,
   `className` support, `asChild` or slot composition where relevant.
-- Works in light, dark and the second reference theme.
+- Works in light and dark. The second reference theme is deferred and no second brand
+  is planned (decision 0005).
 - Stories for every state it supports: default, variants and sizes, interactive,
   disabled and loading, error and validation, controlled and uncontrolled, keyboard
   (with a `play` function), themes, responsive, edge cases. Do not add states the
@@ -124,14 +124,17 @@ If a command here does not exist yet, creating it is part of the task that intro
 
 ## Decisions still pending
 
-These are settled by decision records in Phase 0. Until then use the conservative
-option and mark a `TODO(decision: ...)`.
+The Phase 0 decisions are settled by decision records 0004 to 0008 (CSS prefix `--cr-`,
+tsup, scoped Radix, `use client` per entry, Tailwind v4 required, fonts, release policy,
+token sync operations) and spikes A to C by 0009 to 0011. See `docs/decisions/`. Replace
+their remaining `TODO(decision: ...)` markers with a reference to the record when you
+touch the file.
 
-- CSS variable prefix (proposed `--cr-`).
-- Library build tool (tsup, tsdown or Vite library mode).
-- Radix packaging: the unified `radix-ui` package or scoped `@radix-ui/react-*`.
-- Toast approach (Radix Toast or the library shadcn/ui now uses).
-- Whether the precompiled stylesheet fallback stays (spike A).
+Still open; until settled use the conservative option and mark a `TODO(decision: ...)`:
+
+- Toast approach (Radix Toast or the library shadcn/ui now uses), decided in P2-09.
+- `vercel-deploy-method`: keep the CLI production deploy until the first dry run settles
+  the Root Directory case (decision 0007).
 
 ## Token pipeline in one paragraph
 
@@ -140,8 +143,8 @@ Designers edit tokens in Figma with Tokens Studio, which pushes `tokens.json` to
 resolution), builds it with Style Dictionary and the Tokens Studio transforms, runs a
 strict WCAG contrast check, then opens or updates a pull request into `main`. The
 build, test and visual checks run as that pull request's required checks. The plugin
-uses the free plan, so there is a single file and no Themes feature: light, dark and
-the second reference theme are separate token sets.
+uses the free plan, so there is a single file and no Themes feature: light and dark
+are separate token sets (the second reference theme is deferred, decision 0005).
 
 ## Where things are decided
 
