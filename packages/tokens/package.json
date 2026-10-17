@@ -30,20 +30,23 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup && node dist/cli.js build",
+    "build": "tsup && node dist/cli.js build && pnpm check:package",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "clean": "rm -rf dist .turbo",
     "contract": "node dist/cli.js contract",
     "contrast": "node dist/cli.js contrast",
-    "validate:tokens": "node dist/cli.js validate"
+    "validate:tokens": "node dist/cli.js validate",
+    "check:package": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./tokens.css"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "catalog:",
     "@types/node": "catalog:",
     "@usecredo/eslint-config": "workspace:*",
     "@usecredo/typescript-config": "workspace:*",
     "eslint": "catalog:",
+    "publint": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

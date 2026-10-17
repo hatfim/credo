@@ -527,6 +527,9 @@ importers:
 
   packages/tailwind-config:
     devDependencies:
+      '@arethetypeswrong/cli':
+        specifier: 'catalog:'
+        version: 0.18.5
       '@types/node':
         specifier: 'catalog:'
         version: 22.20.5
@@ -542,6 +545,9 @@ importers:
       eslint:
         specifier: 'catalog:'
         version: 10.13.0(jiti@2.7.0)
+      publint:
+        specifier: 'catalog:'
+        version: 0.3.25
       tailwindcss:
         specifier: 'catalog:'
         version: 4.3.3
@@ -613,6 +619,9 @@ importers:
         specifier: 'catalog:'
         version: 5.7.0
     devDependencies:
+      '@arethetypeswrong/cli':
+        specifier: 'catalog:'
+        version: 0.18.5
       '@types/node':
         specifier: 'catalog:'
         version: 22.20.5
@@ -625,6 +634,9 @@ importers:
       eslint:
         specifier: 'catalog:'
         version: 10.13.0(jiti@2.7.0)
+      publint:
+        specifier: 'catalog:'
+        version: 0.3.25
       tsup:
         specifier: 'catalog:'
         version: 9.0.0(jiti@2.7.0)(postcss@8.5.30)(typescript@6.0.3)(yaml@2.9.1)

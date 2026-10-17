@@ -1,11 +1,11 @@
 import type { Config } from "@docusaurus/types";
 
-// TODO(decision: docs-framework): Docusaurus is assumed until spike B's record says otherwise.
-// TODO(decision: docs-url): production URL and base path are set by the owner's Vercel project.
+// decision 0010: Docusaurus is the docs framework (Starlight is the documented fallback).
+// decision 0006: the production host is https://credo.trekant.dev; DOCS_URL and DOCS_BASE_URL override it.
 const config: Config = {
   title: "Credo",
   tagline: "Design tokens, React components and tooling",
-  url: process.env.DOCS_URL ?? "https://example.invalid",
+  url: process.env.DOCS_URL ?? "https://credo.trekant.dev",
   baseUrl: process.env.DOCS_BASE_URL ?? "/",
   favicon: "img/favicon.svg",
   onBrokenLinks: "throw",

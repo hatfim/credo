@@ -90,3 +90,51 @@ describe("vite consumer: coexistence with the app's own Tailwind and variables (
     expect(utility("bg-actions-primary-default").some((d) => d.value.includes("var(--primary)"))).toBe(false);
   });
 });
+
+// Decision 0005 and P1-26: the app deliberately defines theme keys that Credo's theme.css also defines
+// (--radius-lg, --font-sans, --color-surface-container) in its own @theme, after the Credo imports.
+// Observed rule: Tailwind keeps one value per theme key and the later definition wins, so the app's
+// value replaces Credo's in the shared utilities. Everything under --cr- and every non-colliding
+// Credo utility is unaffected. If the import order changes, Credo would win instead.
+describe("vite consumer: deliberate collisions with the Credo theme namespace (decision 0005)", () => {
+  const appTheme = (key: string) => new RegExp(`^\\s*${key}:\\s*([^;]+);`, "m").exec(appCss)?.[1]?.trim();
+  const same = (s: string) => val(s).replace(/["']/g, "").replace(/\s*,\s*/g, ",");
+  const credoTheme = readFileSync(createRequire(import.meta.url).resolve("@usecredo/tailwind-config/theme.css"), "utf8");
+  const collisions = [
+    ["--radius-lg", "rounded-lg", "border-radius", "--cr-radius-lg"],
+    ["--font-sans", "font-sans", "font-family", "--cr-font-family-sans"],
+    ["--color-surface-container", "bg-surface-container", "background-color", "--cr-surface-container"],
+  ] as const;
+
+  it("is a real collision: the app and Credo's theme.css define the same keys", () => {
+    for (const [key, , , credoVar] of collisions) {
+      expect(appTheme(key), `app defines ${key}`).toBeTruthy();
+      expect(credoTheme, `Credo defines ${key}`).toMatch(new RegExp(`${key}:\\s*var\\(${credoVar}\\)`));
+    }
+  });
+
+  it("lets the app's value win on the colliding utilities (declared after the Credo imports)", () => {
+    for (const [key, cls, prop, credoVar] of collisions) {
+      const found = utility(cls).filter((d) => d.prop === prop).map((d) => same(d.value));
+      expect(found, cls).toEqual([same(appTheme(key)!)]);
+      expect(found.join(), cls).not.toContain(credoVar);
+    }
+  });
+
+  it("keeps Credo's own variables and non-colliding utilities intact", () => {
+    // The colliding names still exist as Credo variables, so a themed region can still read them.
+    for (const [, , , credoVar] of collisions) {
+      expect(decls.some((d) => d.prop === credoVar), credoVar).toBe(true);
+    }
+    expect(val(decls.find((d) => d.prop === "--cr-radius-lg")?.value ?? "")).toBe(val(tokenDecls.find((d) => d.prop === "--cr-radius-lg")?.value ?? "x"));
+    // Utilities on neighbouring keys still resolve to the token variables.
+    expect(utility("rounded-md").map((d) => d.value)).toContain("var(--cr-radius-md)");
+    expect(utility("bg-surface-page").map((d) => d.value)).toContain("var(--cr-surface-page)");
+    expect(utility("bg-actions-primary-default").map((d) => d.value)).toContain("var(--cr-actions-primary-default)");
+  });
+
+  it("leaves themed regions on Credo's font: they read --cr-font-family-sans, not --font-sans", () => {
+    const themed = decls.find((d) => d.selector.includes("[data-theme]") && d.prop === "font-family");
+    expect(themed?.value).toBe("var(--cr-font-family-sans)");
+  });
+});

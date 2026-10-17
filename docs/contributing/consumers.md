@@ -78,11 +78,18 @@ Needs Node 22, network access to npmjs.org for third-party packages, and `npm` o
 
 - The checks read the built CSS and HTML; no browser renders the pages in this job. Computed
   colors in a real browser are covered by the Storybook visual snapshots, not here.
-- Tailwind v4 has one theme namespace per app. The Credo `theme.css` defines `--radius-*` and
-  `--font-sans`/`--font-mono`; an app that defines the same names in its own `@theme` will
-  override or be overridden by whichever comes last. The vite consumer avoids those names.
-  A collision on `--radius-md` or `--font-sans` would be caught only incidentally (by the Credo variable checks), not by a dedicated test.
-  Decision 0005: documented for now; namespace later only if collisions cause real problems. No collision case is under test today; adding one to `vite-app` is a follow-up.
+- Tailwind v4 has one theme namespace per app. The Credo `theme.css` defines `--color-*` roles,
+  `--radius-*` and `--font-sans`/`--font-mono`; an app that defines the same names in its own `@theme`
+  replaces or is replaced, whichever comes last. Decision 0005: documented, not namespaced; revisit
+  only if collisions cause real problems.
+  `vite-app` has a collision case under test: its `@theme`, declared after the Credo imports, defines
+  `--radius-lg`, `--font-sans` and `--color-surface-container`. What the build shows: the app wins on
+  those three keys. `rounded-lg` (which includes Button's large size), `font-sans` and
+  `bg-surface-container` resolve to the app's values, not to `var(--cr-...)`. The `--cr-*` variables
+  are unchanged, themed regions keep `--cr-font-family-sans`, and utilities on other keys
+  (`rounded-md`, `bg-surface-page`, `bg-actions-primary-default`) still resolve to the token
+  variables. With the Credo imports last, Credo would win instead. Colliding on a color role also
+  detaches that utility from `data-theme` switching, because the app's value is a plain color.
 - The nightly matrix (`releases-next.md`) crosses Node 22/24 and React 18/19 (`CONSUMER_REACT_MAJOR`,
   `vite-app` only on 18). Tailwind versions are not in it.
   Decision 0006 keeps this matrix (React 18 on the Vite consumer only; Next.js App Router only for now).

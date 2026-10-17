@@ -2,8 +2,8 @@ import type { Decorator, Preview } from "@storybook/react-vite";
 import { themeGlobalType, viewports, withTheme } from "@usecredo/test-utils";
 import "./styles.css";
 
-// TODO(decision: second-theme): the second reference theme has no name or tokens yet. Until it
-// does, selecting "second" shows the light values (the variables fall back to :root).
+// decision 0005: the second reference theme is deferred (no second brand is planned). Until it
+// exists, selecting "second" shows the light values (the variables fall back to :root).
 const preview: Preview = {
   // withTheme reads globals.theme (toolbar) and sets data-theme on a wrapper, never on <html>.
   decorators: [withTheme as Decorator],

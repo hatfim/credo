@@ -3,7 +3,7 @@
  * it is read from `generated/tokens.json` (see docs/token-contract-v0.md).
  */
 
-// TODO(decision: css-prefix): `cr` is the proposed organization prefix (`--cr-`).
+// decision 0004 (accepted): `cr` is the organization prefix (`--cr-`).
 export const CSS_PREFIX = "cr";
 
 /** Semantic role groups, in documentation order. These are the contract's taxonomy. */
@@ -72,5 +72,6 @@ export const TOKEN_TYPES = [
   "letterSpacing",
 ] as const;
 
-// TODO(decision: typography-breakpoint): the width at which Typography/Mobile replaces Typography/Desktop.
-export const MOBILE_MEDIA_QUERY = "(max-width: 47.99rem)";
+// decision 0005: Typography/Mobile applies below 768px, Typography/Desktop at 768px and above.
+export const TYPOGRAPHY_BREAKPOINT_PX = 768;
+export const MOBILE_MEDIA_QUERY = `(max-width: ${TYPOGRAPHY_BREAKPOINT_PX - 0.02}px)`;

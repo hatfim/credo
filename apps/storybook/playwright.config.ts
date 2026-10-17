@@ -3,8 +3,8 @@ import { snapshotDir, updating } from "./visual/paths";
 
 const port = Number(process.env.VISUAL_PORT ?? 6007);
 
-// TODO(decision: snapshot-setup): spike C (P0-07) is not done. This is the conservative setup from
-// D-07: self-hosted Playwright snapshots, chromium only, baselines committed, Linux CI only.
+// decision 0006 (snapshot-setup) and 0011: self-hosted Playwright snapshots on the built Storybook,
+// chromium only, baselines committed, Linux CI only; any diff fails.
 export default defineConfig({
   testDir: "./visual",
   testMatch: "*.spec.ts",

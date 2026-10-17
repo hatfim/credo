@@ -24,8 +24,8 @@ coexistence consumer and the docs site now exist, so these can be settled.
 - **token-usage-notes:** deferred. Per-token usage notes can go into token `$description` fields later.
 - **second-theme:** deferred; no second brand is planned. The swap can be proved cheaply in a test
   fixture: the validator swaps `scale.primary` to the indigo palette and checks contrast, with no design
-  work. Caveat: `actions.primary.foreground` is currently hard-wired to the dark ink, so a future dark
-  brand colour would need that role overridden.
+  work. Caveat (wording corrected after the fixture test on 2026-10-17; the first wording named only
+  the foreground): A brand swap is not a one-line alias change. (1) The `alpha.primary.*` literals hard-code the lime RGB and must be re-derived from the new ramp (light step 700, dark step 500), or the validator rejects the file with `alpha-source` errors. (2) With a dark-ink foreground, an indigo-like dark ramp fails contrast on `actions.primary` default and pressed, so `actions.primary.foreground` has to move to white, which in turn needs `actions.primary.hover` set to `scale.primary.600` and pressed to `scale.primary.700`. (3) In dark mode, `border.interactive-pressed` must move to `scale.primary.300`. The strict contrast gate stays unchanged; the fixture test `packages/tokens/test/brand-swap.test.ts` records these overrides.
 - **fonts:**
   - Sans and body font: Lexend (`font-family.sans`, fallback `ui-sans-serif, system-ui, sans-serif`).
   - Mono font: Geist Mono, replacing Illinois Mono. The owner edits `font-family.mono` in Figma and

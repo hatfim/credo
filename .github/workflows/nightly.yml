@@ -52,8 +52,8 @@ jobs:
   # Install from packed tarballs (docs/contributing/consumers.md) across Node and React.
   # Node 22 is the floor (.nvmrc, selected with an empty node-version); Node 24 is the newest line.
   # Next.js App Router needs React 19, so React 18 is covered by vite-app only.
-  # TODO(decision: consumer-version-matrix): Tailwind versions and further React minors are not
-  # in the matrix yet.
+  # decision 0006: this matrix (Node 22 and 24, React 18 on vite-app only, React 19, Next App Router
+  # only) is the agreed one; Tailwind versions and further React minors are not in it.
   nightly-consumers:
     name: nightly-consumers (node ${{ matrix.label }}, react ${{ matrix.react }}, ${{ matrix.only }})
     if: ${{ github.repository == 'hatfim/credo' }}

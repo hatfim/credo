@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { beforeAll, describe, expect, it } from "vitest";
 import { buildArtifacts, type Artifacts, type TokenTable } from "../src/build";
 import { rolePaths } from "../src/model";
+import { TYPOGRAPHY_BREAKPOINT_PX } from "../src/constants";
 import { validateTokens } from "../src/validate";
 import { makeValid } from "./fixtures/valid";
 
@@ -44,5 +45,8 @@ describe("buildArtifacts (real token file)", () => {
     expect(table.roles.length).toBeGreaterThan(0);
     expect(real.css).toContain("--cr-surface-page:");
     expect(real.css).not.toMatch(/\bundefined\b|\[object Object\]|\{[a-z]+\./);
+    // Decision 0005: mobile typography below 768px, desktop at 768px and above.
+    expect(TYPOGRAPHY_BREAKPOINT_PX).toBe(768);
+    expect(real.css).toContain("@media (max-width: 767.98px) {");
   });
 });

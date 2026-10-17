@@ -2,7 +2,7 @@ import { createElement, type ReactElement } from "react";
 
 /**
  * Theme names, switched by the `data-theme` attribute on an ancestor element.
- * TODO(decision: second-theme): "second" is a placeholder name for the second reference theme.
+ * decision 0005: the second reference theme is deferred; "second" is a placeholder name.
  */
 export const themes = ["light", "dark", "second"] as const;
 export type Theme = (typeof themes)[number];

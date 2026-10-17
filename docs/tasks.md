@@ -134,13 +134,13 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 
 From decisions 0004 to 0009. Do not tick the numbered tasks above because of these.
 
-- [ ] Add a collision test case to `consumers/vite-app` (for example the app defines `--radius-md`, `--font-sans` or a `surface` colour) and assert what wins (0005).
-- [ ] Add a fixture test that swaps `scale.primary` to the indigo palette and checks contrast (0005).
+- [x] Add a collision test case to `consumers/vite-app` (for example the app defines `--radius-md`, `--font-sans` or a `surface` colour) and assert what wins (0005).
+- [x] Add a fixture test that swaps `scale.primary` to the indigo palette and checks contrast (0005).
 - [ ] Owner: change `font-family.mono` to Geist Mono in Figma and push it. Then self-host Lexend and Geist Mono in `apps/docs` and `apps/storybook` (check size and licence first) and regenerate the 10 visual baselines once (0005).
-- [ ] Replace the placeholder docs host with `https://credo.trekant.dev` everywhere (0006).
-- [ ] Remove the provisional precompiled stylesheet and its docs page (0005, 0009).
-- [ ] Set the typography breakpoint constant to 768px and the Tailwind minimum to the 4.3.x peer range (0005).
-- [ ] Replace the settled `TODO(decision: ...)` markers in code, config and workflows with references to the decision records (0004 to 0008). The markers in docs files were replaced in Wave 2; the remainder live in code, config and workflows (Wave 3): build-tool, consumer-version-matrix, css-prefix, docs-framework, docs-url, npm-publish-auth, precompiled-stylesheet, radix-packaging, release-tags, second-theme, snapshot-setup, tailwind-minimum, typography-breakpoint, use-client-scope, and vercel-deploy-method (which stays open). `.claude/agents/*` mentions are instructions, not markers.
+- [x] Replace the placeholder docs host with `https://credo.trekant.dev` everywhere (0006).
+- [x] Remove the provisional precompiled stylesheet and its docs page (0005, 0009).
+- [x] Set the typography breakpoint constant to 768px and the Tailwind minimum to the 4.3.x peer range (0005).
+- [x] Replace the settled `TODO(decision: ...)` markers in code, config and workflows with references to the decision records (0004 to 0008). The markers in docs files were replaced in Wave 2; the remainder live in code, config and workflows (Wave 3): build-tool, consumer-version-matrix, css-prefix, docs-framework, docs-url, npm-publish-auth, precompiled-stylesheet, radix-packaging, release-tags, second-theme, snapshot-setup, tailwind-minimum, typography-breakpoint, use-client-scope, and vercel-deploy-method (which stays open). `.claude/agents/*` mentions are instructions, not markers.
 - [ ] Add the workflow on `main` that merges `main` into `tokens-sync` (conflicts in `packages/tokens/generated/` keep the `tokens-sync` side; any other conflict stops, comments and fails) (0008).
 - [ ] Owner: move the four packages to npm trusted publishing and delete `NPM_TOKEN` after verifying (0007).
 - [ ] Owner: reset `latest` on the four packages with `npm dist-tag` so it no longer points at the snapshot (0007).
@@ -170,7 +170,7 @@ Every component task below has the same base acceptance: stories for each state 
 
 ### C. Themes and quality gates
 
-- [ ] **P2-10 Second reference theme.** A contrasting brand as extra token sets, shown in Storybook and the docs. *Accept:* both reference themes pass the validator and every component story renders in both. (TOK-10) *Amended by decision 0005: the second theme is deferred and no second brand is planned; it is dropped from the MVP gate. Replace the acceptance by a fixture test that swaps `scale.primary` to the indigo palette and checks contrast, with `actions.primary.foreground` noted as hard-wired to the dark ink. (TOK-10)*
+- [ ] **P2-10 Second reference theme.** A contrasting brand as extra token sets, shown in Storybook and the docs. *Accept:* both reference themes pass the validator and every component story renders in both. (TOK-10) *Amended by decision 0005: the second theme is deferred and no second brand is planned; it is dropped from the MVP gate. Replace the acceptance by a fixture test that swaps `scale.primary` to the indigo palette and checks contrast, with the brand-swap caveat from decision 0005 (alpha literals, foreground, hover and pressed, dark pressed border) recorded by the fixture. (TOK-10)*
 - [ ] **P2-11 Visual regression coverage.** Playwright snapshots for every stable component in light, dark and the second theme, with the approval workflow written in the docs. *Accept:* a deliberate style change produces a diff that must be approved before baselines update. (TST-05, TST-06) *Amended by decision 0005: snapshots in light and dark only, with the real fonts (baselines regenerated once, see the follow-ups below).*
 - [ ] **P2-12 Manual accessibility review.** For each interactive component, run a keyboard and screen reader checklist and record the result on its docs page. *Accept:* every interactive component has a recorded review. (7.4, 10.1)
 - [ ] **P2-13 Coverage ratchet.** The PRD expects a baseline at the end of Phase 1; record it first if it was missed. Then enforce thresholds that cannot decrease. *Accept:* a pull request that lowers coverage fails. (TST-08)

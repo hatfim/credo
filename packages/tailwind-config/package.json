@@ -16,7 +16,6 @@
       "import": "./dist/index.js"
     },
     "./theme.css": "./dist/theme.css",
-    "./precompiled.css": "./dist/precompiled.css",
     "./package.json": "./package.json"
   },
   "files": [
@@ -26,22 +25,25 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup && node scripts/build-css.mjs",
+    "build": "tsup && node scripts/build-css.mjs && pnpm check:package",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "clean": "rm -rf dist .turbo"
+    "clean": "rm -rf dist .turbo",
+    "check:package": "publint && attw --pack . --profile esm-only --exclude-entrypoints ./theme.css"
   },
   "peerDependencies": {
     "@usecredo/tokens": "workspace:^",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "catalog:",
     "@types/node": "catalog:",
     "@usecredo/eslint-config": "workspace:*",
     "@usecredo/tokens": "workspace:*",
     "@usecredo/typescript-config": "workspace:*",
     "eslint": "catalog:",
+    "publint": "catalog:",
     "tailwindcss": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",

@@ -231,13 +231,14 @@ jobs:
           --filter=@usecredo/tokens --filter=@usecredo/tailwind-config
           --filter=@usecredo/icons --filter=@usecredo/ui
 
-      # TODO(decision: npm-publish-auth): same approach as the next channel
+      # decision 0007 (npm-publish-auth): same approach as the next channel
       # (docs/contributing/releases-next.md): trusted publishing (OIDC, npm 11.5.1+) when no NPM_TOKEN
       # exists, else the NPM_TOKEN secret read only here. NPM_TOKEN is the conservative first-publish
       # default (a trusted publisher can only be configured for an existing package). Whether npm lets
       # both main.yml and release.yml be trusted publishers should be re-checked after the first publish.
-      # TODO(decision: release-tags): --no-git-tag, so no git tags are created or pushed (that would
-      # need contents: write). Tags and GitHub release notes (PRD 11.3) are a later decision.
+      # decision 0007 (release-tags): tags and GitHub releases are wanted only from the first stable
+      # release. Until then --no-git-tag, so no git tags are created or pushed (that would need
+      # contents: write).
       # --tag latest is explicit; the version guard above refuses prereleases.
       - name: Publish to latest with provenance
         id: publish
@@ -368,7 +369,7 @@ jobs:
       contents: read
     env:
       RELEASE_SHA: ${{ github.sha }}
-      DOCS_URL: https://docs.example.invalid
+      DOCS_URL: https://credo.trekant.dev
     steps:
       - name: Refuse a non-dry run
         if: ${{ !inputs.dry-run }}

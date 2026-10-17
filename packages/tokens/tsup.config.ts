@@ -1,6 +1,6 @@
 import { defineConfig } from "tsup";
 
-// TODO(decision: build-tool): tsup is the conservative default until the decision record is accepted.
+// decision 0004 (accepted): tsup is the library build tool.
 export default defineConfig({
   entry: ["src/index.ts", "src/cli.ts"],
   format: ["esm"],
