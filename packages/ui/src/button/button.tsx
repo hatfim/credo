@@ -1,6 +1,6 @@
 "use client";
 
-import { Slot } from "@radix-ui/react-slot"; // TODO(decision: radix-packaging)
+import { Slot } from "@radix-ui/react-slot"; // decision 0004: scoped @radix-ui/react-* packages
 import { CircleNotchIcon } from "@usecredo/icons";
 import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";

@@ -129,7 +129,8 @@ jobs:
         if: steps.changesets.outputs.present == 'true'
         run: node scripts/release/snapshot-versions.mjs
 
-      # TODO(decision: npm-publish-auth): two ways to authenticate, in order of preference.
+      # decision 0007 (npm-publish-auth): the owner moves all four packages to trusted publishing after the
+      # first publish and deletes NPM_TOKEN. Until then, two ways to authenticate, in order of preference.
       #  1. Trusted publishing (OIDC): no stored secret. Needs a trusted publisher configured on npm for
       #     each package (workflow main.yml) and npm 11.5.1 or newer, installed below when no token is set.
       #  2. Fallback: the repository secret NPM_TOKEN (granular, publish-only, scope @usecredo), read

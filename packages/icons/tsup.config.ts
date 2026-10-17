@@ -2,7 +2,7 @@ import path from "node:path";
 import { readFileSync, writeFileSync } from "node:fs";
 import { defineConfig } from "tsup";
 
-// TODO(decision: build-tool): tsup is the conservative default until the decision record is accepted.
+// decision 0004: tsup is the library build tool.
 // The client entry re-exports Phosphor's client icons, which use React context, so it must
 // carry "use client" for React Server Components. The ./server entry must not carry it.
 export default defineConfig((options) => ({

@@ -2,7 +2,8 @@ import { readFileSync } from "node:fs";
 import { beforeAll, describe, expect, it } from "vitest";
 import { buildArtifacts, type Artifacts, type TokenTable } from "../src/build";
 import { rolePaths } from "../src/model";
-import { TYPOGRAPHY_BREAKPOINT_PX } from "../src/constants";import { validateTokens } from "../src/validate";
+import { TYPOGRAPHY_BREAKPOINT_PX } from "../src/constants";
+import { validateTokens } from "../src/validate";
 import { makeValid } from "./fixtures/valid";
 
 let art: Artifacts;
