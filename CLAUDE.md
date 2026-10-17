@@ -50,6 +50,12 @@ consumers/*         simulate external apps; install packed tarballs only   priva
 - Only documented exports are public. Each package has an `exports` map. No deep imports.
   Each component has its own subpath export (for example `@usecredo/ui/button`).
   JavaScript is ESM with `sideEffects: false`. Client components carry `use client`.
+- Every published package and component must work in both Next.js (App Router, server
+  rendering, server components) and pure React apps (Vite). No Next.js-only or Vite-only
+  API in published code, and server-safe entries (such as `@usecredo/icons/server`) stay
+  free of client code. `consumers/next-app` and `consumers/vite-app` must keep building
+  and passing their smoke tests; breaking either is a defect. The Pages Router, other
+  bundlers and React 18 on Next.js are not tested yet: do not claim support for them.
 - Components read only semantic or component tokens, never color primitives or raw
   values. Scale tokens (spacing, radius, border width, typography styles) are part of the
   contract and may be read directly; they are not themed per mode.
