@@ -115,7 +115,7 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 ### F. CI and deployment
 
 - [x] **P1-20 Pull request workflow.** Affected lint, typecheck, test and build, the docs link check, and Storybook smoke and accessibility tests, all set as required status checks. *Accept:* a failing check blocks merge. (BLD-08, TST-02)
-- [ ] **P1-21 Token sync workflow.** Adapt the reference workflow as PRD 6.7 describes: validate, build, contrast check, then open or update the pull request, with the diff comment falling back to `main`, and pinned actions. *Accept:* a plugin push produces a pull request with a diff comment, and a manual run also works. (TOK-15, TOK-16)
+- [x] **P1-21 Token sync workflow.** Adapt the reference workflow as PRD 6.7 describes: validate, build, contrast check, then open or update the pull request, with the diff comment falling back to `main`, and pinned actions. *Accept:* a plugin push produces a pull request with a diff comment, and a manual run also works. (TOK-15, TOK-16)
 - [ ] **P1-22 Playwright snapshot job.** Use the setup from spike C as a required check that reports diffs for approval. *Accept:* a changed story uploads diff images, and baselines change only through CI. (SBK-04, TST-06)
 - [ ] **P1-23 Main and nightly workflows.** On `main`: the full check and a snapshot publish to the `next` channel. Nightly: the full visual run and the compatibility matrix. *Accept:* a `next` version appears on npm and a nightly run is green. (DST-07, 10)
 - [ ] **P1-24 Release workflow.** Changesets release pull request, publish with provenance, deploy docs and Storybook from the same commit, and fail if the commits differ. *Accept:* a dry run completes, or any limit is documented. (REL-04, DST-01)
