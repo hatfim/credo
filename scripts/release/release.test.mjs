@@ -13,20 +13,19 @@ const B = "b".repeat(40);
 const pk = { "@usecredo/ui": "1.0.0", "@usecredo/tokens": "1.0.0" };
 const info = (sha, packages = pk, name = "x") => makeBuildInfo({ name, sha, packages });
 
-test("same commit everywhere passes", () => {
-  assert.deepEqual(compare({ expectedSha: A, headSha: A, packages: pk, infos: { docs: info(A, pk, "docs"), storybook: info(A, pk, "storybook") } }), []);
+test("docs built from the release commit with matching versions passes", () => {
+  assert.deepEqual(compare({ expectedSha: A, headSha: A, packages: pk, infos: { docs: info(A, pk, "docs") } }), []);
 });
-test("a site built from another commit fails", () => {
-  const p = compare({ expectedSha: A, headSha: A, packages: pk, infos: { docs: info(A, pk, "docs"), storybook: info(B, pk, "storybook") } });
-  assert.ok(p.some((m) => m.includes("storybook: built from")));
-  assert.ok(p.some((m) => m.includes("disagree")));
+test("docs stamped with another commit fails", () => {
+  const p = compare({ expectedSha: A, headSha: A, packages: pk, infos: { docs: info(B, pk, "docs") } });
+  assert.ok(p.some((m) => m.includes("docs: built from")));
 });
 test("HEAD differing from the release SHA fails", () => {
-  assert.equal(compare({ expectedSha: A, headSha: B, packages: pk, infos: { docs: info(A, pk, "docs"), storybook: info(A, pk, "storybook") } }).length, 1);
+  assert.equal(compare({ expectedSha: A, headSha: B, packages: pk, infos: { docs: info(A, pk, "docs") } }).length, 1);
 });
 test("missing build-info and version drift fail", () => {
-  assert.ok(compare({ expectedSha: A, packages: pk, infos: { docs: null, storybook: info(A, pk, "storybook") } }).some((m) => m.includes("no build-info")));
-  assert.ok(compare({ expectedSha: A, packages: pk, infos: { docs: info(A, { ...pk, "@usecredo/ui": "0.9.0" }, "docs"), storybook: info(A, pk, "storybook") } }).length > 0);
+  assert.ok(compare({ expectedSha: A, packages: pk, infos: { docs: null } }).some((m) => m.includes("no build-info")));
+  assert.ok(compare({ expectedSha: A, packages: pk, infos: { docs: info(A, { ...pk, "@usecredo/ui": "0.9.0" }, "docs") } }).length > 0);
 });
 test("a short SHA is rejected", () => {
   assert.throws(() => makeBuildInfo({ name: "x", sha: "abc", packages: pk }));
@@ -34,14 +33,14 @@ test("a short SHA is rejected", () => {
 test("CLI verify exits non-zero on mismatch and zero on match", () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "same-commit-"));
   const cli = path.join(import.meta.dirname, "same-commit.mjs");
-  const mk = (n) => { const d = path.join(dir, n); fs.mkdirSync(d); return d; };
-  const [docs, sb] = [mk("docs"), mk("sb")];
+  const docs = path.join(dir, "docs");
+  fs.mkdirSync(docs);
   const run = (...a) => spawnSync("node", [cli, ...a, "--no-git"], { encoding: "utf8" });
+  assert.equal(run("verify", "--sha", A, "--docs", docs).status, 1, "no build-info.json yet");
   assert.equal(run("write", "--dir", docs, "--name", "docs", "--sha", A).status, 0);
-  assert.equal(run("write", "--dir", sb, "--name", "storybook", "--sha", A).status, 0);
-  assert.equal(run("verify", "--sha", A, "--docs", docs, "--storybook", sb).status, 0);
-  assert.equal(run("write", "--dir", sb, "--name", "storybook", "--sha", B).status, 0);
-  const bad = run("verify", "--sha", A, "--docs", docs, "--storybook", sb);
+  assert.equal(run("verify", "--sha", A, "--docs", docs).status, 0);
+  assert.equal(run("write", "--dir", docs, "--name", "docs", "--sha", B).status, 0);
+  const bad = run("verify", "--sha", A, "--docs", docs);
   assert.equal(bad.status, 1);
   assert.match(bad.stderr, /not from the same commit/);
 });
@@ -63,9 +62,9 @@ test("release state: refuses next snapshots, prereleases and prerelease mode", (
   assert.equal(evaluate({ versions: v("1.0.0"), pendingChangesets: 0, preMode: true, published: {} }).refuse, true);
 });
 
-test("swapped site directories fail on build-info name", () => {
-  const p = compare({ expectedSha: A, headSha: A, packages: pk, infos: { docs: info(A, pk, "storybook"), storybook: info(A, pk, "docs") } });
-  assert.equal(p.filter((m) => m.includes("swapped")).length, 2);
+test("a build-info stamped for another site fails on the name check", () => {
+  const p = compare({ expectedSha: A, headSha: A, packages: pk, infos: { docs: info(A, pk, "storybook") } });
+  assert.equal(p.filter((m) => m.includes("wrong directory")).length, 1);
 });
 
 const snap = "0.0.0-next-20261017061315";
@@ -121,7 +120,7 @@ test("npm view: only a genuine E404 means not published; everything else fails c
 
 // P1-25: the per-app Vercel configs must stay consistent with the release build layout.
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
-for (const [app, name, out] of [["docs", "@usecredo/docs", "build"], ["storybook", "@usecredo/storybook", "storybook-static"]]) {
+for (const [app, name, out] of [["docs", "@usecredo/docs", "build"]]) {
   test(`apps/${app}/vercel.json matches the build layout and leaves main to the release workflow`, () => {
     const cfg = JSON.parse(fs.readFileSync(path.join(repoRoot, "apps", app, "vercel.json"), "utf8"));
     const pkg = JSON.parse(fs.readFileSync(path.join(repoRoot, "apps", app, "package.json"), "utf8"));
@@ -133,3 +132,6 @@ for (const [app, name, out] of [["docs", "@usecredo/docs", "build"], ["storybook
     assert.ok(!("ignoreCommand" in cfg), "an ignore command could skip builds that change dependencies");
   });
 }
+test("Storybook is not hosted: no Storybook Vercel config", () => {
+  assert.equal(fs.existsSync(path.join(repoRoot, "apps", "storybook", "vercel.json")), false);
+});

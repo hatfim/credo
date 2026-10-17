@@ -6,11 +6,11 @@ name: Release
 #   release-pr       push to main: version packages on the bot branch changeset-release/main and open or
 #                    update the "Version packages" pull request. OFF unless vars.RELEASE_PR == 'true'.
 #   release-prepare  push to main: when this commit is a release commit, run the full check, build docs
-#                    and Storybook stamped with the commit SHA, verify they agree. OFF unless
+#                    stamped with the commit SHA, verify it agrees with the packages. OFF unless
 #                    vars.PUBLISH_RELEASE == 'true'.
 #   release-publish  after release-prepare: publish to npm `latest` with provenance. Same switch.
 #   release-deploy   after release-publish: deploy the prepared builds of that same commit to Vercel,
-#                    then verify the deployed sites report that commit. Same switch.
+#                    then verify the deployed site reports that commit. Same switch.
 #   release-deploy-only  manual only (input deploy-only): the recovery path when release-deploy failed after
 #                    the publish. Builds and deploys from main HEAD; cannot publish.
 #   release-dry-run  manual only (workflow_dispatch, input dry-run, default true): everything up to
@@ -28,7 +28,7 @@ on:
         type: boolean
         default: true
       deploy-only:
-        description: "Re-deploy docs and Storybook from the current main after a release whose deploy failed. Never publishes. Needs dry-run UNTICKED, PUBLISH_RELEASE=true, ref main, and every package version already on npm."
+        description: "Re-deploy the docs site from the current main after a release whose deploy failed. Never publishes. Needs dry-run UNTICKED, PUBLISH_RELEASE=true, ref main, and every package version already on npm."
         type: boolean
         default: false
 
@@ -104,7 +104,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           {
-            echo "Merging this pull request publishes these versions to npm (when PUBLISH_RELEASE is enabled) and deploys docs and Storybook from the merge commit."
+            echo "Merging this pull request publishes these versions to npm (when PUBLISH_RELEASE is enabled) and deploys the docs site from the merge commit."
             echo
             for p in tokens tailwind-config icons ui; do
               echo "- \`@usecredo/$p\` $(node -p "require('./packages/$p/package.json').version")"
@@ -120,7 +120,7 @@ jobs:
           fi
 
   # ---------------------------------------------------------------------------------------------
-  # Release gate. No id-token, no npm token. Builds the two sites before anything is published, so a
+  # Release gate. No id-token, no npm token. Builds the docs site before anything is published, so a
   # divergence stops the release rather than following it.
   # ---------------------------------------------------------------------------------------------
   release-prepare:
@@ -163,11 +163,9 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID_DOCS: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
-          VERCEL_PROJECT_ID_STORYBOOK: ${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}
-          STORYBOOK_URL: ${{ vars.STORYBOOK_URL }}
         run: |
           missing=""
-          for n in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID_DOCS VERCEL_PROJECT_ID_STORYBOOK DOCS_URL STORYBOOK_URL; do
+          for n in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID_DOCS DOCS_URL; do
             [ -n "${!n}" ] || missing="$missing $n"
           done
           if [ -n "$missing" ]; then
@@ -179,11 +177,11 @@ jobs:
         if: steps.state.outputs.ready == 'true'
         run: pnpm check
 
-      - name: Build docs and Storybook from this commit and verify
+      - name: Build the docs site from this commit and verify
         if: steps.state.outputs.ready == 'true'
         run: node scripts/release/build-sites.mjs --sha "$RELEASE_SHA"
 
-      # One artifact per site: a multi-path upload is rooted at the least common ancestor (apps/), which
+      # A multi-path upload is rooted at the least common ancestor (apps/), which
       # would drop the apps/docs/build layout on download.
       - name: Upload the prepared docs
         if: steps.state.outputs.ready == 'true'
@@ -191,15 +189,6 @@ jobs:
         with:
           name: release-docs
           path: apps/docs/build
-          include-hidden-files: true
-          retention-days: 7
-          if-no-files-found: error
-      - name: Upload the prepared Storybook
-        if: steps.state.outputs.ready == 'true'
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: release-storybook
-          path: apps/storybook/storybook-static
           include-hidden-files: true
           retention-days: 7
           if-no-files-found: error
@@ -294,17 +283,13 @@ jobs:
         with:
           name: release-docs
           path: apps/docs/build
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-        with:
-          name: release-storybook
-          path: apps/storybook/storybook-static
 
       # Same check as before publishing, now on the downloaded artifacts. A wrong layout fails here, and
       # the dry run runs the same upload, download and verify (release-dry-run).
       - name: Verify the prepared builds are from the release commit
         run: >-
           node scripts/release/same-commit.mjs verify --sha "$RELEASE_SHA"
-          --docs apps/docs/build --storybook apps/storybook/storybook-static
+          --docs apps/docs/build
 
       - uses: ./.github/actions/deploy-sites
         with:
@@ -312,14 +297,12 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           project-docs: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
-          project-storybook: ${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}
           docs-url: ${{ vars.DOCS_URL }}
-          storybook-url: ${{ vars.STORYBOOK_URL }}
 
   # Recovery when release-deploy failed after the packages were published (re-running the whole workflow
   # would skip: every version is already on npm). Manual, main only, same switch. It has no id-token and
   # no npm token, so it cannot publish. It builds from the current head of main, which may be newer than
-  # the release commit; the sites are then stamped with, and verified against, that commit.
+  # the release commit; the site is then stamped with, and verified against, that commit.
   release-deploy-only:
     name: release-deploy-only
     if: >-
@@ -356,15 +339,13 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID_DOCS: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
-          VERCEL_PROJECT_ID_STORYBOOK: ${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}
-          STORYBOOK_URL: ${{ vars.STORYBOOK_URL }}
         run: |
           missing=""
-          for n in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID_DOCS VERCEL_PROJECT_ID_STORYBOOK DOCS_URL STORYBOOK_URL; do
+          for n in VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID_DOCS DOCS_URL; do
             [ -n "${!n}" ] || missing="$missing $n"
           done
           [ -z "$missing" ] || { echo "::error::Missing secrets or variables:$missing."; exit 1; }
-      - name: Build docs and Storybook from this commit and verify
+      - name: Build the docs site from this commit and verify
         run: node scripts/release/build-sites.mjs --sha "${{ github.sha }}"
       - uses: ./.github/actions/deploy-sites
         with:
@@ -372,9 +353,7 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           project-docs: ${{ secrets.VERCEL_PROJECT_ID_DOCS }}
-          project-storybook: ${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}
           docs-url: ${{ vars.DOCS_URL }}
-          storybook-url: ${{ vars.STORYBOOK_URL }}
 
   # ---------------------------------------------------------------------------------------------
   # Manual dry run. No publish, no deploy, no push, no tokens. Edits package.json files in the
@@ -414,11 +393,11 @@ jobs:
         run: |
           node scripts/release/pack.mjs --out "$RUNNER_TEMP/tarballs" | tee "$RUNNER_TEMP/tarballs.md"
           { echo "### Tarballs a release would publish"; echo; cat "$RUNNER_TEMP/tarballs.md"; } >> "$GITHUB_STEP_SUMMARY"
-      - name: Build docs and Storybook and verify same commit
+      - name: Build the docs site and verify the commit stamp
         run: node scripts/release/build-sites.mjs --sha "$RELEASE_SHA"
-      # Exercises the artifact hand-off of release-prepare and release-deploy: one artifact per site,
+      # Exercises the artifact hand-off of release-prepare and release-deploy: one artifact,
       # downloaded to its own path, then verified. A layout that does not restore fails here.
-      - name: Upload the sites (one artifact each)
+      - name: Upload the docs site
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: dry-run-docs
@@ -426,29 +405,18 @@ jobs:
           include-hidden-files: true
           retention-days: 1
           if-no-files-found: error
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: dry-run-storybook
-          path: apps/storybook/storybook-static
-          include-hidden-files: true
-          retention-days: 1
-          if-no-files-found: error
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: dry-run-docs
           path: ${{ runner.temp }}/roundtrip/apps/docs/build
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-        with:
-          name: dry-run-storybook
-          path: ${{ runner.temp }}/roundtrip/apps/storybook/storybook-static
       - name: Verify the downloaded layout
         run: |
           r="$RUNNER_TEMP/roundtrip"
-          test -f "$r/apps/docs/build/index.html" && test -f "$r/apps/storybook/storybook-static/index.html"
+          test -f "$r/apps/docs/build/index.html"
           # Dotfiles must survive the round trip (include-hidden-files).
           (cd apps/docs/build && find . -name '.*' -type f | sort) > "$RUNNER_TEMP/hidden-src.txt"
           (cd "$r/apps/docs/build" && find . -name '.*' -type f | sort) > "$RUNNER_TEMP/hidden-rt.txt"
           diff "$RUNNER_TEMP/hidden-src.txt" "$RUNNER_TEMP/hidden-rt.txt"
-          node scripts/release/same-commit.mjs verify --sha "$RELEASE_SHA" --docs "$r/apps/docs/build" --storybook "$r/apps/storybook/storybook-static"
+          node scripts/release/same-commit.mjs verify --sha "$RELEASE_SHA" --docs "$r/apps/docs/build"
       - name: Evaluate the release guard (reads npm anonymously)
         run: node scripts/release/release-state.mjs

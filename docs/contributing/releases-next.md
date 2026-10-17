@@ -15,7 +15,7 @@ keeps the default (the version in `.nvmrc`), so the pull request workflows are u
 
 Job names differ from the pull request ones so required-check names stay unambiguous. A failed run
 notifies the person who pushed, through GitHub's default notifications. The deploy of the next docs
-and Storybook is a later task (P1-25 and after).
+site is a later task (P1-25 and after). Storybook is not hosted (decision 0003).
 
 ## The `next` channel
 

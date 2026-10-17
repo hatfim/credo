@@ -22,7 +22,7 @@ The Base Design System is a versioned, independently adoptable UI platform (toke
 | Docs framework | Docusaurus (decided). The Phase 0 spike against VitePress and Astro Starlight is an acceptance check. | Section 9 (D-05) |
 | Versioning | Semantic versioning with Changesets. The token contract counts as public API. | Section 8 |
 | Visual regression | Self-hosted Playwright snapshots to start (decided). | Section 10 (D-07) |
-| Hosting | GitHub for the repository, Vercel for the docs and Storybook sites (decided). Separate URLs for each, with per-PR previews. | Section 12 (D-06) |
+| Hosting | GitHub for the repository, Vercel for the docs site (decided); Storybook is not hosted (see decision 0003). Per-PR previews of the docs site. | Section 12 (D-06) |
 | Integration testing | Two representative consumers that install packed artifacts, never workspace links. | Sections 8, 10 |
 
 The briefs are consistent with each other and contain no hard contradictions. They do leave several decisions open that change the architecture, and section 2 lists them with the working assumption this PRD makes for each.
@@ -40,7 +40,7 @@ Fourteen items in the briefs need an owner decision. Five of them (D-02, D-03, D
 | D-03 | Consumers may not use Tailwind. Components styled with Tailwind classes need the consumer's Tailwind build to see them, or a precompiled stylesheet. | The largest adoption blocker for existing apps; shapes the token and CSS delivery. | Decided by following shadcn/ui: Tailwind v4 with CSS variables and @theme inline is the styling contract. A precompiled stylesheet stays as a fallback for consumers without Tailwind v4; a spike confirms it is cheap enough to keep. |
 | D-04 | Package registry not stated (public npm, private registry, or both) and no licence. | Decides publishing, access control and provenance. | Decided: public npm. Package scope, licence and repository visibility are settled in D-15. |
 | D-05 | Docs framework left to evaluation. | Affects authoring, versioning and search. | Decided: Docusaurus. The Phase 0 spike in 9.1 now acts as an acceptance check, with Starlight as the fallback if it fails. |
-| D-06 | Hosting provider and CI platform not chosen; the briefs forbid assuming a provider. | Previews, access control and cost. | Decided: GitHub for the repository, Vercel for the docs and Storybook sites. CI is assumed to be GitHub Actions (to confirm). |
+| D-06 | Hosting provider and CI platform not chosen; the briefs forbid assuming a provider. | Previews, access control and cost. | Decided: GitHub for the repository, Vercel for the docs site (Storybook is not hosted, see decision 0003). CI is assumed to be GitHub Actions (to confirm). |
 | D-07 | Visual regression tool not chosen. | Cost, baseline storage and review workflow. | Decided: self-hosted Playwright snapshots in GitHub Actions to start. Move to a hosted service if reviewing diffs becomes a burden. |
 | D-08 | Icons are "if needed" and "where justified", with no library named. | Bundle size and consistency. | Decided: Phosphor Icons, re-exported from the icons package with the server-rendering entry for server components. No custom set in the MVP (see 5.3). |
 | D-09 | No design tool or token source of truth named (for example Figma). | Decides whether tokens flow from design files into code or only from code. | Decided: Figma is the source of truth, synced to the repository with Tokens Studio. A build step turns the synced token files into CSS variables and types (see 6.6). The free Tokens Studio plan is enough (D-17). |
@@ -59,7 +59,7 @@ Fourteen items in the briefs need an owner decision. Five of them (D-02, D-03, D
 | Component API is documented in both the docs site and Storybook, which invites drift. | API tables are generated from the TypeScript types once and consumed by both. Hand-written prose lives only on the docs site. |
 | Independent release schedules for consumers, but tokens and components must stay compatible. | `ui` declares `tokens` as a peer dependency with a documented range. A compatibility matrix is published and tested. |
 | Consumers are "external", yet representative apps live in the repo for integration tests. | Those apps sit outside `apps/` and install packed tarballs from a local registry in CI. They never use `workspace:*` links. |
-| Docs need "live examples" and links to Storybook. | Small examples render the real components inside MDX. Full state catalogs stay in Storybook and are linked, not copied. |
+| Docs need "live examples" and links to Storybook. | Small examples render the real components inside MDX. Full state catalogs stay in Storybook and are referenced by story ID, not copied (Storybook is not hosted, see decision 0003). |
 | Versioned documentation is required only "if multiple versions must be supported", but no support policy exists. | Treat versioned docs as required from 1.0, driven by D-10. |
 
 ## 3. Vision, goals and stakeholders
@@ -132,7 +132,7 @@ The briefs' proposed structure is sound as a starting point. This PRD keeps it, 
 design-system/
 ├── apps/
 │   ├── docs/               # documentation website (private, deployed)
-│   └── storybook/          # Storybook (private, deployed)
+│   └── storybook/          # Storybook (private, not deployed; see decision 0003)
 ├── packages/
 │   ├── tokens/             # primitive + semantic tokens, theme contract, validator   [published]
 │   ├── tailwind-config/    # Tailwind integration for the token contract              [published]
@@ -160,7 +160,7 @@ design-system/
 | `icons` | Re-exports or wraps one icon set | React as a peer | Yes, only if justified |
 | `test-utils` | Storybook decorators, Vitest setup, accessibility helpers, fixtures | `ui`, `tokens` | No |
 | `typescript-config`, `eslint-config` | Shared tooling configuration | None | No |
-| `apps/docs`, `apps/storybook` | Documentation site and Storybook | `ui`, `tokens`, `tailwind-config`, `test-utils` | No, deployed only |
+| `apps/docs`, `apps/storybook` | Documentation site and Storybook | `ui`, `tokens`, `tailwind-config`, `test-utils` | No, `apps/docs` deployed only; Storybook is not hosted (see decision 0003) |
 | `consumers/*` | Simulate external adopters | Packed `ui`, `tokens`, `tailwind-config` only | No |
 
 **Dependency rules.** Apps depend on packages and never the reverse. Packages never import from `apps/` or `consumers/`. `ui` never imports docs or Storybook code. Rules are enforced in CI with an import-boundary lint rule, and `syncpack` (or an equivalent) keeps shared dependency versions consistent.
@@ -493,8 +493,8 @@ Conventions: stories use CSF with TypeScript and import components through the s
 
 ### 9.4 Cross-linking and drift control
 
-- Each component docs page names its Storybook story IDs in front matter and renders links to them.
-- Each story's parameters carry the URL of its docs page.
+- Each component docs page names its Storybook story IDs in text (inline code); Storybook is not hosted, so there are no URLs (see decision 0003).
+- Each story's parameters carry the URL of its docs page (the docs site is hosted).
 - CI reads the Storybook index after the Storybook build and fails if any linked story ID is missing, or any stable component lacks a docs page or stories.
 - Code samples in docs are type-checked against the public API so an example that no longer compiles fails the build.
 
@@ -520,7 +520,7 @@ Conventions: stories use CSF with TypeScript and import components through the s
 | DOC-02 | Documentation is searchable, with clear navigation, responsive layouts and accessible, readable typography. |
 | DOC-03 | Code examples are syntax highlighted; install commands and snippets have a copy button. |
 | DOC-04 | Live examples render the real `ui` components where they improve understanding. |
-| DOC-05 | Component pages link to their stories and stories link back (9.4). |
+| DOC-05 | Component pages name their stories by ID and stories link back to the docs page (9.4; see decision 0003). |
 | DOC-06 | The production build and a link check run in CI and block merge on failure. |
 | DOC-07 | Examples are verified against the public component API in CI. |
 | DOC-08 | Documentation is versioned from 1.0 in line with the support window. |
@@ -638,12 +638,12 @@ The file is an illustration of the structure to validate during Phase 1, not a f
 
 | Workflow | Trigger | Runs | Gate |
 | --- | --- | --- | --- |
-| Pull request | Every pull request | Affected `lint`, `typecheck`, `test`, `build` for all packages and both apps; docs link check; Storybook smoke and accessibility tests; changed-story visual checks; affected consumer integration; changeset check; preview deployments | Required status checks. Failed docs or Storybook builds block merge. |
-| Main | Push to the default branch | Full `check`, snapshot publish to the `next` channel, deploy the next docs and Storybook | Failure alerts maintainers |
+| Pull request | Every pull request | Affected `lint`, `typecheck`, `test`, `build` for all packages and both apps; docs link check; Storybook smoke and accessibility tests; changed-story visual checks; affected consumer integration; changeset check; preview deployments of the docs site | Required status checks. Failed docs or Storybook builds block merge. |
+| Main | Push to the default branch | Full `check`, snapshot publish to the `next` channel, deploy the next docs site | Failure alerts maintainers |
 | Nightly | Schedule | Full visual regression, full accessibility crawl, full compatibility matrix, dependency audit | Failures open issues |
-| Release | Changesets release pull request merged | Full `check`, publish with provenance, deploy versioned docs and Storybook, tag, release notes | Required before publish |
+| Release | Changesets release pull request merged | Full `check`, publish with provenance, deploy the versioned docs site, tag, release notes | Required before publish |
 
-The repository is on GitHub, so the workflows above are assumed to run on GitHub Actions (to confirm under D-06). Vercel builds the two sites for previews and deployments through its GitHub integration, while the required status checks still run in CI.
+The repository is on GitHub, so the workflows above are assumed to run on GitHub Actions (to confirm under D-06). Vercel builds the docs site for previews through its GitHub integration (production deploys come from the release workflow), while the required status checks still run in CI.
 
 ### 11.4 Requirements
 
@@ -661,7 +661,7 @@ The repository is on GitHub, so the workflows above are assumed to run on GitHub
 
 ## 12. Deployment, release and ownership
 
-Both sites are static builds. They deploy from the same commit that publishes the packages, so what a reader sees always matches what a project can install. Hosting is on Vercel, with the repository and CI on GitHub (decided under D-06). The criteria below act as the acceptance checklist for that setup.
+The docs site is a static build (Storybook is built in CI but not hosted, see decision 0003). It deploys from the same commit that publishes the packages, so what a reader sees always matches what a project can install. Hosting is on Vercel, with the repository and CI on GitHub (decided under D-06). The criteria below act as the acceptance checklist for that setup.
 
 ### 12.1 Hosting selection criteria
 
@@ -671,23 +671,23 @@ Both sites are static builds. They deploy from the same commit that publishes th
 | Access control | Needed if the sites must be internal-only (D-04) |
 | Versioned deployments | Support for `/v1/`, `/v2/` and `/latest/` paths or equivalent |
 | Fit with the organization's existing infrastructure, identity and compliance | Avoids a parallel platform to operate |
-| Build cost and speed, CDN and caching | Two builds run on every pull request |
+| Build cost and speed, CDN and caching | A docs build runs on every pull request |
 | Custom domain and TLS | Stable, memorable URLs |
 | Exit cost | Both sites are plain static output, so the host should be replaceable |
 
-Vercel was chosen by the owner, so no other host is evaluated. How versioned Storybook snapshots are published on Vercel (folders in one project, or one project per major) is settled in Phase 1.
+Vercel was chosen by the owner, so no other host is evaluated. Versioned Storybook snapshots are not published while Storybook is not hosted (see decision 0003); how versioned docs are published is settled in Phase 1.
 
 ### 12.2 URL structure
 
-Recommendation: **separate subdomains under one parent domain**, for example `docs.<org-domain>` and `storybook.<org-domain>`, with versions as path prefixes. This keeps deployments, previews and rollbacks independent, while the shared parent domain keeps links stable and allows one sign-in if access is restricted. A path-based layout (Storybook under the docs domain) is the alternative if the host cannot serve two sites; it couples the two deployments.
+Recommendation: the docs site on its own subdomain, for example `docs.<org-domain>`, with versions as path prefixes. Storybook is not hosted (see decision 0003); if it is hosted later, a second subdomain under the same parent keeps deployments, previews and rollbacks independent.
 
 ### 12.3 Releases and alignment
 
 1. Changesets collects changes and opens a release pull request.
-2. Merging it triggers one release workflow on one commit: full `check`, publish packages with provenance, then build and deploy the docs and Storybook from that same commit under the new version path.
-3. The docs site and Storybook display the exact package versions they were built from.
+2. Merging it triggers one release workflow on one commit: full `check`, publish packages with provenance, then build and deploy the docs site from that same commit under the new version path.
+3. The docs site displays the exact package versions it was built from.
 4. The workflow fails if the deployed commit differs from the published commit.
-5. Each supported major keeps its own docs and Storybook snapshot (D-10); `/latest/` follows the newest stable release and `/next/` follows the default branch.
+5. Each supported major keeps its own docs snapshot (D-10; Storybook snapshots only if hosting is added, see decision 0003); `/latest/` follows the newest stable release and `/next/` follows the default branch.
 
 ### 12.4 Ownership and maintenance
 
@@ -708,10 +708,10 @@ hatfim.ydniw holds the owner role, and hatfim (hatfim@trekant.dev) is maintainer
 | ID | Requirement |
 | --- | --- |
 | REL-01 | The Vercel setup is checked against the 12.1 criteria and the decision is recorded. |
-| REL-02 | The docs site and Storybook deploy independently and are reachable at stable URLs under one parent domain. |
-| REL-03 | Every pull request gets preview deployments of both sites where the host supports it. |
-| REL-04 | Docs and Storybook are deployed from the same commit as the package release, and the build fails if they diverge. |
-| REL-05 | Versioned docs and Storybook snapshots exist for each supported major version. |
+| REL-02 | The docs site is reachable at a stable URL (Storybook is not hosted, see decision 0003). |
+| REL-03 | Every pull request gets a preview deployment of the docs site where the host supports it (Storybook is not hosted, see decision 0003). |
+| REL-04 | The docs site is deployed from the same commit as the package release, and the build fails if they diverge (see decision 0003). |
+| REL-05 | Versioned docs snapshots exist for each supported major version (Storybook snapshots only if hosting is added, see decision 0003). |
 | REL-06 | Release notes and a migration guide accompany every major release. |
 | REL-07 | Ownership and maintenance responsibilities in 12.4 are published on the docs site under Development. |
 

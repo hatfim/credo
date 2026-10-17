@@ -25,13 +25,13 @@ conservative option, leave a `TODO(decision: <name>)` comment, and say so in you
 - Vitest and Testing Library for tests. Playwright for visual snapshots and docs checks.
 - Changesets for versioning and releases. Public npm scope `@usecredo`. MIT licence.
 - Repository on GitHub (`git@github.com:hatfim/credo.git`), CI on GitHub Actions, sites
-  hosted on Vercel. Trekant is the parent company, not part of any package name.
+  hosted on Vercel (docs site only; Storybook is not hosted). Trekant is the parent company, not part of any package name.
 
 ## Repository layout
 
 ```text
 apps/docs           documentation site (private, deployed)
-apps/storybook      Storybook (private, deployed)
+apps/storybook      Storybook (private, not deployed; dev and CI only)
 packages/tokens     token source, build, theme validator        published
 packages/tailwind-config  Tailwind mapping for the token contract  published
 packages/ui         React components                            published

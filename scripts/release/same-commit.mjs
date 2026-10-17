@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 // P1-24 / REL-04: every site build records the commit it was built from in build-info.json. The
-// verify command fails when the docs build, the Storybook build, the release commit and the
-// package versions on disk do not all agree.
+// verify command fails when the docs build, the release commit and the package versions on disk
+// do not all agree. Only the docs site is hosted (docs/decisions/0003-storybook-not-hosted.md).
 //
-//   node scripts/release/same-commit.mjs write  --dir <build dir> --name docs|storybook --sha <sha>
-//   node scripts/release/same-commit.mjs verify --sha <sha> --docs <dir|url> --storybook <dir|url> [--no-git]
+//   node scripts/release/same-commit.mjs write  --dir <build dir> --name docs --sha <sha>
+//   node scripts/release/same-commit.mjs verify --sha <sha> --docs <dir|url> [--no-git]
 //
 // <dir|url>: a build directory, or the base URL of a deployed site (fetches <url>/build-info.json).
 import { spawnSync } from "node:child_process";
@@ -35,14 +35,12 @@ export function compare({ expectedSha, headSha, packages, infos }) {
   if (headSha !== undefined && headSha !== expectedSha) problems.push(`checked-out HEAD ${headSha} differs from release SHA ${expectedSha}`);
   for (const [label, info] of Object.entries(infos)) {
     if (!info) { problems.push(`${label}: no build-info.json`); continue; }
-    if (info.name !== label) problems.push(`${label}: build-info.json says it is the "${info.name}" site (directories swapped?)`);
+    if (info.name !== label) problems.push(`${label}: build-info.json says it is the "${info.name}" site (wrong directory?)`);
     if (info.sha !== expectedSha) problems.push(`${label}: built from ${info.sha}, release is ${expectedSha}`);
     for (const [pkg, version] of Object.entries(packages)) {
       if (info.packages?.[pkg] !== version) problems.push(`${label}: ${pkg} is ${info.packages?.[pkg]}, package.json says ${version}`);
     }
   }
-  const shas = new Set(Object.values(infos).filter(Boolean).map((i) => i.sha));
-  if (shas.size > 1) problems.push(`sites disagree with each other: ${[...shas].join(", ")}`);
   return problems;
 }
 
@@ -75,14 +73,14 @@ async function main(argv) {
       expectedSha: opt("--sha"),
       headSha: rest.includes("--no-git") ? undefined : headSha(),
       packages: readPackageVersions(),
-      infos: { docs: await load(opt("--docs")), storybook: await load(opt("--storybook")) },
+      infos: { docs: await load(opt("--docs")) },
     });
     if (problems.length) {
       for (const p of problems) console.error(`::error::${p}`);
-      console.error("Docs, Storybook and the release are not from the same commit.");
+      console.error("The docs site and the release are not from the same commit.");
       return 1;
     }
-    console.log(`OK: docs, Storybook and packages all match ${opt("--sha")}`);
+    console.log(`OK: docs and packages all match ${opt("--sha")}`);
     return 0;
   }
   console.error("usage: same-commit.mjs write|verify ...");
