@@ -108,9 +108,9 @@ Phase 1 builds the repository, the token pipeline, one component (Button) and ev
 ### E. Test utilities and the two apps
 
 - [x] **P1-16 `test-utils`.** Storybook theme decorator (light, dark, second theme), viewport presets, Vitest setup and an accessibility helper. *Accept:* Storybook and unit tests both use it. (9.3)
-- [ ] **P1-17 Storybook app.** Storybook with CSF in TypeScript, the accessibility addon, interaction tests and a theme toolbar, plus Button stories with a keyboard `play` function. *Accept:* it builds, and a smoke test renders every story. (SBK-02, SBK-03, SBK-05)
-- [ ] **P1-18 Docs app.** Docusaurus (as confirmed by spike B) with a Getting started skeleton, a token reference generated from the token source, and a Button page that has a live example using the real component, an API table generated from its types, and a link to its stories. Search and the link check are on. *Accept:* it builds, and a deliberately broken link fails the build. (DOC-02 to DOC-06)
-- [ ] **P1-19 Cross-link check.** Read the Storybook index and fail if a story ID linked from the docs is missing, or if a stable component lacks a docs page or stories. *Accept:* removing a story fails the check. (DOC-05, 9.4)
+- [x] **P1-17 Storybook app.** Storybook with CSF in TypeScript, the accessibility addon, interaction tests and a theme toolbar, plus Button stories with a keyboard `play` function. *Accept:* it builds, and a smoke test renders every story. (SBK-02, SBK-03, SBK-05)
+- [x] **P1-18 Docs app.** Docusaurus (as confirmed by spike B) with a Getting started skeleton, a token reference generated from the token source, and a Button page that has a live example using the real component, an API table generated from its types, and a link to its stories. Search and the link check are on. *Accept:* it builds, and a deliberately broken link fails the build. (DOC-02 to DOC-06)
+- [x] **P1-19 Cross-link check.** Read the Storybook index and fail if a story ID linked from the docs is missing, or if a stable component lacks a docs page or stories. *Accept:* removing a story fails the check. (DOC-05, 9.4)
 
 ### F. CI and deployment
 
