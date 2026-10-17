@@ -18,16 +18,19 @@
     "lint": "syncpack lint && turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
+    "test:visual": "turbo run test:visual",
     "test:coverage": "turbo run test:coverage",
     "check": "syncpack lint && turbo run lint typecheck test build test:storybook check:links check:stories",
     "clean": "turbo run clean",
     "lint:deps": "syncpack lint",
     "changeset": "changeset",
-    "version-packages": "changeset version"
+    "version-packages": "changeset version",
+    "test:consumers": "node scripts/consumers/run.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "catalog:",
     "syncpack": "catalog:",
-    "turbo": "catalog:"
+    "turbo": "catalog:",
+    "verdaccio": "catalog:"
   }
 }

@@ -1,5 +1,5 @@
 {
   "extends": "@usecredo/typescript-config/app.json",
   "compilerOptions": { "types": ["vite/client"] },
-  "include": ["src", ".storybook", "test", "*.ts"]
+  "include": ["src", ".storybook", "test", "visual", "*.ts"]
 }

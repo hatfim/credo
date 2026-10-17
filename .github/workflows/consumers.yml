@@ -1,0 +1,31 @@
+name: Consumers
+
+# DST-08 / P1-26. No path filters: a skipped required check stays pending.
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: consumers-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  CI: "true"
+
+jobs:
+  consumers:
+    name: consumers
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      # Packs the four published packages, serves them from a loopback-only registry and installs
+      # vite-app and next-app from it in isolated directories. Never publishes to npmjs.org.
+      - name: Build and test the consumers from packed tarballs
+        run: pnpm test:consumers

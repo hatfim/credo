@@ -1,0 +1,19 @@
+/* Credo stylesheets in the documented order, on top of the app's Tailwind import. */
+@import "tailwindcss";
+@import "@usecredo/tokens/tokens.css";
+@import "@usecredo/tailwind-config/theme.css";
+
+/* Tailwind skips node_modules, so the installed components are added as a source. */
+@source "../../node_modules/@usecredo/ui/dist";
+
+@layer base {
+  body {
+    background-color: var(--cr-surface-page);
+    color: var(--cr-content-primary);
+    font-family: var(--cr-font-family-sans);
+  }
+  [data-theme] {
+    background-color: var(--cr-surface-page);
+    color: var(--cr-content-primary);
+  }
+}
