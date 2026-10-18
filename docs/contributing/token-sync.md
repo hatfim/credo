@@ -37,9 +37,9 @@ comment says which one it used and is found again through the hidden marker
    `main` that changes them (the plugin only adds commits that touch the token file, so a merge
    commit is safe). Manual runs: Actions, Tokens sync, Run workflow, "Use workflow from:
    `tokens-sync`". If the tooling is missing, the first step fails with a message saying so.
-   Decision 0008: a workflow on `main` will automate this merge (conflicts in
-   `packages/tokens/generated/` keep the `tokens-sync` side; any other conflict stops and fails). Until it
-   lands, the manual merge above is the interim.
+   Decision 0008 (revised): the merge stays manual. An automatic merge would need the
+   Workflows: Read and write permission on `GH_PAT`, because the merge brings changes to workflow
+   files, so it was not adopted.
 6. Anyone with write access to `tokens-sync` can change the workflow on that branch, and it runs
    with `GH_PAT`. Limit write access to that branch, and do not let the ruleset block pushes to it.
 
