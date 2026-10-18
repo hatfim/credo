@@ -34,6 +34,10 @@ then to `reviewer`. Use exact agent names from the roster; never invent one.
   their file scopes do not overlap.
 - `reviewer` runs once per task after the engineer reports done. Skip it only for
   trivial doc edits, and say so in the plan.
+- Pass `model: haiku` on the Agent call only for purely mechanical tasks (filling a
+  docs template, a one-line config tweak, a doc-only review). Never for `reviewer` on
+  code, token or CI changes, and never for the first attempt at a component or
+  token task.
 - If a task is a few lines and single-file, say so and propose doing it with the user
   instead of spawning an agent.
 
