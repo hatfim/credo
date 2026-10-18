@@ -35,3 +35,14 @@ Return exactly this:
 - Manual checks the owner must still do.
 
 Be strict. A task passes only if you ran the check and it held.
+
+## Cost discipline
+
+- Review the delta (`git diff <parent> <commit>`) and the requirement IDs it cites, not
+  the whole repository. Use one detached worktree per review and remove it afterwards.
+- Run the full `pnpm check` once. Run mutation checks only for behavior the commit adds
+  or changes. Re-run a second time only if a fix commit changed code.
+- Keep the report under 400 words: verdict per commit, evidence as short blocks or a
+  table (quote only the decisive output line), ranked defects with file and smallest
+  fix, manual checks for the owner. Do not repeat the brief or list checks that passed
+  without evidence worth keeping.

@@ -54,3 +54,13 @@ Report back in this shape, and nothing longer:
 1. Per task: done or not done, the acceptance command you ran, and its output.
 2. Anything you could not verify.
 3. Decisions you needed that the PRD does not make.
+
+## Cost discipline
+
+- Read only what the task needs. Grep docs/prd.md for the requirement IDs named in your
+  brief instead of reading whole sections, and do not re-read a file you already hold.
+- Iterate with `--filter` for the package you are changing. Run the full `pnpm check`
+  at most twice: once before the commit and once after the final amend.
+- Keep the final report under 350 words: files changed, evidence as short blocks or a
+  table (quote only the decisive output line), what you could not verify, owner steps.
+  Do not restate the brief.
