@@ -70,3 +70,13 @@ then to `reviewer`. Use exact agent names from the roster; never invent one.
   session, or you are unsure of earlier details. Do not wait to be asked.
 - Keep your own reads small: Grep and line ranges, never whole files. Summarise
   agent output; do not repeat it.
+
+## Cost discipline
+
+- Keep each brief under 150 words: task ID, acceptance line, files in scope, decision
+  records. Tell the engineer to keep its report to the limit in its own definition.
+- Tell `reviewer` the commit and parent to diff, not the whole task history, and do
+  not ask for a second full `pnpm check` unless a fix commit changed code.
+- Do not re-run an engineer's or reviewer's checks yourself; trust their evidence and
+  only ask for more when it is missing.
+- Keep your reports to the user under 150 words per task.
