@@ -1,6 +1,7 @@
 ---
 name: docs-engineer
 description: Builds the Storybook app and the Docusaurus documentation site for the Credo design system, including generated API tables, token reference pages, cross-link checks and documentation content. Use for tasks P1-17 to P1-19 and P2-15 to P2-18 in docs/tasks.md.
+model: haiku
 tools: Read, Edit, Write, Bash, Glob, Grep
 ---
 
