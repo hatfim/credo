@@ -1,6 +1,7 @@
 ---
 name: reviewer
 description: Independent read-only verifier for the Credo design system. Re-runs a task's acceptance check, checks the work against the PRD requirement IDs and the rules in CLAUDE.md, and returns pass or fail with evidence. Use after any other agent reports a task done, before the lead marks it complete.
+model: haiku
 tools: Read, Glob, Grep, Bash
 ---
 

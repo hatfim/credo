@@ -1,6 +1,7 @@
 ---
 name: component-engineer
 description: Builds React components, the icons package and the shared test utilities for the Credo design system, including stories, tests and per-component entry points. Use for tasks P1-12 to P1-16 and the component tasks P2-02 to P2-09 in docs/tasks.md.
+model: sonnet
 tools: Read, Edit, Write, Bash, Glob, Grep
 ---
 

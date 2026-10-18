@@ -1,6 +1,7 @@
 ---
 name: token-engineer
 description: Builds the design token pipeline for the Credo design system: raw token validation, Style Dictionary build, theme validator and contrast check, token consistency test, the tailwind-config package and the tokens-sync GitHub workflow. Use for tasks P1-06 to P1-11 and P1-21 in docs/tasks.md.
+model: sonnet
 tools: Read, Edit, Write, Bash, Glob, Grep
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: repo-engineer
 description: Builds repository structure, workspace and Turborepo config, shared tooling packages, CI workflows and the representative consumer apps for the Credo design system. Use for tasks P1-01 to P1-05, P1-20, P1-22 to P1-26 in docs/tasks.md. The only agent allowed to edit root config files.
+model: sonnet
 tools: Read, Edit, Write, Bash, Glob, Grep
 ---
 
